@@ -4,16 +4,16 @@
 
 ---
 
-# `@basmilius/utils`
+# `@passly-nl/data`
 
-Various utilities that are commonly used throughout personal Vue-related projects.
+Full API implementation for Passly.nl.
 
 ## ⭐️ Prerequisites
 
-- Bun >= 1.2.11
-- Node >= 23
+- Bun >= 1.3.0
+- Node >= 25
 
 ## 🚀 Getting started
 
 1. Run `bun install` in the root of the project.
-2. Run `bun --cwd packages/utils build` to build the project.
+2. Run `bun run build` to build the project.
