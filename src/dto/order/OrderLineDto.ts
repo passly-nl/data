@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { CostDto, OrderProductDto } from '#data/dto';
+import type { CostDto, OrderProductDto } from '../../dto';
 
 @dto
 export class OrderLineDto {

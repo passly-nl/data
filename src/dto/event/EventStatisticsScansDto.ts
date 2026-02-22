@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { ApexOptions } from 'apexcharts';
-import type { EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto } from '#data/dto';
+import type { EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto } from '../../dto';
 
 @dto
 export class EventStatisticsScansDto {

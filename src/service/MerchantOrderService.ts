@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, BlobResponse, QueryString } from '@basmilius/http-client';
-import { OrderAdapter, TicketAdapter } from '#data/adapter';
-import type { OrderDto, TicketDto } from '#data/dto';
+import { OrderAdapter, TicketAdapter } from '../adapter';
+import type { OrderDto, TicketDto } from '../dto';
 
 export class MerchantOrderService extends BaseService {
     async get(merchantId: string, orderId: string): Promise<BaseResponse<OrderDto>> {

@@ -1,9 +1,9 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import type { FluxFormSelectEntry } from '@flux-ui/types';
-import { EventAdapter, FluxAdapter } from '#data/adapter';
-import type { TicketTemplateDto } from '#data/dto';
-import type { TicketTemplateType } from '#data/types';
-import { jsonBlob } from '#data/util';
+import { EventAdapter, FluxAdapter } from '../adapter';
+import type { TicketTemplateDto } from '../dto';
+import type { TicketTemplateType } from '../types';
+import { jsonBlob } from '../util';
 
 export class MerchantEventTicketTemplatesService extends BaseService {
     async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<TicketTemplateDto>>> {

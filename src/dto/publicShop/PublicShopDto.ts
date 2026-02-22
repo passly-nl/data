@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { PublicShopDesignDto, PublicShopElementDto, PublicShopEventDto, PublicShopMerchantDto } from '#data/dto';
-import type { ShopFieldRequirement } from '#data/types';
+import type { PublicShopDesignDto, PublicShopElementDto, PublicShopEventDto, PublicShopMerchantDto } from '../../dto';
+import type { ShopFieldRequirement } from '../../types';
 
 @dto
 export class PublicShopDto {

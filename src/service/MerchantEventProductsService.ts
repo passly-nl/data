@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import type { FluxFormSelectEntry } from '@flux-ui/types';
-import { FluxAdapter, ProductAdapter } from '#data/adapter';
-import type { ProductDto } from '#data/dto';
+import { FluxAdapter, ProductAdapter } from '../adapter';
+import type { ProductDto } from '../dto';
 
 export class MerchantEventProductsService extends BaseService {
     async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<ProductDto>>> {

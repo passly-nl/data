@@ -1,4 +1,4 @@
-import type { PublicShopElementType } from '#data/types';
+import type { PublicShopElementType } from '../../types';
 
 export abstract class PublicShopElementDto {
     get id(): string {

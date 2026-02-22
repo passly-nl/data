@@ -1,7 +1,7 @@
 import { adapter } from '@basmilius/http-client';
-import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, PaymentAdapter } from '#data/adapter';
-import { PublicShopDesignDto, PublicShopDto, PublicShopElementButtonDto, PublicShopElementDividerDto, PublicShopElementDto, PublicShopElementHeadingDto, PublicShopElementNoticeDto, PublicShopElementProductDto, PublicShopElementTextDto, PublicShopEventDto, PublicShopMerchantDto, PublicShopProductDto, PublicShopReservationDto, PublicShopReservationProductDetailsDto, PublicShopReservationProductDto, PublicShopTimeSlotDto } from '#data/dto';
-import { optional, optionalArray } from '#data/util';
+import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, PaymentAdapter } from '../adapter';
+import { PublicShopDesignDto, PublicShopDto, PublicShopElementButtonDto, PublicShopElementDividerDto, PublicShopElementDto, PublicShopElementHeadingDto, PublicShopElementNoticeDto, PublicShopElementProductDto, PublicShopElementTextDto, PublicShopEventDto, PublicShopMerchantDto, PublicShopProductDto, PublicShopReservationDto, PublicShopReservationProductDetailsDto, PublicShopReservationProductDto, PublicShopTimeSlotDto } from '../dto';
+import { optional, optionalArray } from '../util';
 
 @adapter
 export class PublicShopAdapter {

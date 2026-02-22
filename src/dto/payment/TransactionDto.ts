@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import type { CostDto, OrderDto, PaymentMethodDto } from '#data/dto';
-import type { TransactionStatus } from '#data/types';
+import type { CostDto, OrderDto, PaymentMethodDto } from '../../dto';
+import type { TransactionStatus } from '../../types';
 
 @dto
 export class TransactionDto {

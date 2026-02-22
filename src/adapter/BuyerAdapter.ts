@@ -1,7 +1,7 @@
 import { adapter } from '@basmilius/http-client';
-import { AddressAdapter, DateTimeAdapter } from '#data/adapter';
-import { BuyerDto } from '#data/dto';
-import { optional } from '#data/util';
+import { AddressAdapter, DateTimeAdapter } from '../adapter';
+import { BuyerDto } from '../dto';
+import { optional } from '../util';
 
 @adapter
 export class BuyerAdapter {

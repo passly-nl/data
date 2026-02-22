@@ -36,9 +36,6 @@
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
     "sideEffects": false,
-    "imports": {
-        "#data/*": ["./src/*"]
-    },
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",

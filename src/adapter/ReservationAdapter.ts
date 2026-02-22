@@ -1,7 +1,7 @@
 import { adapter } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter } from '#data/adapter';
-import { ReservationDto, ReservationItemDto, ReservationProductDto } from '#data/dto';
-import { optional, optionalArray } from '#data/util';
+import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
+import { ReservationDto, ReservationItemDto, ReservationProductDto } from '../dto';
+import { optional, optionalArray } from '../util';
 
 @adapter
 export class ReservationAdapter {

@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, type Paginated, QueryString } from '@basmilius/http-client';
-import { AuthAdapter } from '#data/adapter';
-import type { UserTokenDto } from '#data/dto';
-import type { Claim } from '#data/types';
+import { AuthAdapter } from '../adapter';
+import type { UserTokenDto } from '../dto';
+import type { Claim } from '../types';
 
 export class AuthService extends BaseService {
     async get(): Promise<BaseResponse<UserTokenDto>> {

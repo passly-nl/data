@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { MerchantDashboardAdapter } from '#data/adapter';
-import type { MerchantDashboardKeyMetricsDto, MerchantDashboardUpcomingEventDto } from '#data/dto';
+import { MerchantDashboardAdapter } from '../adapter';
+import type { MerchantDashboardKeyMetricsDto, MerchantDashboardUpcomingEventDto } from '../dto';
 
 export class MerchantDashboardService extends BaseService {
     async getKeyMetrics(merchantId: string): Promise<BaseResponse<MerchantDashboardKeyMetricsDto>> {

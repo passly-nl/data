@@ -1,5 +1,5 @@
 import { adapter } from '@basmilius/http-client';
-import { PublicPaymentMethodDto } from '#data/dto';
+import { PublicPaymentMethodDto } from '../dto';
 
 @adapter
 export class PublicPayAdapter {

@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { FluxIconName } from '@flux-ui/types';
-import { ShopElementDto } from '#data/dto';
-import type { NoticeType } from '#data/types';
+import { ShopElementDto } from '../../dto';
+import type { NoticeType } from '../../types';
 
 @dto
 export class ShopElementNoticeDto extends ShopElementDto {

@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { PictureDto } from '#data/dto';
-import type { EventStatus } from '#data/types';
+import type { PictureDto } from '../../dto';
+import type { EventStatus } from '../../types';
 
 @dto
 export class MerchantDashboardUpcomingEventDto {

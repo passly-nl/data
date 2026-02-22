@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import { PublicShopElementDto } from '#data/dto';
-import type { HeadingLevel } from '#data/types';
+import { PublicShopElementDto } from '../../dto';
+import type { HeadingLevel } from '../../types';
 
 @dto
 export class PublicShopElementHeadingDto extends PublicShopElementDto {

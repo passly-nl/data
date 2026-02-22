@@ -1,5 +1,5 @@
 import { dto } from '@basmilius/http-client';
-import type { PictureDto } from '#data/dto';
+import type { PictureDto } from '../../dto';
 
 @dto
 export class UserDto {

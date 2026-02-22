@@ -1,6 +1,6 @@
 import { adapter } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter } from '#data/adapter';
-import { MerchantDashboardKeyMetricsDto, MerchantDashboardUpcomingEventDto } from '#data/dto';
+import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
+import { MerchantDashboardKeyMetricsDto, MerchantDashboardUpcomingEventDto } from '../dto';
 
 @adapter
 export class MerchantDashboardAdapter {

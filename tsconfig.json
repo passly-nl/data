@@ -22,10 +22,7 @@
         "declarationDir": "dist",
         "declarationMap": true,
         "emitDeclarationOnly": true,
-        "experimentalDecorators": true,
-        "paths": {
-            "#data/*": ["./src/*"]
-        }
+        "experimentalDecorators": true
     },
     "include": [
         "src/**/*.ts",

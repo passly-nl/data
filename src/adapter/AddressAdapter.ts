@@ -1,5 +1,5 @@
 import { adapter } from '@basmilius/http-client';
-import { AddressDto } from '#data/dto';
+import { AddressDto } from '../dto';
 
 @adapter
 export class AddressAdapter {

@@ -1,7 +1,7 @@
 import { adapter } from '@basmilius/http-client';
-import { DateTimeAdapter, PaymentAdapter } from '#data/adapter';
-import { FinanceOverviewDto, InvoiceDto, InvoiceLineDto } from '#data/dto';
-import { optionalArray } from '#data/util';
+import { DateTimeAdapter, PaymentAdapter } from '../adapter';
+import { FinanceOverviewDto, InvoiceDto, InvoiceLineDto } from '../dto';
+import { optionalArray } from '../util';
 
 @adapter
 export class FinanceAdapter {

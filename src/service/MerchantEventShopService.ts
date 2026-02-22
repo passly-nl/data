@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { EventAdapter } from '#data/adapter';
-import type { ShopDesignDto, ShopDto, ShopElementDto } from '#data/dto';
+import { EventAdapter } from '../adapter';
+import type { ShopDesignDto, ShopDto, ShopElementDto } from '../dto';
 
 export class MerchantEventShopService extends BaseService {
     async get(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<ShopDto>> {

@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import type { PaymentMethodDto } from '#data/dto';
-import type { PaymentProviderType } from '#data/types';
+import type { PaymentMethodDto } from '../../dto';
+import type { PaymentProviderType } from '../../types';
 
 @dto
 export class PaymentProviderDto {

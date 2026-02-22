@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
-import { OrderAdapter } from '#data/adapter';
-import type { OrderDto } from '#data/dto';
+import { OrderAdapter } from '../adapter';
+import type { OrderDto } from '../dto';
 
 export class MerchantOrdersService extends BaseService {
     async get(merchantId: string, offset: number, limit: number, filter?: Record<string, string | number | boolean>): Promise<BaseResponse<Paginated<OrderDto>>> {

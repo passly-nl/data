@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { FluxIconName } from '@flux-ui/types';
-import { PublicShopElementDto } from '#data/dto';
+import { PublicShopElementDto } from '../../dto';
 
 @dto
 export class PublicShopElementButtonDto extends PublicShopElementDto {
