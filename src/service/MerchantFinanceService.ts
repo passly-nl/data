@@ -1,0 +1,36 @@
+import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
+import { FinanceAdapter } from '#data/adapter';
+import type { FinanceOverviewDto } from '#data/dto';
+import type { DailyRevenueChart } from '#data/types';
+
+export class MerchantFinanceService extends BaseService {
+    async getDailyRevenue(merchantId: string): Promise<BaseResponse<DailyRevenueChart>> {
+        return await this
+            .request(`/merchants/${merchantId}/finance/daily-revenue`)
+            .method('get')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runAdapter(r => r as DailyRevenueChart);
+    }
+
+    async getMonthlyRevenue(merchantId: string): Promise<BaseResponse<DailyRevenueChart>> {
+        return await this
+            .request(`/merchants/${merchantId}/finance/monthly-revenue`)
+            .method('get')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runAdapter(r => r as DailyRevenueChart);
+    }
+
+    async getOverview(merchantId: string): Promise<BaseResponse<FinanceOverviewDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/finance/overview`)
+            .method('get')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runAdapter(FinanceAdapter.parseFinanceOverviewFromObject);
+    }
+}

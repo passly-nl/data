@@ -1,0 +1,46 @@
+name: 🚀 Release package
+
+on:
+    release:
+        types: [ prereleased, released ]
+
+env:
+    RELEASE_VERSION: ${{ github.event.release.tag_name }}
+
+permissions:
+    contents: read
+    id-token: write
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        name: 🚀 Publish to Registry
+        steps:
+            -   name: 👀 Checkout
+                uses: actions/checkout@v4
+
+            -   name: 🍞 Setup Bun
+                uses: oven-sh/setup-bun@v2
+
+            -   name: ⚙️ Setup Node.js
+                uses: actions/setup-node@v4
+                with:
+                    node-version: '25'
+                    registry-url: 'https://registry.npmjs.org'
+
+            -   name: ✏️ Tag v${{ env.RELEASE_VERSION }}
+                run: bun pm version ${{ env.RELEASE_VERSION }} --no-git-tag-version
+
+            -   name: 📦️ Install dependencies
+                run: bun install --frozen-lockfile
+
+            -   name: 🔨 Build
+                run: bun run build
+
+            -   name: 🚀 Publish v${{ env.RELEASE_VERSION }} (Pre-release)
+                if: ${{ github.event.release.prerelease }}
+                run: npm publish --access public --tag next
+
+            -   name: 🚀 Publish v${{ env.RELEASE_VERSION }}
+                if: ${{ !github.event.release.prerelease }}
+                run: npm publish --access public
