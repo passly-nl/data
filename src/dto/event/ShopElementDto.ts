@@ -1,4 +1,4 @@
-import type { ShopElementType } from '../../types';
+import type { ShopElementType } from '#data/types';
 
 export abstract class ShopElementDto {
     get id(): string {

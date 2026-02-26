@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { MerchantAdapter } from '../adapter';
-import type { MerchantDto } from '../dto';
+import { MerchantAdapter } from '#data/adapter';
+import type { MerchantDto } from '#data/dto';
 
 export class MerchantsService extends BaseService {
     async get(): Promise<BaseResponse<MerchantDto[]>> {

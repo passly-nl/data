@@ -1,8 +1,8 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { ApexOptions } from 'apexcharts';
 import type { DateTime } from 'luxon';
-import { StatisticsBuyersAdapter } from '../adapter';
-import type { StatisticsBuyersOverviewDto, StatisticsBuyersRankedDto } from '../dto';
+import { StatisticsBuyersAdapter } from '#data/adapter';
+import type { StatisticsBuyersOverviewDto, StatisticsBuyersRankedDto } from '#data/dto';
 
 export class MerchantStatisticsBuyersService extends BaseService {
     async getAcquisition(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<ApexOptions>> {

@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { BuyerAdapter, DateTimeAdapter, EventAdapter, PaymentAdapter, PublicShopAdapter } from '../adapter';
-import { OrderDto, OrderLineDto, OrderPaymentProviderDto, OrderProductDto } from '../dto';
-import { optional, optionalArray } from '../util';
+import { BuyerAdapter, DateTimeAdapter, EventAdapter, PaymentAdapter, PublicShopAdapter } from '#data/adapter';
+import { OrderDto, OrderLineDto, OrderPaymentProviderDto, OrderProductDto } from '#data/dto';
+import { optional, optionalArray } from '#data/util';
 
 @adapter
 export class OrderAdapter {

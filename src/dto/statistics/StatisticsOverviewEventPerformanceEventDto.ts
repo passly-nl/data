@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { CostDto, PictureDto } from '../../dto';
-import type { EventStatisticsStatus } from '../../types';
+import type { CostDto, PictureDto } from '#data/dto';
+import type { EventStatisticsStatus } from '#data/types';
 
 @dto
 export class StatisticsOverviewEventPerformanceEventDto {

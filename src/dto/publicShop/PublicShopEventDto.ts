@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import type { AddressDto, PictureDto } from '../../dto';
-import type { EventStatus } from '../../types';
+import type { AddressDto, PictureDto } from '#data/dto';
+import type { EventStatus } from '#data/types';
 
 @dto
 export class PublicShopEventDto {

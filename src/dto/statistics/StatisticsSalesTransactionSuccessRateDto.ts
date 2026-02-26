@@ -1,5 +1,5 @@
 import { dto } from '@basmilius/http-client';
-import type { TransactionStatus } from '../../types';
+import type { TransactionStatus } from '#data/types';
 
 @dto
 export class StatisticsSalesTransactionSuccessRateDto {

@@ -1,8 +1,8 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { AuthAdapter, CommonAdapter, MerchantAdapter, PaymentAdapter } from '../adapter';
-import type { ContractDto, MerchantDto, PaymentProviderDto, StatusResponseDto, UserDto, VatNumberDto } from '../dto';
-import type { Claim } from '../types';
-import { emptyNull } from '../util';
+import { AuthAdapter, CommonAdapter, MerchantAdapter, PaymentAdapter } from '#data/adapter';
+import type { ContractDto, MerchantDto, PaymentProviderDto, StatusResponseDto, UserDto, VatNumberDto } from '#data/dto';
+import type { Claim } from '#data/types';
+import { emptyNull } from '#data/util';
 
 export class MerchantService extends BaseService {
     async get(merchantId: string): Promise<BaseResponse<MerchantDto>> {

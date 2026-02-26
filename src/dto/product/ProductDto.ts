@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import type { CostDto, PictureDto, StockPoolDto } from '../../dto';
-import type { ProductType } from '../../types';
+import type { CostDto, PictureDto, StockPoolDto } from '#data/dto';
+import type { ProductType } from '#data/types';
 
 @dto
 export class ProductDto {

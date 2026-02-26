@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { ApexOptions } from 'apexcharts';
-import { PaymentAdapter, StatisticsAdapter, StatisticsOverviewAdapter } from '../adapter';
-import type { CostDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsTrendDto } from '../dto';
+import { PaymentAdapter, StatisticsAdapter, StatisticsOverviewAdapter } from '#data/adapter';
+import type { CostDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsTrendDto } from '#data/dto';
 
 export class MerchantStatisticsOverviewService extends BaseService {
     async getBestRevenueMonth(merchantId: string): Promise<BaseResponse<StatisticsOverviewBestRevenueMonthDto>> {

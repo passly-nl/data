@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
-import { FinanceAdapter } from '../adapter';
-import type { InvoiceDto } from '../dto';
+import { FinanceAdapter } from '#data/adapter';
+import type { InvoiceDto } from '#data/dto';
 
 export class MerchantFinanceInvoicesService extends BaseService {
     async get(merchantId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<InvoiceDto>>> {

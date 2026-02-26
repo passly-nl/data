@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { StatusResponseDto } from '../dto';
+import { StatusResponseDto } from '#data/dto';
 
 @adapter
 export class CommonAdapter {

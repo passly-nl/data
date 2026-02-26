@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { BuyerAdapter, PaymentAdapter, StatisticsAdapter } from '../adapter';
-import { StatisticsBuyersOverviewDto, StatisticsBuyersRankedDto } from '../dto';
+import { BuyerAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
+import { StatisticsBuyersOverviewDto, StatisticsBuyersRankedDto } from '#data/dto';
 
 @adapter
 export class StatisticsBuyersAdapter {

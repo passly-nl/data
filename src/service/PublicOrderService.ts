@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { OrderAdapter, PaymentAdapter, PublicPayAdapter } from '../adapter';
-import type { OrderDto, PublicPaymentMethodDto, TransactionDto } from '../dto';
+import { OrderAdapter, PaymentAdapter, PublicPayAdapter } from '#data/adapter';
+import type { OrderDto, PublicPaymentMethodDto, TransactionDto } from '#data/dto';
 
 export class PublicOrderService extends BaseService {
     async get(orderId: string): Promise<BaseResponse<OrderDto>> {

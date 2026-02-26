@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
-import { TicketAdapter } from '../adapter';
-import type { TicketDto } from '../dto';
+import { TicketAdapter } from '#data/adapter';
+import type { TicketDto } from '#data/dto';
 
 export class MerchantTicketsService extends BaseService {
     async get(merchantId: string, offset: number, limit: number, filter?: Record<string, string | number | boolean>): Promise<BaseResponse<Paginated<TicketDto>>> {

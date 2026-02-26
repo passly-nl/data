@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter, PaymentAdapter, StatisticsAdapter } from '../adapter';
-import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto } from '../dto';
-import { optional } from '../util';
+import { DateTimeAdapter, FileSystemAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
+import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto } from '#data/dto';
+import { optional } from '#data/util';
 
 @adapter
 export class StatisticsOverviewAdapter {

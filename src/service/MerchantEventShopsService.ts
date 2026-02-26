@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import { CommonAdapter, EventAdapter } from '../adapter';
-import type { ShopDto, StatusResponseDto } from '../dto';
+import { CommonAdapter, EventAdapter } from '#data/adapter';
+import type { ShopDto, StatusResponseDto } from '#data/dto';
 
 export class MerchantEventShopsService extends BaseService {
     async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<ShopDto>>> {

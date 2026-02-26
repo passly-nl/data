@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { AuthAdapter, CommonAdapter, MerchantAdapter } from '../adapter';
-import type { InvitationDto, StatusResponseDto, UserTokenDto } from '../dto';
+import { AuthAdapter, CommonAdapter, MerchantAdapter } from '#data/adapter';
+import type { InvitationDto, StatusResponseDto, UserTokenDto } from '#data/dto';
 
 export class InvitationService extends BaseService {
     async get(invitationId: string): Promise<BaseResponse<InvitationDto>> {

@@ -1,5 +1,5 @@
 import { dto } from '@basmilius/http-client';
-import { PublicShopElementDto, type PublicShopProductDto } from '../../dto';
+import { PublicShopElementDto, type PublicShopProductDto } from '#data/dto';
 
 @dto
 export class PublicShopElementProductDto extends PublicShopElementDto {

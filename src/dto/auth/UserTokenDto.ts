@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { UserDto } from '../../dto';
-import type { BrowserType, OperatingSystemType, UserTokenType } from '../../types';
+import type { UserDto } from '#data/dto';
+import type { BrowserType, OperatingSystemType, UserTokenType } from '#data/types';
 
 @dto
 export class UserTokenDto {

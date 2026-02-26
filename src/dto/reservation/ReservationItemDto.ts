@@ -1,5 +1,5 @@
 import { dto } from '@basmilius/http-client';
-import type { ReservationProductDto } from '../../dto';
+import type { ReservationProductDto } from '#data/dto';
 
 @dto
 export class ReservationItemDto {

@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { StatisticsTrendDto } from '../dto';
+import { StatisticsTrendDto } from '#data/dto';
 
 @adapter
 export class StatisticsAdapter {

@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { OrderAdapter } from '../adapter';
-import { CostDto, PaymentMethodDto, PaymentProviderDto, TransactionDto } from '../dto';
-import { optional } from '../util';
+import { OrderAdapter } from '#data/adapter';
+import { CostDto, PaymentMethodDto, PaymentProviderDto, TransactionDto } from '#data/dto';
+import { optional } from '#data/util';
 
 @adapter
 export class PaymentAdapter {

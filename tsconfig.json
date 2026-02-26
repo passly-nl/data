@@ -6,7 +6,7 @@
             "dom.iterable",
             "esnext"
         ],
-        "allowJs": true,
+        "allowJs": false,
         "skipLibCheck": true,
         "strict": false,
         "forceConsistentCasingInFileNames": true,
@@ -15,6 +15,7 @@
         "moduleResolution": "bundler",
         "resolveJsonModule": false,
         "isolatedModules": true,
+        "isolatedDeclarations": true,
         "jsx": "react-jsx",
         "rootDir": "src",
         "outDir": "dist",
@@ -22,7 +23,10 @@
         "declarationDir": "dist",
         "declarationMap": true,
         "emitDeclarationOnly": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "paths": {
+            "#data/*": ["./src/*"]
+        }
     },
     "include": [
         "src/**/*.ts",

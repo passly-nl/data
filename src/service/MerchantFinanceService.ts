@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { FinanceAdapter } from '../adapter';
-import type { FinanceOverviewDto } from '../dto';
-import type { DailyRevenueChart } from '../types';
+import { FinanceAdapter } from '#data/adapter';
+import type { FinanceOverviewDto } from '#data/dto';
+import type { DailyRevenueChart } from '#data/types';
 
 export class MerchantFinanceService extends BaseService {
     async getDailyRevenue(merchantId: string): Promise<BaseResponse<DailyRevenueChart>> {

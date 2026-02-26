@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { EventAdapter } from '../adapter';
-import type { EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsScansDto, EventStatisticsSwapTotalsDto } from '../dto';
+import { EventAdapter } from '#data/adapter';
+import type { EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsScansDto, EventStatisticsSwapTotalsDto } from '#data/dto';
 
 export class MerchantEventStatisticsService extends BaseService {
     async getAttendance(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsAttendanceDto>> {

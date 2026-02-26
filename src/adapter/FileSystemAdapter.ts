@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { PictureDto } from '../dto';
+import { PictureDto } from '#data/dto';
 
 @adapter
 export class FileSystemAdapter {

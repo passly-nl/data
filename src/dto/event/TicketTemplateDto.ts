@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
-import type { PictureDto, ProductDto } from '../../dto';
-import type { TicketTemplateType } from '../../types';
+import type { PictureDto, ProductDto } from '#data/dto';
+import type { TicketTemplateType } from '#data/types';
 
 @dto
 export class TicketTemplateDto {

@@ -1,5 +1,5 @@
 import { dto } from '@basmilius/http-client';
-import type { CostDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto } from '../../dto';
+import type { CostDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto } from '#data/dto';
 
 @dto
 export class StatisticsOverviewKPIsDto {

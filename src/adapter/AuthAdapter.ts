@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
-import { TotpStateDto, UserDto, UserTokenDto } from '../dto';
-import { optional } from '../util';
+import { DateTimeAdapter, FileSystemAdapter } from '#data/adapter';
+import { TotpStateDto, UserDto, UserTokenDto } from '#data/dto';
+import { optional } from '#data/util';
 
 @adapter
 export class AuthAdapter {

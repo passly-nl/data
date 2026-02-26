@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { ReservationAdapter } from '../adapter';
-import type { ReservationDto } from '../dto';
+import { ReservationAdapter } from '#data/adapter';
+import type { ReservationDto } from '#data/dto';
 
 export class ReservationService extends BaseService {
     async get(id: string): Promise<BaseResponse<ReservationDto>> {

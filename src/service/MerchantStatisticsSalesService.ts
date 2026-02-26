@@ -1,8 +1,8 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { ApexOptions } from 'apexcharts';
 import type { DateTime } from 'luxon';
-import { StatisticsSalesAdapter } from '../adapter';
-import type { StatisticsSalesLifetimeTotalsDto, StatisticsSalesPurchaseBehaviorDto, StatisticsSalesTransactionSuccessRateDto } from '../dto';
+import { StatisticsSalesAdapter } from '#data/adapter';
+import type { StatisticsSalesLifetimeTotalsDto, StatisticsSalesPurchaseBehaviorDto, StatisticsSalesTransactionSuccessRateDto } from '#data/dto';
 
 export class MerchantStatisticsSalesService extends BaseService {
     async getLifetimeTotals(merchantId: string): Promise<BaseResponse<StatisticsSalesLifetimeTotalsDto>> {

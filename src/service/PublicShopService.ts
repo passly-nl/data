@@ -1,8 +1,8 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import { OrderAdapter, PublicShopAdapter } from '../adapter';
-import type { OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto } from '../dto';
-import type { Gender } from '../types';
+import { OrderAdapter, PublicShopAdapter } from '#data/adapter';
+import type { OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto } from '#data/dto';
+import type { Gender } from '#data/types';
 
 export class PublicShopService extends BaseService {
     async get(shopId: string): Promise<BaseResponse<PublicShopDto>> {
