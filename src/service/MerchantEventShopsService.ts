@@ -13,7 +13,7 @@ export class MerchantEventShopsService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .bearerToken()
-            .runPaginatedAdapter(EventAdapter.parseShopFromObject);
+            .runPaginatedAdapter(EventAdapter.parseShop);
     }
 
     async post(merchantId: string, eventId: string, name: string, startsOn: DateTime, endsOn: DateTime): Promise<BaseResponse<ShopDto>> {
@@ -28,7 +28,7 @@ export class MerchantEventShopsService extends BaseService {
                 starts_on: startsOn,
                 ends_on: endsOn
             })
-            .runAdapter(EventAdapter.parseShopFromObject);
+            .runAdapter(EventAdapter.parseShop);
     }
 
     async delete(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -38,6 +38,6 @@ export class MerchantEventShopsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

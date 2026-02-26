@@ -10,7 +10,7 @@ export class MerchantTicketService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(TicketAdapter.parseTicketFromObject);
+            .runAdapter(TicketAdapter.parseTicket);
     }
 
     async getPass(merchantId: string, ticketId: string): Promise<BlobResponse> {

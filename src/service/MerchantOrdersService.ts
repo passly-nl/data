@@ -21,6 +21,6 @@ export class MerchantOrdersService extends BaseService {
             .method('get')
             .queryString(query)
             .bearerToken()
-            .runPaginatedAdapter(OrderAdapter.parseOrderFromObject);
+            .runPaginatedAdapter(OrderAdapter.parseOrder);
     }
 }

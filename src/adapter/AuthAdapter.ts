@@ -1,42 +1,42 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
 import { TotpStateDto, UserDto, UserTokenDto } from '../dto';
 import { optional } from '../util';
 
 @adapter
 export class AuthAdapter {
-    static parseTotpStateFromObject(state: Record<string, any>): TotpStateDto {
+    static parseTotpState(data: ForeignData): TotpStateDto {
         return new TotpStateDto(
-            state.enabled,
-            state.secret,
-            state.qr
+            data.enabled,
+            data.secret,
+            data.qr
         );
     }
 
-    static parseUserFromObject(user: Record<string, any>): UserDto {
+    static parseUser(data: ForeignData): UserDto {
         return new UserDto(
-            user.id,
-            user.email,
-            user.first_name,
-            user.last_name,
-            user.full_name,
-            user.initials,
-            user.phone_number,
-            user.is_online,
-            optional(user.picture, FileSystemAdapter.parsePictureFromObject)
+            data.id,
+            data.email,
+            data.first_name,
+            data.last_name,
+            data.full_name,
+            data.initials,
+            data.phone_number,
+            data.is_online,
+            optional(data.picture, FileSystemAdapter.parsePicture)
         );
     }
 
-    static parseUserTokenFromObject(token: Record<string, any>): UserTokenDto {
+    static parseUserToken(data: ForeignData): UserTokenDto {
         return new UserTokenDto(
-            token.token,
-            token.type,
-            token.browser,
-            token.operating_system,
-            DateTimeAdapter.parseDateTimeFromString(token.created_on),
-            DateTimeAdapter.parseDateTimeFromString(token.expires_on),
-            token.realtime_channel,
-            optional(token.user, AuthAdapter.parseUserFromObject)
+            data.token,
+            data.type,
+            data.browser,
+            data.operating_system,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.expires_on),
+            data.realtime_channel,
+            optional(data.user, AuthAdapter.parseUser)
         );
     }
 }

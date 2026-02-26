@@ -10,7 +10,7 @@ export class MerchantFinanceInvoiceService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(FinanceAdapter.parseInvoiceFromObject);
+            .runAdapter(FinanceAdapter.parseInvoice);
     }
 
     async getPDF(merchantId: string, invoiceId: string): Promise<BlobResponse> {

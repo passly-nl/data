@@ -10,7 +10,7 @@ export class MerchantDashboardService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(MerchantDashboardAdapter.parseKeyMetricsFromObject);
+            .runAdapter(MerchantDashboardAdapter.parseKeyMetrics);
     }
 
     async getUpcomingEvents(merchantId: string): Promise<BaseResponse<MerchantDashboardUpcomingEventDto[]>> {
@@ -18,6 +18,6 @@ export class MerchantDashboardService extends BaseService {
             .request(`/merchants/${merchantId}/dashboard/upcoming-events`)
             .method('get')
             .bearerToken()
-            .runArrayAdapter(MerchantDashboardAdapter.parseUpcomingEventFromObject);
+            .runArrayAdapter(MerchantDashboardAdapter.parseUpcomingEvent);
     }
 }

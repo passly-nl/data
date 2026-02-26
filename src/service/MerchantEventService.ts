@@ -11,7 +11,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventFromObject);
+            .runAdapter(EventAdapter.parseEvent);
     }
 
     async getAvailability(merchantId: string, eventId: string): Promise<BaseResponse<EventAvailabilityDto>> {
@@ -21,7 +21,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventAvailabilityFromObject);
+            .runAdapter(EventAdapter.parseEventAvailability);
     }
 
     async getCounters(merchantId: string, eventId: string): Promise<BaseResponse<EventCountersDto>> {
@@ -31,7 +31,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventCountersFromObject);
+            .runAdapter(EventAdapter.parseEventCounters);
     }
 
     async post(merchantId: string, event: EventDto): Promise<BaseResponse<EventDto>> {
@@ -56,7 +56,7 @@ export class MerchantEventService extends BaseService {
                     country_code: event.address.country
                 }
             })
-            .runAdapter(EventAdapter.parseEventFromObject);
+            .runAdapter(EventAdapter.parseEvent);
     }
 
     async postHeader(merchantId: string, eventId: string, picture: File): Promise<BaseResponse<StatusResponseDto>> {
@@ -70,7 +70,7 @@ export class MerchantEventService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(data)
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async postPublish(merchantId: string, eventId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -80,7 +80,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async postUnpublish(merchantId: string, eventId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -90,7 +90,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async delete(merchantId: string, eventId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -100,7 +100,7 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async deleteHeader(merchantId: string, eventId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -110,6 +110,6 @@ export class MerchantEventService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

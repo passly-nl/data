@@ -10,7 +10,7 @@ export class MeService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(AuthAdapter.parseUserFromObject);
+            .runAdapter(AuthAdapter.parseUser);
     }
 
     async getTotp(): Promise<BaseResponse<TotpStateDto>> {
@@ -20,7 +20,7 @@ export class MeService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(AuthAdapter.parseTotpStateFromObject);
+            .runAdapter(AuthAdapter.parseTotpState);
     }
 
     async post(firstName: string, lastName: string, phoneNumber: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -35,7 +35,7 @@ export class MeService extends BaseService {
                 last_name: lastName,
                 phone_number: phoneNumber
             })
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async postChangePassword(password: string, newPassword: string, newPasswordConfirm: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -50,7 +50,7 @@ export class MeService extends BaseService {
                 new_password: newPassword,
                 new_password_confirm: newPasswordConfirm
             })
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async postProfilePicture(picture: File): Promise<BaseResponse<StatusResponseDto>> {
@@ -64,7 +64,7 @@ export class MeService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(data)
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async postTotp(secret: string, code: string): Promise<BaseResponse<TotpStateDto>> {
@@ -78,7 +78,7 @@ export class MeService extends BaseService {
                 secret,
                 code
             })
-            .runAdapter(AuthAdapter.parseTotpStateFromObject);
+            .runAdapter(AuthAdapter.parseTotpState);
     }
 
     async deleteProfilePicture(): Promise<BaseResponse<StatusResponseDto>> {
@@ -88,7 +88,7 @@ export class MeService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async deleteTotp(code: string): Promise<BaseResponse<TotpStateDto>> {
@@ -101,6 +101,6 @@ export class MeService extends BaseService {
             .body({
                 code
             })
-            .runAdapter(AuthAdapter.parseTotpStateFromObject);
+            .runAdapter(AuthAdapter.parseTotpState);
     }
 }

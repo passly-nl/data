@@ -1,114 +1,114 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '../adapter';
 import { EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '../dto';
 import { optional } from '../util';
 
 @adapter
 export class EventAdapter {
-    static parseEventFromObject(event: Record<string, any>): EventDto {
+    static parseEvent(data: ForeignData): EventDto {
         return new EventDto(
-            event.id,
-            event.name,
-            event.description,
-            DateTimeAdapter.parseDateTimeFromString(event.starts_on),
-            DateTimeAdapter.parseDateTimeFromString(event.ends_on),
-            event.minimum_age,
-            event.status,
-            optional(event.address, AddressAdapter.parseAddressFromObject)!,
-            optional(event.header_file, FileSystemAdapter.parsePictureFromObject)!,
-            DateTimeAdapter.parseDateTimeFromString(event.created_on),
-            DateTimeAdapter.parseDateTimeFromString(event.updated_on)
+            data.id,
+            data.name,
+            data.description,
+            DateTimeAdapter.parseDateTime(data.starts_on),
+            DateTimeAdapter.parseDateTime(data.ends_on),
+            data.minimum_age,
+            data.status,
+            optional(data.address, AddressAdapter.parseAddress)!,
+            optional(data.header_file, FileSystemAdapter.parsePicture)!,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 
-    static parseEventAvailabilityFromObject(availability: Record<string, any>): EventAvailabilityDto {
+    static parseEventAvailability(data: ForeignData): EventAvailabilityDto {
         return new EventAvailabilityDto(
-            availability.has_products,
-            availability.has_shops,
-            availability.has_shops_with_products,
-            availability.is_publishable,
-            availability.is_published
+            data.has_products,
+            data.has_shops,
+            data.has_shops_with_products,
+            data.is_publishable,
+            data.is_published
         );
     }
 
-    static parseEventCountersFromObject(counters: Record<string, any>): EventCountersDto {
+    static parseEventCounters(data: ForeignData): EventCountersDto {
         return new EventCountersDto(
-            counters.guests,
-            counters.orders,
-            counters.tickets
+            data.guests,
+            data.orders,
+            data.tickets
         );
     }
 
-    static parseShopFromObject(shop: Record<string, any>): ShopDto {
+    static parseShop(data: ForeignData): ShopDto {
         return new ShopDto(
-            shop.id,
-            shop.name,
-            shop.is_published,
-            shop.password,
-            optional(shop.starts_on, DateTimeAdapter.parseDateTimeFromString),
-            optional(shop.ends_on, DateTimeAdapter.parseDateTimeFromString),
-            shop.field_address,
-            shop.field_birthdate,
-            shop.field_gender,
-            shop.field_phone_number,
-            shop.status,
-            optional(shop.design, EventAdapter.parseShopDesignFromObject),
-            optional(shop.event, EventAdapter.parseEventFromObject),
-            optional(shop.merchant, MerchantAdapter.parseMerchantFromObject)
+            data.id,
+            data.name,
+            data.is_published,
+            data.password,
+            optional(data.starts_on, DateTimeAdapter.parseDateTime),
+            optional(data.ends_on, DateTimeAdapter.parseDateTime),
+            data.field_address,
+            data.field_birthdate,
+            data.field_gender,
+            data.field_phone_number,
+            data.status,
+            optional(data.design, EventAdapter.parseShopDesign),
+            optional(data.event, EventAdapter.parseEvent),
+            optional(data.merchant, MerchantAdapter.parseMerchant)
         );
     }
 
-    static parseShopDesignFromObject(design: Record<string, any>): ShopDesignDto {
+    static parseShopDesign(data: ForeignData): ShopDesignDto {
         return new ShopDesignDto(
-            design.background_color,
-            design.foreground_color,
-            design.primary_color
+            data.background_color,
+            data.foreground_color,
+            data.primary_color
         );
     }
 
-    static parseShopElementFromObject(element: Record<string, any>): ShopElementDto {
-        switch (element.type) {
+    static parseShopElement(data: ForeignData): ShopElementDto {
+        switch (data.type) {
             case 'button':
                 return new ShopElementButtonDto(
-                    element.id,
-                    element.icon,
-                    element.text,
-                    element.url
+                    data.id,
+                    data.icon,
+                    data.text,
+                    data.url
                 );
 
             case 'divider':
                 return new ShopElementDividerDto(
-                    element.id,
-                    element.icon,
-                    element.text
+                    data.id,
+                    data.icon,
+                    data.text
                 );
 
             case 'heading':
                 return new ShopElementHeadingDto(
-                    element.id,
-                    element.heading_level,
-                    element.title
+                    data.id,
+                    data.heading_level,
+                    data.title
                 );
 
             case 'notice':
                 return new ShopElementNoticeDto(
-                    element.id,
-                    element.icon,
-                    element.notice_type,
-                    element.title,
-                    element.text
+                    data.id,
+                    data.icon,
+                    data.notice_type,
+                    data.title,
+                    data.text
                 );
 
             case 'product':
                 return new ShopElementProductDto(
-                    element.id,
-                    ProductAdapter.parseProductFromObject(element.product)
+                    data.id,
+                    ProductAdapter.parseProduct(data.product)
                 );
 
             case 'text':
                 return new ShopElementTextDto(
-                    element.id,
-                    element.text
+                    data.id,
+                    data.text
                 );
         }
 
@@ -118,120 +118,120 @@ export class EventAdapter {
         );
     }
 
-    static parseStockOverviewFromObject(overview: Record<string, any>): StockOverviewDto {
+    static parseStockOverview(data: ForeignData): StockOverviewDto {
         return new StockOverviewDto(
-            overview.total,
-            overview.sold,
-            overview.remaining,
-            overview.items.map(EventAdapter.parseStockOverviewItemFromObject)
+            data.total,
+            data.sold,
+            data.remaining,
+            data.items.map(EventAdapter.parseStockOverviewItem)
         );
     }
 
-    static parseStockOverviewItemFromObject(item: Record<string, any>): StockOverviewItemDto {
+    static parseStockOverviewItem(data: ForeignData): StockOverviewItemDto {
         return new StockOverviewItemDto(
-            EventAdapter.parseStockPoolFromObject(item.pool),
-            ProductAdapter.parseProductFromObject(item.product),
-            item.remaining,
-            item.sold
+            EventAdapter.parseStockPool(data.pool),
+            ProductAdapter.parseProduct(data.product),
+            data.remaining,
+            data.sold
         );
     }
 
-    static parseStockPoolFromObject(pool: Record<string, any>): StockPoolDto {
+    static parseStockPool(data: ForeignData): StockPoolDto {
         return new StockPoolDto(
-            pool.id,
-            pool.event_id,
-            pool.merchant_id,
-            pool.name,
-            pool.remaining_stock,
-            pool.stock,
-            pool.is_shared,
-            pool.product_names ?? [],
-            DateTimeAdapter.parseDateTimeFromString(pool.created_on),
-            DateTimeAdapter.parseDateTimeFromString(pool.updated_on)
+            data.id,
+            data.event_id,
+            data.merchant_id,
+            data.name,
+            data.remaining_stock,
+            data.stock,
+            data.is_shared,
+            data.product_names ?? [],
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 
-    static parseTicketTemplateFromObject(template: Record<string, any>): TicketTemplateDto {
+    static parseTicketTemplate(data: ForeignData): TicketTemplateDto {
         return new TicketTemplateDto(
-            template.id,
-            template.name,
-            optional(template.product, ProductAdapter.parseProductFromObject),
-            template.product_id,
-            template.variant,
-            optional(template.visual, FileSystemAdapter.parsePictureFromObject)
+            data.id,
+            data.name,
+            optional(data.product, ProductAdapter.parseProduct),
+            data.product_id,
+            data.variant,
+            optional(data.visual, FileSystemAdapter.parsePicture)
         );
     }
 
-    static parseEventStatisticsAttendanceFromObject(attendance: Record<string, any>): EventStatisticsAttendanceDto {
+    static parseEventStatisticsAttendance(data: ForeignData): EventStatisticsAttendanceDto {
         return new EventStatisticsAttendanceDto(
-            attendance.attended,
-            attendance.expected,
-            attendance.rate
+            data.attended,
+            data.expected,
+            data.rate
         );
     }
 
-    static parseEventStatisticsBuyerTotalsFromObject(totals: Record<string, any>): EventStatisticsBuyerTotalsDto {
+    static parseEventStatisticsBuyerTotals(data: ForeignData): EventStatisticsBuyerTotalsDto {
         return new EventStatisticsBuyerTotalsDto(
-            totals.acquired,
-            totals.average_tickets,
-            totals.doubting,
-            totals.returning,
-            totals.total
+            data.acquired,
+            data.average_tickets,
+            data.doubting,
+            data.returning,
+            data.total
         );
     }
 
-    static parseEventStatisticsFinancialFromObject(financial: Record<string, any>): EventStatisticsFinancialDto {
+    static parseEventStatisticsFinancial(data: ForeignData): EventStatisticsFinancialDto {
         return new EventStatisticsFinancialDto(
-            PaymentAdapter.parseCostFromObject(financial.platform_cost),
-            PaymentAdapter.parseCostFromObject(financial.revenue)
+            PaymentAdapter.parseCost(data.platform_cost),
+            PaymentAdapter.parseCost(data.revenue)
         );
     }
 
-    static parseEventStatisticsOrdersFromObject(totals: Record<string, any>): EventStatisticsOrdersDto {
+    static parseEventStatisticsOrders(data: ForeignData): EventStatisticsOrdersDto {
         return new EventStatisticsOrdersDto(
-            totals.chart,
-            EventAdapter.parseEventStatisticsOrderTotalsFromObject(totals.totals)
+            data.chart,
+            EventAdapter.parseEventStatisticsOrderTotals(data.totals)
         );
     }
 
-    static parseEventStatisticsOrderTotalsFromObject(totals: Record<string, any>): EventStatisticsOrderTotalsDto {
+    static parseEventStatisticsOrderTotals(data: ForeignData): EventStatisticsOrderTotalsDto {
         return new EventStatisticsOrderTotalsDto(
-            totals.fulfilled,
-            totals.interrupted,
-            totals.pending,
-            totals.total
+            data.fulfilled,
+            data.interrupted,
+            data.pending,
+            data.total
         );
     }
 
-    static parseEventStatisticsScansFromObject(scans: Record<string, any>): EventStatisticsScansDto {
+    static parseEventStatisticsScans(data: ForeignData): EventStatisticsScansDto {
         return new EventStatisticsScansDto(
-            scans.app_teams.map(EventAdapter.parseEventStatisticsScansPerAppTeamFromObject),
-            scans.chart,
-            EventAdapter.parseEventStatisticsScanTotalsFromObject(scans.totals)
+            data.app_teams.map(EventAdapter.parseEventStatisticsScansPerAppTeam),
+            data.chart,
+            EventAdapter.parseEventStatisticsScanTotals(data.totals)
         );
     }
 
-    static parseEventStatisticsScansPerAppTeamFromObject(appTeam: Record<string, any>): EventStatisticsScansPerAppTeamDto {
+    static parseEventStatisticsScansPerAppTeam(data: ForeignData): EventStatisticsScansPerAppTeamDto {
         return new EventStatisticsScansPerAppTeamDto(
-            appTeam.id,
-            appTeam.name,
-            appTeam.scans
+            data.id,
+            data.name,
+            data.scans
         );
     }
 
-    static parseEventStatisticsScanTotalsFromObject(totals: Record<string, any>): EventStatisticsScanTotalsDto {
+    static parseEventStatisticsScanTotals(data: ForeignData): EventStatisticsScanTotalsDto {
         return new EventStatisticsScanTotalsDto(
-            totals.total,
-            totals.checkins,
-            totals.checkouts
+            data.total,
+            data.checkins,
+            data.checkouts
         );
     }
 
-    static parseEventStatisticsSwapTotalsFromObject(totals: Record<string, any>): EventStatisticsSwapTotalsDto {
+    static parseEventStatisticsSwapTotals(data: ForeignData): EventStatisticsSwapTotalsDto {
         return new EventStatisticsSwapTotalsDto(
-            totals.swaps,
-            totals.tickets,
-            totals.rate
+            data.swaps,
+            data.tickets,
+            data.rate
         );
     }
 }

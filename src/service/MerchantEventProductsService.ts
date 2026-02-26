@@ -13,7 +13,7 @@ export class MerchantEventProductsService extends BaseService {
                 .append('language', 'nl')
                 .append('offset', offset)
                 .append('limit', limit))
-            .runPaginatedAdapter(ProductAdapter.parseProductFromObject);
+            .runPaginatedAdapter(ProductAdapter.parseProduct);
     }
 
     async getSelectOptions(merchantId: string, eventId: string, searchQuery: string | null = null, ids: string[] | null = null): Promise<BaseResponse<FluxFormSelectEntry[]>> {
@@ -25,7 +25,7 @@ export class MerchantEventProductsService extends BaseService {
                 .append('language', 'nl')
                 .appendArray('ids[]', ids)
                 .append('searchQuery', searchQuery))
-            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntryFromObject);
+            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
     async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null): Promise<BaseResponse<ProductDto>> {
@@ -43,6 +43,6 @@ export class MerchantEventProductsService extends BaseService {
                 max_quantity: maxQuantity,
                 stock_pool_id: stockPoolId
             })
-            .runAdapter(ProductAdapter.parseProductFromObject);
+            .runAdapter(ProductAdapter.parseProduct);
     }
 }

@@ -12,6 +12,6 @@ export class MerchantBuyersService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .bearerToken()
-            .runPaginatedAdapter(BuyerAdapter.parseBuyerFromObject);
+            .runPaginatedAdapter(BuyerAdapter.parseBuyer);
     }
 }

@@ -1,21 +1,21 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import type { FluxFormSelectEntry, FluxFormSelectGroup, FluxFormSelectOption } from '@flux-ui/types';
 
 @adapter
 export class FluxAdapter {
-    static parseFluxFormSelectEntryFromObject(entry: object): FluxFormSelectEntry {
-        if ('value' in entry) {
-            return FluxAdapter.parseFluxFormSelectOptionFromObject(entry);
+    static parseFluxFormSelectEntry(data: ForeignData): FluxFormSelectEntry {
+        if ('value' in data) {
+            return FluxAdapter.parseFluxFormSelectOption(data);
         }
 
-        return FluxAdapter.parseFluxFormSelectGroupFromObject(entry);
+        return FluxAdapter.parseFluxFormSelectGroup(data);
     }
 
-    static parseFluxFormSelectGroupFromObject(group: object): FluxFormSelectGroup {
-        return group as FluxFormSelectGroup;
+    static parseFluxFormSelectGroup(data: ForeignData): FluxFormSelectGroup {
+        return data as FluxFormSelectGroup;
     }
 
-    static parseFluxFormSelectOptionFromObject(option: object): FluxFormSelectOption {
-        return option as FluxFormSelectOption;
+    static parseFluxFormSelectOption(data: ForeignData): FluxFormSelectOption {
+        return data as FluxFormSelectOption;
     }
 }

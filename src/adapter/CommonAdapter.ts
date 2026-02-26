@@ -1,12 +1,12 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { StatusResponseDto } from '../dto';
 
 @adapter
 export class CommonAdapter {
-    static parseStatusResponseFromObject(response: Record<string, any>): StatusResponseDto {
+    static parseStatusResponse(data: ForeignData): StatusResponseDto {
         return new StatusResponseDto(
-            response.message,
-            response.status
+            data.message,
+            data.status
         );
     }
 }

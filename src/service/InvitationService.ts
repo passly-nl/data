@@ -9,7 +9,7 @@ export class InvitationService extends BaseService {
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(MerchantAdapter.parseInvitationFromObject);
+            .runAdapter(MerchantAdapter.parseInvitation);
     }
 
     async postAccept(invitationId: string, password?: string): Promise<BaseResponse<UserTokenDto>> {
@@ -21,7 +21,7 @@ export class InvitationService extends BaseService {
             .body({
                 password
             })
-            .runAdapter(AuthAdapter.parseUserTokenFromObject);
+            .runAdapter(AuthAdapter.parseUserToken);
     }
 
     async postDecline(invitationId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -30,6 +30,6 @@ export class InvitationService extends BaseService {
             .method('post')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

@@ -1,70 +1,70 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, PaymentAdapter } from '../adapter';
 import { ContractDto, InvitationDto, MerchantDto, MerchantUserDto, VatNumberDto } from '../dto';
 import { optional } from '../util';
 
 @adapter
 export class MerchantAdapter {
-    static parseContractFromObject(contract: Record<string, any>): ContractDto {
+    static parseContract(data: ForeignData): ContractDto {
         return new ContractDto(
-            contract.id,
-            DateTimeAdapter.parseDateTimeFromString(contract.starts_on),
-            DateTimeAdapter.parseDateTimeFromString(contract.ends_on),
-            PaymentAdapter.parseCostFromObject(contract.fee),
-            contract.remark
+            data.id,
+            DateTimeAdapter.parseDateTime(data.starts_on),
+            DateTimeAdapter.parseDateTime(data.ends_on),
+            PaymentAdapter.parseCost(data.fee),
+            data.remark
         );
     }
 
-    static parseInvitationFromObject(invitation: Record<string, any>): InvitationDto {
+    static parseInvitation(data: ForeignData): InvitationDto {
         return new InvitationDto(
-            invitation.id,
-            invitation.merchant_id,
-            invitation.user_id,
-            invitation.claims,
-            invitation.is_new_user,
-            DateTimeAdapter.parseDateTimeFromString(invitation.created_on),
-            DateTimeAdapter.parseDateTimeFromString(invitation.updated_on),
-            MerchantAdapter.parseMerchantFromObject(invitation.merchant),
-            AuthAdapter.parseUserFromObject(invitation.user)
+            data.id,
+            data.merchant_id,
+            data.user_id,
+            data.claims,
+            data.is_new_user,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on),
+            MerchantAdapter.parseMerchant(data.merchant),
+            AuthAdapter.parseUser(data.user)
         );
     }
 
-    static parseMerchantFromObject(merchant: Record<string, any>): MerchantDto {
+    static parseMerchant(data: ForeignData): MerchantDto {
         return new MerchantDto(
-            merchant.id,
-            merchant.name,
-            merchant.email,
-            merchant.phone_number,
-            merchant.url,
-            merchant.chamber_of_commerce_number,
-            merchant.vat_number,
-            merchant.currency,
-            optional(merchant.address, AddressAdapter.parseAddressFromObject),
-            optional(merchant.current_contract, MerchantAdapter.parseContractFromObject),
-            optional(merchant.logo, FileSystemAdapter.parsePictureFromObject),
-            optional(merchant.created_on, DateTimeAdapter.parseDateTimeFromString),
-            optional(merchant.updated_on, DateTimeAdapter.parseDateTimeFromString)
+            data.id,
+            data.name,
+            data.email,
+            data.phone_number,
+            data.url,
+            data.chamber_of_commerce_number,
+            data.vat_number,
+            data.currency,
+            optional(data.address, AddressAdapter.parseAddress),
+            optional(data.current_contract, MerchantAdapter.parseContract),
+            optional(data.logo, FileSystemAdapter.parsePicture),
+            optional(data.created_on, DateTimeAdapter.parseDateTime),
+            optional(data.updated_on, DateTimeAdapter.parseDateTime)
         );
     }
 
-    static parseMerchantUserFromObject(merchantUser: Record<string, any>): MerchantUserDto {
+    static parseMerchantUser(data: ForeignData): MerchantUserDto {
         return new MerchantUserDto(
-            merchantUser.is_manager,
-            DateTimeAdapter.parseDateTimeFromString(merchantUser.created_on),
-            DateTimeAdapter.parseDateTimeFromString(merchantUser.updated_on),
-            AuthAdapter.parseUserFromObject(merchantUser.user)
+            data.is_manager,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on),
+            AuthAdapter.parseUser(data.user)
         );
     }
 
-    static parseVatNumberFromObject(vatNumber: Record<string, any>): VatNumberDto {
+    static parseVatNumber(data: ForeignData): VatNumberDto {
         return new VatNumberDto(
-            vatNumber.id,
-            vatNumber.vat_number,
-            vatNumber.name,
-            vatNumber.address,
-            vatNumber.country_code,
-            DateTimeAdapter.parseDateTimeFromString(vatNumber.created_on),
-            DateTimeAdapter.parseDateTimeFromString(vatNumber.updated_on)
+            data.id,
+            data.vat_number,
+            data.name,
+            data.address,
+            data.country_code,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 }

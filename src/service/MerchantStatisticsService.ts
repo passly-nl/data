@@ -1,4 +1,4 @@
-import { type BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
+import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { ApexOptions } from 'apexcharts';
 
 export class MerchantStatisticsService extends BaseService {
@@ -9,6 +9,6 @@ export class MerchantStatisticsService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(r => r);
+            .run();
     }
 }

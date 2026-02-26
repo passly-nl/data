@@ -1,48 +1,48 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { OrderAdapter } from '../adapter';
 import { CostDto, PaymentMethodDto, PaymentProviderDto, TransactionDto } from '../dto';
 import { optional } from '../util';
 
 @adapter
 export class PaymentAdapter {
-    static parseCostFromObject(cost: Record<string, any>): CostDto {
+    static parseCost(data: ForeignData): CostDto {
         return new CostDto(
-            cost.currency_code,
-            cost.currency_decimals,
-            cost.currency_sign,
-            cost.decimal,
-            cost.formatted,
-            cost.value
+            data.currency_code,
+            data.currency_decimals,
+            data.currency_sign,
+            data.decimal,
+            data.formatted,
+            data.value
         );
     }
 
-    static parsePaymentMethodFromObject(method: Record<string, any>): PaymentMethodDto {
+    static parsePaymentMethod(data: ForeignData): PaymentMethodDto {
         return new PaymentMethodDto(
-            method.id,
-            method.name,
-            method.image
+            data.id,
+            data.name,
+            data.image
         );
     }
 
-    static parsePaymentProviderFromObject(provider: Record<string, any>): PaymentProviderDto {
+    static parsePaymentProvider(data: ForeignData): PaymentProviderDto {
         return new PaymentProviderDto(
-            provider.id,
-            provider.type,
-            provider.methods.map(PaymentAdapter.parsePaymentMethodFromObject)
+            data.id,
+            data.type,
+            data.methods.map(PaymentAdapter.parsePaymentMethod)
         );
     }
 
-    static parseTransactionFromObject(transaction: Record<string, any>): TransactionDto {
+    static parseTransaction(data: ForeignData): TransactionDto {
         return new TransactionDto(
-            transaction.id,
-            transaction.description,
-            transaction.status,
-            PaymentAdapter.parseCostFromObject(transaction.cost),
-            transaction.metadata,
-            transaction.external_checkout_url,
-            transaction.external_details,
-            optional(transaction.order, OrderAdapter.parseOrderFromObject),
-            optional(transaction.payment_method, PaymentAdapter.parsePaymentMethodFromObject)
+            data.id,
+            data.description,
+            data.status,
+            PaymentAdapter.parseCost(data.cost),
+            data.metadata,
+            data.external_checkout_url,
+            data.external_details,
+            optional(data.order, OrderAdapter.parseOrder),
+            optional(data.payment_method, PaymentAdapter.parsePaymentMethod)
         );
     }
 }

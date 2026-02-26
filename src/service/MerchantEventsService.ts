@@ -13,7 +13,7 @@ export class MerchantEventsService extends BaseService {
                 .append('language', 'nl')
                 .append('offset', offset)
                 .append('limit', limit))
-            .runPaginatedAdapter(EventAdapter.parseEventFromObject);
+            .runPaginatedAdapter(EventAdapter.parseEvent);
     }
 
     async post(merchantId: string, name: string, description: string, startsOn: DateTime, endsOn: DateTime, minimumAge: number): Promise<BaseResponse<EventDto>> {
@@ -30,6 +30,6 @@ export class MerchantEventsService extends BaseService {
                 ends_on: endsOn,
                 minimum_age: minimumAge
             })
-            .runAdapter(EventAdapter.parseEventFromObject);
+            .runAdapter(EventAdapter.parseEvent);
     }
 }

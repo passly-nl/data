@@ -12,6 +12,6 @@ export class MerchantFinanceInvoicesService extends BaseService {
                 .append('language', 'nl')
                 .append('offset', offset)
                 .append('limit', limit))
-            .runPaginatedAdapter(FinanceAdapter.parseInvoiceFromObject);
+            .runPaginatedAdapter(FinanceAdapter.parseInvoice);
     }
 }

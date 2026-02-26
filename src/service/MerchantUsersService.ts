@@ -13,7 +13,7 @@ export class MerchantUsersService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .bearerToken()
-            .runPaginatedAdapter(MerchantAdapter.parseMerchantUserFromObject);
+            .runPaginatedAdapter(MerchantAdapter.parseMerchantUser);
     }
 
     async postInvite(merchantId: string, firstName: string, lastName: string, email: string, claims: Claim[]): Promise<BaseResponse<InvitationDto>> {
@@ -29,6 +29,6 @@ export class MerchantUsersService extends BaseService {
                 email,
                 claims
             })
-            .runAdapter(MerchantAdapter.parseInvitationFromObject);
+            .runAdapter(MerchantAdapter.parseInvitation);
     }
 }

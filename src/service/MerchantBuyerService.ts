@@ -10,7 +10,7 @@ export class MerchantBuyerService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(BuyerAdapter.parseBuyerFromObject);
+            .runAdapter(BuyerAdapter.parseBuyer);
     }
 
     async getOrder(merchantId: string, buyerId: string, orderId: string): Promise<BaseResponse<OrderDto>> {
@@ -20,7 +20,7 @@ export class MerchantBuyerService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(OrderAdapter.parseOrderFromObject);
+            .runAdapter(OrderAdapter.parseOrder);
     }
 
     async getOrders(merchantId: string, buyerId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<OrderDto>>> {
@@ -32,6 +32,6 @@ export class MerchantBuyerService extends BaseService {
                 .append('language', 'nl')
                 .append('offset', offset)
                 .append('limit', limit))
-            .runPaginatedAdapter(OrderAdapter.parseOrderFromObject);
+            .runPaginatedAdapter(OrderAdapter.parseOrder);
     }
 }

@@ -11,7 +11,7 @@ export class AuthService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(AuthAdapter.parseUserTokenFromObject);
+            .runAdapter(AuthAdapter.parseUserToken);
     }
 
     async getClaims(): Promise<BaseResponse<Claim[]>> {
@@ -43,7 +43,7 @@ export class AuthService extends BaseService {
                 .append('language', 'nl')
                 .append('offset', offset)
                 .append('limit', limit))
-            .runPaginatedAdapter(AuthAdapter.parseUserTokenFromObject);
+            .runPaginatedAdapter(AuthAdapter.parseUserToken);
     }
 
     async post(email: string, password: string, code?: string): Promise<BaseResponse<UserTokenDto>> {
@@ -53,7 +53,7 @@ export class AuthService extends BaseService {
             .body({email, password, code})
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(AuthAdapter.parseUserTokenFromObject);
+            .runAdapter(AuthAdapter.parseUserToken);
     }
 
     async deleteSession(token: string): Promise<BaseResponse<never>> {

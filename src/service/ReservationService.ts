@@ -9,7 +9,7 @@ export class ReservationService extends BaseService {
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(ReservationAdapter.parseReservationFromObject);
+            .runAdapter(ReservationAdapter.parseReservation);
     }
 
     async remove(id: string): Promise<BaseResponse<never>> {

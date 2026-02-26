@@ -1,40 +1,40 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, PaymentAdapter } from '../adapter';
 import { FinanceOverviewDto, InvoiceDto, InvoiceLineDto } from '../dto';
 import { optionalArray } from '../util';
 
 @adapter
 export class FinanceAdapter {
-    static parseFinanceOverviewFromObject(overview: Record<string, any>): FinanceOverviewDto {
+    static parseFinanceOverview(data: ForeignData): FinanceOverviewDto {
         return new FinanceOverviewDto(
-            PaymentAdapter.parseCostFromObject(overview.estimated_payment_cost),
-            overview.orders,
-            PaymentAdapter.parseCostFromObject(overview.platform_cost),
-            PaymentAdapter.parseCostFromObject(overview.revenue)
+            PaymentAdapter.parseCost(data.estimated_payment_cost),
+            data.orders,
+            PaymentAdapter.parseCost(data.platform_cost),
+            PaymentAdapter.parseCost(data.revenue)
         );
     }
 
-    static parseInvoiceFromObject(invoice: Record<string, any>): InvoiceDto {
+    static parseInvoice(data: ForeignData): InvoiceDto {
         return new InvoiceDto(
-            invoice.id,
-            invoice.number,
-            invoice.sequence,
-            invoice.status,
-            invoice.year,
-            PaymentAdapter.parseCostFromObject(invoice.total),
-            optionalArray(invoice.lines, FinanceAdapter.parseInvoiceLineFromObject)!,
-            DateTimeAdapter.parseDateTimeFromString(invoice.created_on),
-            DateTimeAdapter.parseDateTimeFromString(invoice.updated_on)
+            data.id,
+            data.number,
+            data.sequence,
+            data.status,
+            data.year,
+            PaymentAdapter.parseCost(data.total),
+            optionalArray(data.lines, FinanceAdapter.parseInvoiceLine)!,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 
-    static parseInvoiceLineFromObject(line: Record<string, any>): InvoiceLineDto {
+    static parseInvoiceLine(data: ForeignData): InvoiceLineDto {
         return new InvoiceLineDto(
-            line.id,
-            line.type,
-            PaymentAdapter.parseCostFromObject(line.cost),
-            DateTimeAdapter.parseDateTimeFromString(line.created_on),
-            DateTimeAdapter.parseDateTimeFromString(line.updated_on)
+            data.id,
+            data.type,
+            PaymentAdapter.parseCost(data.cost),
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 }

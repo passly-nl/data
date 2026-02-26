@@ -21,6 +21,6 @@ export class MerchantTicketsService extends BaseService {
             .method('get')
             .queryString(query)
             .bearerToken()
-            .runPaginatedAdapter(TicketAdapter.parseTicketFromObject);
+            .runPaginatedAdapter(TicketAdapter.parseTicket);
     }
 }

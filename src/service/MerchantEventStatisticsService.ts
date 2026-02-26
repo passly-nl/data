@@ -10,7 +10,7 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsAttendanceFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsAttendance);
     }
 
     async getBuyers(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsBuyerTotalsDto>> {
@@ -20,7 +20,7 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsBuyerTotalsFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsBuyerTotals);
     }
 
     async getFinancial(merchant: string, event: string): Promise<BaseResponse<EventStatisticsFinancialDto>> {
@@ -30,7 +30,7 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsFinancialFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsFinancial);
     }
 
     async getOrders(merchant: string, event: string): Promise<BaseResponse<EventStatisticsOrdersDto>> {
@@ -40,7 +40,7 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsOrdersFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsOrders);
     }
 
     async getScans(merchant: string, event: string): Promise<BaseResponse<EventStatisticsScansDto>> {
@@ -50,7 +50,7 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsScansFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsScans);
     }
 
     async getSwaps(merchant: string, event: string): Promise<BaseResponse<EventStatisticsSwapTotalsDto>> {
@@ -60,6 +60,6 @@ export class MerchantEventStatisticsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseEventStatisticsSwapTotalsFromObject);
+            .runAdapter(EventAdapter.parseEventStatisticsSwapTotals);
     }
 }

@@ -12,7 +12,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(MerchantAdapter.parseMerchantFromObject);
+            .runAdapter(MerchantAdapter.parseMerchant);
     }
 
     async getAccountManager(merchantId: string): Promise<BaseResponse<UserDto | null>> {
@@ -22,7 +22,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(AuthAdapter.parseUserFromObject);
+            .runAdapter(AuthAdapter.parseUser);
     }
 
     async getClaims(merchantId: string): Promise<BaseResponse<Claim[]>> {
@@ -42,7 +42,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(MerchantAdapter.parseContractFromObject);
+            .runAdapter(MerchantAdapter.parseContract);
     }
 
     async getPaymentProviders(merchantId: string): Promise<BaseResponse<PaymentProviderDto[]>> {
@@ -52,7 +52,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runArrayAdapter(PaymentAdapter.parsePaymentProviderFromObject);
+            .runArrayAdapter(PaymentAdapter.parsePaymentProvider);
     }
 
     async getVatNumber(merchantId: string): Promise<BaseResponse<VatNumberDto>> {
@@ -62,7 +62,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(MerchantAdapter.parseVatNumberFromObject);
+            .runAdapter(MerchantAdapter.parseVatNumber);
     }
 
     async put(merchantId: string, merchant: MerchantDto): Promise<BaseResponse<MerchantDto>> {
@@ -88,7 +88,7 @@ export class MerchantService extends BaseService {
                     country_code: merchant.address.country
                 }
             })
-            .runAdapter(MerchantAdapter.parseMerchantFromObject);
+            .runAdapter(MerchantAdapter.parseMerchant);
     }
 
     async postLogo(merchantId: string, picture: File): Promise<BaseResponse<StatusResponseDto>> {
@@ -102,7 +102,7 @@ export class MerchantService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(data)
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async deleteLogo(merchantId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -112,6 +112,6 @@ export class MerchantService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

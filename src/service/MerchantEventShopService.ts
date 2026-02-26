@@ -10,7 +10,7 @@ export class MerchantEventShopService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(EventAdapter.parseShopFromObject);
+            .runAdapter(EventAdapter.parseShop);
     }
 
     async getElements(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<ShopElementDto[]>> {
@@ -20,7 +20,7 @@ export class MerchantEventShopService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runArrayAdapter(EventAdapter.parseShopElementFromObject);
+            .runArrayAdapter(EventAdapter.parseShopElement);
     }
 
     async patch(merchantId: string, eventId: string, shop: ShopDto): Promise<BaseResponse<ShopDto>> {
@@ -37,7 +37,7 @@ export class MerchantEventShopService extends BaseService {
                 ends_on: shop.endsOn,
                 password: shop.password
             })
-            .runAdapter(EventAdapter.parseShopFromObject);
+            .runAdapter(EventAdapter.parseShop);
     }
 
     async patchDesign(merchantId: string, eventId: string, shopId: string, design: ShopDesignDto): Promise<BaseResponse<ShopDesignDto>> {
@@ -50,7 +50,7 @@ export class MerchantEventShopService extends BaseService {
                 foreground_color: design.foregroundColor,
                 primary_color: design.primaryColor
             })
-            .runAdapter(EventAdapter.parseShopDesignFromObject);
+            .runAdapter(EventAdapter.parseShopDesign);
     }
 
     async patchElements(merchantId: string, eventId: string, shopId: string, elements: object[]): Promise<BaseResponse<ShopElementDto[]>> {
@@ -61,6 +61,6 @@ export class MerchantEventShopService extends BaseService {
             .body({
                 elements
             })
-            .runArrayAdapter(EventAdapter.parseShopElementFromObject);
+            .runArrayAdapter(EventAdapter.parseShopElement);
     }
 }

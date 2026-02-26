@@ -1,13 +1,13 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { PublicPaymentMethodDto } from '../dto';
 
 @adapter
 export class PublicPayAdapter {
-    static parsePublicPaymentMethodFromObject(method: Record<string, any>): PublicPaymentMethodDto {
+    static parsePublicPaymentMethod(data: ForeignData): PublicPaymentMethodDto {
         return new PublicPaymentMethodDto(
-            method.id,
-            method.name,
-            method.image
+            data.id,
+            data.name,
+            data.image
         );
     }
 }

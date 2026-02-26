@@ -12,9 +12,9 @@ export class UiSelectOptionsService extends BaseService {
             .runAdapter((grouped: any) => {
                 const result: FluxFormSelectEntry[] = [];
 
-                grouped.forEach(group => {
+                grouped.forEach((group: any) => {
                     result.push({icon: group.icon, label: group.label});
-                    group.claims.forEach(claim => result.push({label: claim.label, value: claim.value}));
+                    group.claims.forEach((claim: any) => result.push({label: claim.label, value: claim.value}));
                 });
 
                 return result;
@@ -28,6 +28,16 @@ export class UiSelectOptionsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runArrayAdapter<FluxFormSelectOption>(e => e as FluxFormSelectOption);
+            .runArrayAdapter(e => e as FluxFormSelectOption);
+    }
+
+    async getLanguages(): Promise<BaseResponse<FluxFormSelectOption[]>> {
+        return await this
+            .request('/ui/select-options/languages')
+            .method('get')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runArrayAdapter(e => e as FluxFormSelectOption);
     }
 }

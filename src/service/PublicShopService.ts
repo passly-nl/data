@@ -11,7 +11,7 @@ export class PublicShopService extends BaseService {
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(PublicShopAdapter.parsePublicShopFromObject);
+            .runAdapter(PublicShopAdapter.parsePublicShop);
     }
 
     async buy(shopId: string, reservationId: string, firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: DateTime | null, gender: Gender | null): Promise<BaseResponse<OrderDto>> {
@@ -28,7 +28,7 @@ export class PublicShopService extends BaseService {
                 date_of_birth: dateOfBirth?.toISODate(),
                 gender: gender
             })
-            .runAdapter(OrderAdapter.parseOrderFromObject);
+            .runAdapter(OrderAdapter.parseOrder);
     }
 
     async reserve(shopId: string, products: PublicShopCartProductDto[]): Promise<BaseResponse<PublicShopReservationDto>> {
@@ -44,6 +44,6 @@ export class PublicShopService extends BaseService {
                     p.timeSlotId
                 ])
             })
-            .runAdapter(PublicShopAdapter.parsePublicShopReservationFromObject);
+            .runAdapter(PublicShopAdapter.parsePublicShopReservation);
     }
 }

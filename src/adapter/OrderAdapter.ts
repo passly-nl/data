@@ -1,55 +1,55 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { BuyerAdapter, DateTimeAdapter, EventAdapter, PaymentAdapter, PublicShopAdapter } from '../adapter';
 import { OrderDto, OrderLineDto, OrderPaymentProviderDto, OrderProductDto } from '../dto';
 import { optional, optionalArray } from '../util';
 
 @adapter
 export class OrderAdapter {
-    static parseOrderFromObject(order: Record<string, any>): OrderDto {
+    static parseOrder(data: ForeignData): OrderDto {
         return new OrderDto(
-            order.id,
-            order.code,
-            order.origin,
-            order.type,
-            DateTimeAdapter.parseDateTimeFromString(order.created_on),
-            optional(order.payment_provider, OrderAdapter.parseOrderPaymentProviderFromObject),
-            optional(order.platform_cost, PaymentAdapter.parseCostFromObject)!,
-            optional(order.sub_total, PaymentAdapter.parseCostFromObject)!,
-            optional(order.total, PaymentAdapter.parseCostFromObject)!,
-            order.url,
-            optional(order.buyer, BuyerAdapter.parseBuyerFromObject),
-            optional(order.event, EventAdapter.parseEventFromObject),
-            optionalArray(order.lines, OrderAdapter.parseOrderLineFromObject),
-            optional(order.shop, PublicShopAdapter.parsePublicShopFromObject),
-            optional(order.transaction, PaymentAdapter.parseTransactionFromObject)
+            data.id,
+            data.code,
+            data.origin,
+            data.type,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            optional(data.payment_provider, OrderAdapter.parseOrderPaymentProvider),
+            optional(data.platform_cost, PaymentAdapter.parseCost)!,
+            optional(data.sub_total, PaymentAdapter.parseCost)!,
+            optional(data.total, PaymentAdapter.parseCost)!,
+            data.url,
+            optional(data.buyer, BuyerAdapter.parseBuyer),
+            optional(data.event, EventAdapter.parseEvent),
+            optionalArray(data.lines, OrderAdapter.parseOrderLine),
+            optional(data.shop, PublicShopAdapter.parsePublicShop),
+            optional(data.transaction, PaymentAdapter.parseTransaction)
         );
     }
 
-    static parseOrderLineFromObject(line: Record<string, any>): OrderLineDto {
+    static parseOrderLine(data: ForeignData): OrderLineDto {
         return new OrderLineDto(
-            line.id,
-            PaymentAdapter.parseCostFromObject(line.price),
-            line.quantity,
-            OrderAdapter.parseOrderProductFromObject(line.product),
-            PaymentAdapter.parseCostFromObject(line.sub_total),
-            DateTimeAdapter.parseDateTimeFromString(line.created_on),
-            DateTimeAdapter.parseDateTimeFromString(line.updated_on)
+            data.id,
+            PaymentAdapter.parseCost(data.price),
+            data.quantity,
+            OrderAdapter.parseOrderProduct(data.product),
+            PaymentAdapter.parseCost(data.sub_total),
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.updated_on)
         );
     }
 
-    static parseOrderPaymentProviderFromObject(provider: Record<string, any>): OrderPaymentProviderDto {
+    static parseOrderPaymentProvider(data: ForeignData): OrderPaymentProviderDto {
         return new OrderPaymentProviderDto(
-            provider.name,
-            provider.url
+            data.name,
+            data.url
         );
     }
 
-    static parseOrderProductFromObject(product: Record<string, any>): OrderProductDto {
+    static parseOrderProduct(data: ForeignData): OrderProductDto {
         return new OrderProductDto(
-            product.id,
-            product.name,
-            product.description,
-            product.image
+            data.id,
+            data.name,
+            data.description,
+            data.image
         );
     }
 }

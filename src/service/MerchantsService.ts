@@ -10,6 +10,6 @@ export class MerchantsService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runArrayAdapter(MerchantAdapter.parseMerchantFromObject);
+            .runArrayAdapter(MerchantAdapter.parseMerchant);
     }
 }

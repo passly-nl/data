@@ -13,7 +13,7 @@ export class MerchantEventStockPoolsService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .bearerToken()
-            .runPaginatedAdapter(EventAdapter.parseStockPoolFromObject);
+            .runPaginatedAdapter(EventAdapter.parseStockPool);
     }
 
     async getOverview(merchantId: string, eventId: string): Promise<BaseResponse<StockOverviewDto>> {
@@ -23,7 +23,7 @@ export class MerchantEventStockPoolsService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(EventAdapter.parseStockOverviewFromObject);
+            .runAdapter(EventAdapter.parseStockOverview);
     }
 
     async getSelectOptions(merchantId: string, eventId: string, searchQuery: string | null = null, ids: string[] | null = null): Promise<BaseResponse<FluxFormSelectEntry[]>> {
@@ -35,7 +35,7 @@ export class MerchantEventStockPoolsService extends BaseService {
                 .appendArray('ids[]', ids)
                 .append('searchQuery', searchQuery))
             .bearerToken()
-            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntryFromObject);
+            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
     async post(merchantId: string, eventId: string, name: string, stock: number): Promise<BaseResponse<StockPoolDto>> {
@@ -49,6 +49,6 @@ export class MerchantEventStockPoolsService extends BaseService {
                 name,
                 stock
             })
-            .runAdapter(EventAdapter.parseStockPoolFromObject);
+            .runAdapter(EventAdapter.parseStockPool);
     }
 }

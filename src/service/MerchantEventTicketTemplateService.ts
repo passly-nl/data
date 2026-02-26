@@ -11,7 +11,7 @@ export class MerchantEventTicketTemplateService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(EventAdapter.parseTicketTemplateFromObject);
+            .runAdapter(EventAdapter.parseTicketTemplate);
     }
 
     async getDemo(merchantId: string, eventId: string, ticketTemplateId: string): Promise<BlobResponse> {
@@ -35,7 +35,7 @@ export class MerchantEventTicketTemplateService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(data)
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async patch(merchantId: string, eventId: string, ticketTemplateId: string, name: string, productId: string | null, variant: TicketTemplateType): Promise<BaseResponse<TicketTemplateDto>> {
@@ -50,7 +50,7 @@ export class MerchantEventTicketTemplateService extends BaseService {
                 product_id: productId,
                 variant
             })
-            .runAdapter(EventAdapter.parseTicketTemplateFromObject);
+            .runAdapter(EventAdapter.parseTicketTemplate);
     }
 
     async delete(merchantId: string, eventId: string, ticketTemplateId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -60,7 +60,7 @@ export class MerchantEventTicketTemplateService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 
     async deleteVisual(merchantId: string, eventId: string, ticketTemplateId: string): Promise<BaseResponse<StatusResponseDto>> {
@@ -70,6 +70,6 @@ export class MerchantEventTicketTemplateService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(CommonAdapter.parseStatusResponseFromObject);
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

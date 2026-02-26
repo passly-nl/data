@@ -10,7 +10,7 @@ export class MerchantEventProductService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(ProductAdapter.parseProductFromObject);
+            .runAdapter(ProductAdapter.parseProduct);
     }
 
     async postImage(merchantId: string, eventId: string, productId: string, picture: File): Promise<BaseResponse<object>> {
@@ -24,7 +24,7 @@ export class MerchantEventProductService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(data)
-            .runAdapter(r => r);
+            .run();
     }
 
     async patch(merchantId: string, eventId: string, productId: string, product: ProductDto): Promise<BaseResponse<ProductDto>> {
@@ -41,7 +41,7 @@ export class MerchantEventProductService extends BaseService {
                 max_quantity: product.maxQuantity,
                 is_swappable: product.isSwappable
             })
-            .runAdapter(ProductAdapter.parseProductFromObject);
+            .runAdapter(ProductAdapter.parseProduct);
     }
 
     async patchPause(merchantId: string, eventId: string, productId: string): Promise<BaseResponse<never>> {

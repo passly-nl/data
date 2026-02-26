@@ -9,7 +9,7 @@ export class PublicOrderService extends BaseService {
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(OrderAdapter.parseOrderFromObject);
+            .runAdapter(OrderAdapter.parseOrder);
     }
 
     async getPaymentMethods(orderId: string): Promise<BaseResponse<PublicPaymentMethodDto[]>> {
@@ -18,7 +18,7 @@ export class PublicOrderService extends BaseService {
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runArrayAdapter(PublicPayAdapter.parsePublicPaymentMethodFromObject);
+            .runArrayAdapter(PublicPayAdapter.parsePublicPaymentMethod);
     }
 
     async postPay(orderId: string, paymentMethodId: string): Promise<BaseResponse<TransactionDto>> {
@@ -30,6 +30,6 @@ export class PublicOrderService extends BaseService {
             .body({
                 payment_method_id: paymentMethodId
             })
-            .runAdapter(PaymentAdapter.parseTransactionFromObject);
+            .runAdapter(PaymentAdapter.parseTransaction);
     }
 }

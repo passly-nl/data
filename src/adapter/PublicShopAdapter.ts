@@ -1,149 +1,149 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, PaymentAdapter } from '../adapter';
 import { PublicShopDesignDto, PublicShopDto, PublicShopElementButtonDto, PublicShopElementDividerDto, PublicShopElementDto, PublicShopElementHeadingDto, PublicShopElementNoticeDto, PublicShopElementProductDto, PublicShopElementTextDto, PublicShopEventDto, PublicShopMerchantDto, PublicShopProductDto, PublicShopReservationDto, PublicShopReservationProductDetailsDto, PublicShopReservationProductDto, PublicShopTimeSlotDto } from '../dto';
 import { optional, optionalArray } from '../util';
 
 @adapter
 export class PublicShopAdapter {
-    static parsePublicShopFromObject(shop: Record<string, any>): PublicShopDto {
+    static parsePublicShop(data: ForeignData): PublicShopDto {
         return new PublicShopDto(
-            shop.id,
-            shop.name,
-            DateTimeAdapter.parseDateTimeFromString(shop.starts_on),
-            DateTimeAdapter.parseDateTimeFromString(shop.ends_on),
-            shop.field_address,
-            shop.field_birthdate,
-            shop.field_gender,
-            shop.field_phone_number,
-            optional(shop.design, PublicShopAdapter.parsePublicShopDesignFromObject),
-            optionalArray(shop.elements, PublicShopAdapter.parsePublicShopElementFromObject),
-            PublicShopAdapter.parsePublicShopEventFromObject(shop.event),
-            PublicShopAdapter.parsePublicShopMerchantFromObject(shop.merchant)
+            data.id,
+            data.name,
+            DateTimeAdapter.parseDateTime(data.starts_on),
+            DateTimeAdapter.parseDateTime(data.ends_on),
+            data.field_address,
+            data.field_birthdate,
+            data.field_gender,
+            data.field_phone_number,
+            optional(data.design, PublicShopAdapter.parsePublicShopDesign),
+            optionalArray(data.elements, PublicShopAdapter.parsePublicShopElement),
+            PublicShopAdapter.parsePublicShopEvent(data.event),
+            PublicShopAdapter.parsePublicShopMerchant(data.merchant)
         );
     }
 
-    static parsePublicShopDesignFromObject(design: Record<string, any>): PublicShopDesignDto {
+    static parsePublicShopDesign(data: ForeignData): PublicShopDesignDto {
         return new PublicShopDesignDto(
-            design.background_color,
-            design.foreground_color,
-            design.primary_color
+            data.background_color,
+            data.foreground_color,
+            data.primary_color
         );
     }
 
-    static parsePublicShopElementFromObject(element: Record<string, any>): PublicShopElementDto {
-        switch (element.type) {
+    static parsePublicShopElement(data: ForeignData): PublicShopElementDto {
+        switch (data.type) {
             case 'button':
                 return new PublicShopElementButtonDto(
-                    element.id,
-                    element.icon,
-                    element.text,
-                    element.url
+                    data.id,
+                    data.icon,
+                    data.text,
+                    data.url
                 );
 
             case 'divider':
                 return new PublicShopElementDividerDto(
-                    element.id,
-                    element.icon,
-                    element.text
+                    data.id,
+                    data.icon,
+                    data.text
                 );
 
             case 'heading':
                 return new PublicShopElementHeadingDto(
-                    element.id,
-                    element.heading_level,
-                    element.title
+                    data.id,
+                    data.heading_level,
+                    data.title
                 );
 
             case 'notice':
                 return new PublicShopElementNoticeDto(
-                    element.id,
-                    element.icon,
-                    element.notice_type,
-                    element.title,
-                    element.text
+                    data.id,
+                    data.icon,
+                    data.notice_type,
+                    data.title,
+                    data.text
                 );
 
             case 'product':
                 return new PublicShopElementProductDto(
-                    element.id,
-                    PublicShopAdapter.parsePublicShopProductFromObject(element.product)
+                    data.id,
+                    PublicShopAdapter.parsePublicShopProduct(data.product)
                 );
 
             case 'text':
                 return new PublicShopElementTextDto(
-                    element.id,
-                    element.text
+                    data.id,
+                    data.text
                 );
         }
 
         throw new Error('Unknown shop element.');
     }
 
-    static parsePublicShopEventFromObject(event: Record<string, any>): PublicShopEventDto {
+    static parsePublicShopEvent(data: ForeignData): PublicShopEventDto {
         return new PublicShopEventDto(
-            event.id,
-            event.name,
-            event.status,
-            AddressAdapter.parseAddressFromObject(event.address),
-            optional(event.header_file, FileSystemAdapter.parsePictureFromObject)
+            data.id,
+            data.name,
+            data.status,
+            AddressAdapter.parseAddress(data.address),
+            optional(data.header_file, FileSystemAdapter.parsePicture)
         );
     }
 
-    static parsePublicShopMerchantFromObject(merchant: Record<string, any>): PublicShopMerchantDto {
+    static parsePublicShopMerchant(data: ForeignData): PublicShopMerchantDto {
         return new PublicShopMerchantDto(
-            merchant.id,
-            merchant.name
+            data.id,
+            data.name
         );
     }
 
-    static parsePublicShopProductFromObject(product: Record<string, any>): PublicShopProductDto {
+    static parsePublicShopProduct(data: ForeignData): PublicShopProductDto {
         return new PublicShopProductDto(
-            product.id,
-            product.type,
-            product.name,
-            product.description,
-            PaymentAdapter.parseCostFromObject(product.price),
-            product.max_quantity,
-            product.is_active,
-            product.is_timeslotted,
-            optionalArray(product.time_slots, PublicShopAdapter.parsePublicShopTimeSlotFromObject)!,
-            optional(product.image, FileSystemAdapter.parsePictureFromObject),
-            optionalArray(product.images, FileSystemAdapter.parsePictureFromObject)!
+            data.id,
+            data.type,
+            data.name,
+            data.description,
+            PaymentAdapter.parseCost(data.price),
+            data.max_quantity,
+            data.is_active,
+            data.is_timeslotted,
+            optionalArray(data.time_slots, PublicShopAdapter.parsePublicShopTimeSlot)!,
+            optional(data.image, FileSystemAdapter.parsePicture),
+            optionalArray(data.images, FileSystemAdapter.parsePicture)!
         );
     }
 
-    static parsePublicShopReservationFromObject(reservation: Record<string, any>): PublicShopReservationDto {
+    static parsePublicShopReservation(data: ForeignData): PublicShopReservationDto {
         return new PublicShopReservationDto(
-            reservation.id,
-            DateTimeAdapter.parseDateTimeFromString(reservation.created_on),
-            DateTimeAdapter.parseDateTimeFromString(reservation.expires_on),
-            reservation.products.map(PublicShopAdapter.parsePublicShopReservationProductFromObject)
+            data.id,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.expires_on),
+            data.products.map(PublicShopAdapter.parsePublicShopReservationProduct)
         );
     }
 
-    static parsePublicShopReservationProductFromObject(product: Record<string, any>): PublicShopReservationProductDto {
+    static parsePublicShopReservationProduct(data: ForeignData): PublicShopReservationProductDto {
         return new PublicShopReservationProductDto(
-            PublicShopAdapter.parsePublicShopReservationProductDetailsFromObject(product.product),
-            product.quantity
+            PublicShopAdapter.parsePublicShopReservationProductDetails(data.product),
+            data.quantity
         );
     }
 
-    static parsePublicShopReservationProductDetailsFromObject(details: Record<string, any>): PublicShopReservationProductDetailsDto {
+    static parsePublicShopReservationProductDetails(data: ForeignData): PublicShopReservationProductDetailsDto {
         return new PublicShopReservationProductDetailsDto(
-            details.id,
-            details.name,
-            details.description,
-            optional(details.image, FileSystemAdapter.parsePictureFromObject)
+            data.id,
+            data.name,
+            data.description,
+            optional(data.image, FileSystemAdapter.parsePicture)
         );
     }
 
-    static parsePublicShopTimeSlotFromObject(timeSlot: Record<string, any>): PublicShopTimeSlotDto {
+    static parsePublicShopTimeSlot(data: ForeignData): PublicShopTimeSlotDto {
         return new PublicShopTimeSlotDto(
-            timeSlot.id,
-            timeSlot.label,
-            DateTimeAdapter.parseDateTimeFromString(timeSlot.from_time),
-            DateTimeAdapter.parseDateTimeFromString(timeSlot.to_time),
-            timeSlot.max_quantity
+            data.id,
+            data.label,
+            DateTimeAdapter.parseDateTime(data.from_time),
+            DateTimeAdapter.parseDateTime(data.to_time),
+            data.max_quantity
         );
     }
 }

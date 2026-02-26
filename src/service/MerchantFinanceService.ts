@@ -11,7 +11,7 @@ export class MerchantFinanceService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(r => r as DailyRevenueChart);
+            .run();
     }
 
     async getMonthlyRevenue(merchantId: string): Promise<BaseResponse<DailyRevenueChart>> {
@@ -21,7 +21,7 @@ export class MerchantFinanceService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(r => r as DailyRevenueChart);
+            .run();
     }
 
     async getOverview(merchantId: string): Promise<BaseResponse<FinanceOverviewDto>> {
@@ -31,6 +31,6 @@ export class MerchantFinanceService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(FinanceAdapter.parseFinanceOverviewFromObject);
+            .runAdapter(FinanceAdapter.parseFinanceOverview);
     }
 }

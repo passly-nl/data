@@ -1,29 +1,29 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
 import { MerchantDashboardKeyMetricsDto, MerchantDashboardUpcomingEventDto } from '../dto';
 
 @adapter
 export class MerchantDashboardAdapter {
-    static parseKeyMetricsFromObject(keyMetrics: Record<string, any>): MerchantDashboardKeyMetricsDto {
+    static parseKeyMetrics(data: ForeignData): MerchantDashboardKeyMetricsDto {
         return new MerchantDashboardKeyMetricsDto(
-            keyMetrics.revenue,
-            keyMetrics.tickets,
-            keyMetrics.events,
-            keyMetrics.tasks
+            data.revenue,
+            data.tickets,
+            data.events,
+            data.tasks
         );
     }
 
-    static parseUpcomingEventFromObject(event: Record<string, any>): MerchantDashboardUpcomingEventDto {
+    static parseUpcomingEvent(data: ForeignData): MerchantDashboardUpcomingEventDto {
         return new MerchantDashboardUpcomingEventDto(
-            event.id,
-            event.name,
-            event.description,
-            FileSystemAdapter.parsePictureFromObject(event.header_file),
-            event.status,
-            DateTimeAdapter.parseDateTimeFromString(event.starts_on),
-            event.tickets_sold,
-            event.tickets_total,
-            event.sell_through_rate
+            data.id,
+            data.name,
+            data.description,
+            FileSystemAdapter.parsePicture(data.header_file),
+            data.status,
+            DateTimeAdapter.parseDateTime(data.starts_on),
+            data.tickets_sold,
+            data.tickets_total,
+            data.sell_through_rate
         );
     }
 }

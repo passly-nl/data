@@ -15,7 +15,7 @@ export class MerchantEventTicketTemplatesService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .bearerToken()
-            .runPaginatedAdapter(EventAdapter.parseTicketTemplateFromObject);
+            .runPaginatedAdapter(EventAdapter.parseTicketTemplate);
     }
 
     async getSelectOptions(merchantId: string, eventId: string, searchQuery: string | null = null, ids: string[] | null = null): Promise<BaseResponse<FluxFormSelectEntry[]>> {
@@ -27,7 +27,7 @@ export class MerchantEventTicketTemplatesService extends BaseService {
                 .appendArray('ids[]', ids)
                 .append('searchQuery', searchQuery))
             .bearerToken()
-            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntryFromObject);
+            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
     async post(merchantId: string, eventId: string, name: string, productId: string | null, variant: TicketTemplateType, visual: File): Promise<BaseResponse<TicketTemplateDto>> {
@@ -48,6 +48,6 @@ export class MerchantEventTicketTemplatesService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body(body)
-            .runAdapter(EventAdapter.parseTicketTemplateFromObject);
+            .runAdapter(EventAdapter.parseTicketTemplate);
     }
 }

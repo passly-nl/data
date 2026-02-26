@@ -1,24 +1,24 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { EventAdapter, FileSystemAdapter, PaymentAdapter } from '../adapter';
 import { ProductDto } from '../dto';
 import { optional, optionalArray } from '../util';
 
 @adapter
 export class ProductAdapter {
-    static parseProductFromObject(product: Record<string, any>): ProductDto {
+    static parseProduct(data: ForeignData): ProductDto {
         return new ProductDto(
-            product.id,
-            product.type,
-            product.name,
-            product.description,
-            optional(product.price, PaymentAdapter.parseCostFromObject),
-            product.max_quantity,
-            product.is_active,
-            product.is_swappable,
-            product.remaining_stock,
-            optional(product.stock_pool, EventAdapter.parseStockPoolFromObject),
-            optional(product.image, FileSystemAdapter.parsePictureFromObject),
-            optionalArray(product.images, FileSystemAdapter.parsePictureFromObject)!
+            data.id,
+            data.type,
+            data.name,
+            data.description,
+            optional(data.price, PaymentAdapter.parseCost),
+            data.max_quantity,
+            data.is_active,
+            data.is_swappable,
+            data.remaining_stock,
+            optional(data.stock_pool, EventAdapter.parseStockPool),
+            optional(data.image, FileSystemAdapter.parsePicture),
+            optionalArray(data.images, FileSystemAdapter.parsePicture)!
         );
     }
 }

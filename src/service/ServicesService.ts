@@ -8,7 +8,7 @@ export class ServicesService extends BaseService {
             .queryString(QueryString.builder()
                 .append('email', email)
                 .append('language', 'nl'))
-            .runAdapter(r => r as CheckEmailResponse);
+            .run();
     }
 }
 

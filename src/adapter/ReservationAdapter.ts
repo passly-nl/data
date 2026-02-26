@@ -1,33 +1,33 @@
-import { adapter } from '@basmilius/http-client';
+import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, FileSystemAdapter } from '../adapter';
 import { ReservationDto, ReservationItemDto, ReservationProductDto } from '../dto';
 import { optional, optionalArray } from '../util';
 
 @adapter
 export class ReservationAdapter {
-    static parseReservationFromObject(reservation: Record<string, any>): ReservationDto {
+    static parseReservation(data: ForeignData): ReservationDto {
         return new ReservationDto(
-            reservation.id,
-            DateTimeAdapter.parseDateTimeFromString(reservation.created_on),
-            DateTimeAdapter.parseDateTimeFromString(reservation.expires_on),
-            reservation.is_expired,
-            optionalArray(reservation.products, ReservationAdapter.parseReservationItemFromObject)!
+            data.id,
+            DateTimeAdapter.parseDateTime(data.created_on),
+            DateTimeAdapter.parseDateTime(data.expires_on),
+            data.is_expired,
+            optionalArray(data.products, ReservationAdapter.parseReservationItem)!
         );
     }
 
-    static parseReservationItemFromObject(item: Record<string, any>): ReservationItemDto {
+    static parseReservationItem(data: ForeignData): ReservationItemDto {
         return new ReservationItemDto(
-            item.quantity,
-            ReservationAdapter.parseReservationProductFromObject(item.product)
+            data.quantity,
+            ReservationAdapter.parseReservationProduct(data.product)
         );
     }
 
-    static parseReservationProductFromObject(product: Record<string, any>): ReservationProductDto {
+    static parseReservationProduct(data: ForeignData): ReservationProductDto {
         return new ReservationProductDto(
-            product.id,
-            product.name,
-            product.description,
-            optional(product.image, FileSystemAdapter.parsePictureFromObject)
+            data.id,
+            data.name,
+            data.description,
+            optional(data.image, FileSystemAdapter.parsePicture)
         );
     }
 }

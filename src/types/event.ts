@@ -5,6 +5,11 @@ export type EventStatus =
     | 'in_sale'
     | 'pending';
 
+export type EventStatisticsStatus =
+    | 'active'
+    | 'concluded'
+    | 'upcoming';
+
 export type ShopElementType =
     | 'button'
     | 'divider'

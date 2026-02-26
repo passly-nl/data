@@ -10,7 +10,7 @@ export class MerchantOrderService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runAdapter(OrderAdapter.parseOrderFromObject);
+            .runAdapter(OrderAdapter.parseOrder);
     }
 
     async getPasses(merchantId: string, orderId: string): Promise<BlobResponse> {
@@ -40,7 +40,7 @@ export class MerchantOrderService extends BaseService {
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
-            .runArrayAdapter(TicketAdapter.parseTicketFromObject);
+            .runArrayAdapter(TicketAdapter.parseTicket);
     }
 
     async postResend(merchantId: string, orderId: string): Promise<BaseResponse<never>> {
