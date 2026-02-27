@@ -1,3 +1,4 @@
+export * from './AppTeamDto';
 export * from './EventAvailabilityDto';
 export * from './EventCountersDto';
 export * from './EventDto';

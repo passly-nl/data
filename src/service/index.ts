@@ -5,6 +5,8 @@ export * from './MerchantsService';
 export * from './MerchantBuyerService';
 export * from './MerchantBuyersService';
 export * from './MerchantDashboardService';
+export * from './MerchantEventAppTeamService';
+export * from './MerchantEventAppTeamsService';
 export * from './MerchantEventProductService';
 export * from './MerchantEventProductsService';
 export * from './MerchantEventService';

@@ -1,10 +1,23 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '#data/adapter';
-import { EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '#data/dto';
+import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '#data/adapter';
+import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
 export class EventAdapter {
+    static parseAppTeam(data: ForeignData): AppTeamDto {
+        return new AppTeamDto(
+            data.id,
+            data.name,
+            data.secret,
+            data.checkin_count,
+            data.checkout_count,
+            optional(data.creator, AuthAdapter.parseUser),
+            optional(data.event, EventAdapter.parseEvent),
+            optional(data.merchant, MerchantAdapter.parseMerchant)
+        );
+    }
+
     static parseEvent(data: ForeignData): EventDto {
         return new EventDto(
             data.id,
