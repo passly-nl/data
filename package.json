@@ -50,7 +50,7 @@
         "./*": "./*"
     },
     "dependencies": {
-        "@basmilius/http-client": "^3.8.0",
+        "@basmilius/http-client": "^3.9.0",
         "@flux-ui/types": "^3.0.0-next.28",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
         "apexcharts": "^5.6.0",
@@ -58,7 +58,7 @@
     },
     "devDependencies": {
         "@types/luxon": "^3.7.1",
-        "@typescript/native-preview": "^7.0.0-dev.20260227.1",
+        "@typescript/native-preview": "^7.0.0-dev.20260228.1",
         "tsdown": "^0.21.0-beta.2"
     }
 }
