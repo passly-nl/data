@@ -62,7 +62,7 @@
         "tsdown": "^0.21.0-beta.3"
     },
     "overrides": {
-        "@basmilius/http-client": "link:@basmilius/http-client",
+        "@disabled-basmilius/http-client": "link:@basmilius/http-client",
         "@disabled-flux-ui/types": "link:@flux-ui/types"
     }
 }
