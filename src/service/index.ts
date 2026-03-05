@@ -22,6 +22,8 @@ export * from './MerchantFinanceInvoicesService';
 export * from './MerchantFinanceService';
 export * from './MerchantOrderService';
 export * from './MerchantOrdersService';
+export * from './MerchantShopService';
+export * from './MerchantShopsService';
 export * from './MerchantStatisticsService';
 export * from './MerchantStatisticsBuyersService';
 export * from './MerchantStatisticsEventsService';

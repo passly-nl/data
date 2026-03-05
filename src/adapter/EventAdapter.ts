@@ -61,6 +61,7 @@ export class EventAdapter {
             optional(data.starts_on, DateTimeAdapter.parseDateTime),
             optional(data.ends_on, DateTimeAdapter.parseDateTime),
             data.field_address,
+            data.field_address_mode,
             data.field_birthdate,
             data.field_gender,
             data.field_phone_number,

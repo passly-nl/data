@@ -18,6 +18,11 @@ export type ShopElementType =
     | 'product'
     | 'text';
 
+export type ShopAddressMode =
+    | 'full'
+    | 'city'
+    | 'postal_code_number';
+
 export type ShopFieldRequirement =
     | 'disabled'
     | 'enabled'

@@ -12,6 +12,7 @@ export class PublicShopAdapter {
             DateTimeAdapter.parseDateTime(data.starts_on),
             DateTimeAdapter.parseDateTime(data.ends_on),
             data.field_address,
+            data.field_address_mode,
             data.field_birthdate,
             data.field_gender,
             data.field_phone_number,

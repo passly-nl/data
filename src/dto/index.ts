@@ -11,6 +11,7 @@ export * from './product';
 export * from './publicPay';
 export * from './publicShop';
 export * from './reservation';
+export * from './service';
 export * from './shortlink';
 export * from './statistics';
 export * from './ticket';

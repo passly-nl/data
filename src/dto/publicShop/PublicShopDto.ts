@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { PublicShopDesignDto, PublicShopElementDto, PublicShopEventDto, PublicShopMerchantDto } from '#data/dto';
-import type { ShopFieldRequirement } from '#data/types';
+import type { ShopAddressMode, ShopFieldRequirement } from '#data/types';
 
 @dto
 export class PublicShopDto {
@@ -43,6 +43,14 @@ export class PublicShopDto {
 
     set fieldAddress(value: ShopFieldRequirement) {
         this.#fieldAddress = value;
+    }
+
+    get fieldAddressMode(): ShopAddressMode {
+        return this.#fieldAddressMode;
+    }
+
+    set fieldAddressMode(value: ShopAddressMode) {
+        this.#fieldAddressMode = value;
     }
 
     get fieldBirthdate(): ShopFieldRequirement {
@@ -106,6 +114,7 @@ export class PublicShopDto {
     #startsOn: DateTime;
     #endsOn: DateTime;
     #fieldAddress: ShopFieldRequirement;
+    #fieldAddressMode: ShopAddressMode;
     #fieldBirthdate: ShopFieldRequirement;
     #fieldGender: ShopFieldRequirement;
     #fieldPhoneNumber: ShopFieldRequirement;
@@ -114,12 +123,13 @@ export class PublicShopDto {
     #event: PublicShopEventDto;
     #merchant: PublicShopMerchantDto;
 
-    constructor(id: string, name: string, startsOn: DateTime, endsOn: DateTime, fieldAddress: ShopFieldRequirement, fieldBirthdate: ShopFieldRequirement, fieldGender: ShopFieldRequirement, fieldPhoneNumber: ShopFieldRequirement, design: PublicShopDesignDto, elements: PublicShopElementDto[] | null, event: PublicShopEventDto, merchant: PublicShopMerchantDto) {
+    constructor(id: string, name: string, startsOn: DateTime, endsOn: DateTime, fieldAddress: ShopFieldRequirement, fieldAddressMode: ShopAddressMode, fieldBirthdate: ShopFieldRequirement, fieldGender: ShopFieldRequirement, fieldPhoneNumber: ShopFieldRequirement, design: PublicShopDesignDto, elements: PublicShopElementDto[] | null, event: PublicShopEventDto, merchant: PublicShopMerchantDto) {
         this.#id = id;
         this.#name = name;
         this.#startsOn = startsOn;
         this.#endsOn = endsOn;
         this.#fieldAddress = fieldAddress;
+        this.#fieldAddressMode = fieldAddressMode;
         this.#fieldBirthdate = fieldBirthdate;
         this.#fieldGender = fieldGender;
         this.#fieldPhoneNumber = fieldPhoneNumber;

@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { EventDto, MerchantDto, ShopDesignDto } from '#data/dto';
-import type { ShopFieldRequirement, ShopStatus } from '#data/types';
+import type { ShopAddressMode, ShopFieldRequirement, ShopStatus } from '#data/types';
 
 @dto
 export class ShopDto {
@@ -59,6 +59,14 @@ export class ShopDto {
 
     set fieldAddress(value: ShopFieldRequirement) {
         this.#fieldAddress = value;
+    }
+
+    get fieldAddressMode(): ShopAddressMode {
+        return this.#fieldAddressMode;
+    }
+
+    set fieldAddressMode(value: ShopAddressMode) {
+        this.#fieldAddressMode = value;
     }
 
     get fieldBirthdate(): ShopFieldRequirement {
@@ -124,6 +132,7 @@ export class ShopDto {
     #startsOn: DateTime | null;
     #endsOn: DateTime | null;
     #fieldAddress: ShopFieldRequirement;
+    #fieldAddressMode: ShopAddressMode;
     #fieldBirthdate: ShopFieldRequirement;
     #fieldGender: ShopFieldRequirement;
     #fieldPhoneNumber: ShopFieldRequirement;
@@ -132,7 +141,7 @@ export class ShopDto {
     #event: EventDto;
     #merchant: MerchantDto;
 
-    constructor(id: string, name: string, isPublished: boolean, password: string, startsOn: DateTime | null, endsOn: DateTime | null, fieldAddress: ShopFieldRequirement, fieldBirthdate: ShopFieldRequirement, fieldGender: ShopFieldRequirement, fieldPhoneNumber: ShopFieldRequirement, status: ShopStatus, design: ShopDesignDto, event: EventDto, merchant: MerchantDto) {
+    constructor(id: string, name: string, isPublished: boolean, password: string, startsOn: DateTime | null, endsOn: DateTime | null, fieldAddress: ShopFieldRequirement, fieldAddressMode: ShopAddressMode, fieldBirthdate: ShopFieldRequirement, fieldGender: ShopFieldRequirement, fieldPhoneNumber: ShopFieldRequirement, status: ShopStatus, design: ShopDesignDto, event: EventDto, merchant: MerchantDto) {
         this.#id = id;
         this.#name = name;
         this.#isPublished = isPublished;
@@ -140,6 +149,7 @@ export class ShopDto {
         this.#startsOn = startsOn;
         this.#endsOn = endsOn;
         this.#fieldAddress = fieldAddress;
+        this.#fieldAddressMode = fieldAddressMode;
         this.#fieldBirthdate = fieldBirthdate;
         this.#fieldGender = fieldGender;
         this.#fieldPhoneNumber = fieldPhoneNumber;
