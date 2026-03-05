@@ -78,6 +78,23 @@ export class MerchantEventShopService extends BaseService {
             .runArrayAdapter(EventAdapter.parseShopElement);
     }
 
+    async patchFields(merchantId: string, eventId: string, shop: ShopDto): Promise<BaseResponse<ShopDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/shops/${shop.id}/fields`)
+            .method('patch')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .body({
+                field_address: shop.fieldAddress,
+                field_address_mode: shop.fieldAddressMode,
+                field_birthdate: shop.fieldBirthdate,
+                field_gender: shop.fieldGender,
+                field_phone_number: shop.fieldPhoneNumber
+            })
+            .runAdapter(EventAdapter.parseShop);
+    }
+
     async postShortlink(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<ShortlinkDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/shops/${shopId}/shortlink`)
