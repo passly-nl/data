@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, DateTimeAdapter, FileSystemAdapter, PaymentAdapter } from '#data/adapter';
-import { PublicShopDesignDto, PublicShopDto, PublicShopElementButtonDto, PublicShopElementDividerDto, PublicShopElementDto, PublicShopElementHeadingDto, PublicShopElementNoticeDto, PublicShopElementProductDto, PublicShopElementTextDto, PublicShopEventDto, PublicShopMerchantDto, PublicShopProductDto, PublicShopReservationDto, PublicShopReservationProductDetailsDto, PublicShopReservationProductDto, PublicShopTimeSlotDto } from '#data/dto';
+import { PublicShopDesignDto, PublicShopDto, PublicShopElementButtonDto, PublicShopElementDividerDto, PublicShopElementDto, PublicShopElementHeadingDto, PublicShopElementInformationDto, PublicShopElementNoticeDto, PublicShopElementProductDto, PublicShopElementTextDto, PublicShopEventDto, PublicShopMerchantDto, PublicShopProductDto, PublicShopReservationDto, PublicShopReservationProductDetailsDto, PublicShopReservationProductDto, PublicShopTimeSlotDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
 @adapter
@@ -55,6 +55,11 @@ export class PublicShopAdapter {
                     data.title
                 );
 
+            case 'information':
+                return new PublicShopElementInformationDto(
+                    data.id
+                );
+
             case 'notice':
                 return new PublicShopElementNoticeDto(
                     data.id,
@@ -84,9 +89,13 @@ export class PublicShopAdapter {
         return new PublicShopEventDto(
             data.id,
             data.name,
+            data.description,
             data.status,
             AddressAdapter.parseAddress(data.address),
-            optional(data.header_file, FileSystemAdapter.parsePicture)
+            optional(data.header_file, FileSystemAdapter.parsePicture),
+            data.minimum_age,
+            DateTimeAdapter.parseDateTime(data.starts_on),
+            DateTimeAdapter.parseDateTime(data.ends_on)
         );
     }
 

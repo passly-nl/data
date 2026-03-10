@@ -1,4 +1,5 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import { ProductAdapter } from '#data/adapter';
 import type { ProductDto } from '#data/dto';
 
@@ -39,7 +40,8 @@ export class MerchantEventProductService extends BaseService {
                 description: product.description,
                 price: product.price.cents,
                 max_quantity: product.maxQuantity,
-                is_swappable: product.isSwappable
+                is_swappable: product.isSwappable,
+                tickets_released_on: product.ticketsReleasedOn?.toISO() ?? null
             })
             .runAdapter(ProductAdapter.parseProduct);
     }

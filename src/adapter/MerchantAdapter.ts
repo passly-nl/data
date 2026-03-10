@@ -50,6 +50,7 @@ export class MerchantAdapter {
     static parseMerchantUser(data: ForeignData): MerchantUserDto {
         return new MerchantUserDto(
             data.is_manager,
+            data.claims ?? [],
             DateTimeAdapter.parseDateTime(data.created_on),
             DateTimeAdapter.parseDateTime(data.updated_on),
             AuthAdapter.parseUser(data.user)

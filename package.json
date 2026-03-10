@@ -50,16 +50,16 @@
         "./*": "./*"
     },
     "dependencies": {
-        "@basmilius/http-client": "^3.11.0",
-        "@flux-ui/types": "^3.0.0-next.28",
+        "@basmilius/http-client": "^3.11.1",
+        "@flux-ui/types": "^3.0.0-next.32",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
-        "apexcharts": "^5.10.1",
+        "apexcharts": "^5.10.3",
         "luxon": "^3.7.2"
     },
     "devDependencies": {
         "@types/luxon": "^3.7.1",
-        "@typescript/native-preview": "^7.0.0-dev.20260305.1",
-        "tsdown": "^0.21.0"
+        "@typescript/native-preview": "^7.0.0-dev.20260309.1",
+        "tsdown": "^0.21.1"
     },
     "overrides": {
         "@disabled-basmilius/http-client": "link:@basmilius/http-client",

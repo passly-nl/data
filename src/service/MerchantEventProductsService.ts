@@ -1,5 +1,6 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import type { FluxFormSelectEntry } from '@flux-ui/types';
+import type { DateTime } from 'luxon';
 import { FluxAdapter, ProductAdapter } from '#data/adapter';
 import type { ProductDto } from '#data/dto';
 
@@ -28,7 +29,7 @@ export class MerchantEventProductsService extends BaseService {
             .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
-    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null): Promise<BaseResponse<ProductDto>> {
+    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null, ticketsReleasedOn: DateTime | null = null): Promise<BaseResponse<ProductDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/products`)
             .method('post')
@@ -41,7 +42,8 @@ export class MerchantEventProductsService extends BaseService {
                 price,
                 stock,
                 max_quantity: maxQuantity,
-                stock_pool_id: stockPoolId
+                stock_pool_id: stockPoolId,
+                tickets_released_on: ticketsReleasedOn?.toISO() ?? null
             })
             .runAdapter(ProductAdapter.parseProduct);
     }

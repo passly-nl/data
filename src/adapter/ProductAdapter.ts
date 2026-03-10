@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { EventAdapter, FileSystemAdapter, PaymentAdapter } from '#data/adapter';
+import { DateTimeAdapter, EventAdapter, FileSystemAdapter, PaymentAdapter } from '#data/adapter';
 import { ProductDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
@@ -18,7 +18,8 @@ export class ProductAdapter {
             data.remaining_stock,
             optional(data.stock_pool, EventAdapter.parseStockPool),
             optional(data.image, FileSystemAdapter.parsePicture),
-            optionalArray(data.images, FileSystemAdapter.parsePicture)!
+            optionalArray(data.images, FileSystemAdapter.parsePicture)!,
+            optional(data.tickets_released_on, DateTimeAdapter.parseDateTime)
         );
     }
 }

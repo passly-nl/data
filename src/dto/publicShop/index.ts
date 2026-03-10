@@ -5,6 +5,7 @@ export * from './PublicShopElementDto';
 export * from './PublicShopElementButtonDto';
 export * from './PublicShopElementDividerDto';
 export * from './PublicShopElementHeadingDto';
+export * from './PublicShopElementInformationDto';
 export * from './PublicShopElementNoticeDto';
 export * from './PublicShopElementProductDto';
 export * from './PublicShopElementTextDto';

@@ -17,6 +17,7 @@ export * from './ShopElementDto';
 export * from './ShopElementButtonDto';
 export * from './ShopElementDividerDto';
 export * from './ShopElementHeadingDto';
+export * from './ShopElementInformationDto';
 export * from './ShopElementNoticeDto';
 export * from './ShopElementProductDto';
 export * from './ShopElementTextDto';

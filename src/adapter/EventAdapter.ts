@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '#data/adapter';
-import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '#data/dto';
+import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementInformationDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -102,6 +102,11 @@ export class EventAdapter {
                     data.id,
                     data.heading_level,
                     data.title
+                );
+
+            case 'information':
+                return new ShopElementInformationDto(
+                    data.id
                 );
 
             case 'notice':

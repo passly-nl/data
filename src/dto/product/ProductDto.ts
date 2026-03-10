@@ -1,4 +1,5 @@
 import { dto } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import type { CostDto, PictureDto, StockPoolDto } from '#data/dto';
 import type { ProductType } from '#data/types';
 
@@ -100,6 +101,14 @@ export class ProductDto {
         this.#images = value;
     }
 
+    get ticketsReleasedOn(): DateTime | null {
+        return this.#ticketsReleasedOn;
+    }
+
+    set ticketsReleasedOn(value: DateTime | null) {
+        this.#ticketsReleasedOn = value;
+    }
+
     #id: string;
     #type: ProductType;
     #name: string;
@@ -112,8 +121,9 @@ export class ProductDto {
     #stock: StockPoolDto;
     #image: PictureDto;
     #images: PictureDto[];
+    #ticketsReleasedOn: DateTime | null;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isSwappable: boolean, remainingStock: number, stock: StockPoolDto, image: PictureDto, images: PictureDto[]) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isSwappable: boolean, remainingStock: number, stock: StockPoolDto, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -126,5 +136,6 @@ export class ProductDto {
         this.#stock = stock;
         this.#image = image;
         this.#images = images;
+        this.#ticketsReleasedOn = ticketsReleasedOn;
     }
 }

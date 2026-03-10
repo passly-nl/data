@@ -14,6 +14,7 @@ export type ShopElementType =
     | 'button'
     | 'divider'
     | 'heading'
+    | 'information'
     | 'notice'
     | 'product'
     | 'text';

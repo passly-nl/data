@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { UserDto } from '#data/dto';
+import type { Claim } from '#data/types';
 
 @dto
 export class MerchantUserDto {
@@ -10,6 +11,14 @@ export class MerchantUserDto {
 
     set isManager(value: boolean) {
         this.#isManager = value;
+    }
+
+    get claims(): Claim[] {
+        return this.#claims;
+    }
+
+    set claims(value: Claim[]) {
+        this.#claims = value;
     }
 
     get createdOn(): DateTime {
@@ -37,12 +46,14 @@ export class MerchantUserDto {
     }
 
     #isManager: boolean;
+    #claims: Claim[];
     #createdOn: DateTime;
     #updatedOn: DateTime;
     #user: UserDto;
 
-    constructor(isManager: boolean, createdOn: DateTime, updatedOn: DateTime, user: UserDto) {
+    constructor(isManager: boolean, claims: Claim[], createdOn: DateTime, updatedOn: DateTime, user: UserDto) {
         this.#isManager = isManager;
+        this.#claims = claims;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;
         this.#user = user;
