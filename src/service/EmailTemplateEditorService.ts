@@ -1,15 +1,4 @@
-import type { EmailTemplateType } from '../types/emailTemplate';
-import type {
-    EmailTemplateEditorBlock,
-    EmailTemplateEditorButtonBlock,
-    EmailTemplateEditorCondition,
-    EmailTemplateEditorContext,
-    EmailTemplateEditorH1Block,
-    EmailTemplateEditorHeaderBlock,
-    EmailTemplateEditorIfBlock,
-    EmailTemplateEditorParagraphBlock,
-    EmailTemplateEditorVariable
-} from '../types/emailTemplateEditor';
+import type { EmailTemplateEditorBlock, EmailTemplateEditorButtonBlock, EmailTemplateEditorCondition, EmailTemplateEditorContext, EmailTemplateEditorH1Block, EmailTemplateEditorHeaderBlock, EmailTemplateEditorIfBlock, EmailTemplateEditorParagraphBlock, EmailTemplateEditorVariable, EmailTemplateType } from '#data/types';
 
 const SHARED_VARIABLES: EmailTemplateEditorVariable[] = [
     {label: 'variable.merchantName', path: 'merchant.name'},
@@ -55,6 +44,10 @@ export const EMAIL_TEMPLATE_EDITOR_CONTEXTS: Record<EmailTemplateType, EmailTemp
         ],
         conditions: []
     },
+    order_canceled: {
+        variables: [...SHARED_VARIABLES, ...BUYER_VARIABLES, ...EVENT_VARIABLES, ...ORDER_VARIABLES],
+        conditions: [HEADER_CONDITION]
+    },
     order_confirmation: {
         variables: [...SHARED_VARIABLES, ...BUYER_VARIABLES, ...EVENT_VARIABLES, ...ORDER_VARIABLES],
         conditions: [
@@ -63,6 +56,14 @@ export const EMAIL_TEMPLATE_EDITOR_CONTEXTS: Record<EmailTemplateType, EmailTemp
             {label: 'condition.hasSealedTickets', condition: 'hasSealedTickets'},
             HEADER_CONDITION
         ]
+    },
+    order_expired: {
+        variables: [...SHARED_VARIABLES, ...BUYER_VARIABLES, ...EVENT_VARIABLES, ...ORDER_VARIABLES],
+        conditions: [HEADER_CONDITION]
+    },
+    order_failed: {
+        variables: [...SHARED_VARIABLES, ...BUYER_VARIABLES, ...EVENT_VARIABLES, ...ORDER_VARIABLES],
+        conditions: [HEADER_CONDITION]
     },
     personalization_invite: {
         variables: [...SHARED_VARIABLES, ...BUYER_VARIABLES, ...EVENT_VARIABLES, {label: 'variable.personalizeUrl', path: 'personalizeUrl'}],

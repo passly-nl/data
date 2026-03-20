@@ -1,5 +1,4 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import type { DateTime } from 'luxon';
 import { ProductAdapter } from '#data/adapter';
 import type { ProductDto } from '#data/dto';
 

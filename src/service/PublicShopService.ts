@@ -31,7 +31,7 @@ export class PublicShopService extends BaseService {
                 number: addressNumber,
                 postal_code: addressPostalCode,
                 street: addressStreet
-            }
+            };
         }
 
         return await this
