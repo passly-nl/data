@@ -1,3 +1,6 @@
+export * from './InsightDto';
+export * from './InsightSignalDto';
+export * from './InsightsResponseDto';
 export * from './StatisticsBuyersOverviewDto';
 export * from './StatisticsBuyersRankedDto';
 export * from './StatisticsEventsOverviewDto';

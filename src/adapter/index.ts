@@ -21,6 +21,7 @@ export * from './ShortlinkAdapter';
 export * from './StatisticsAdapter';
 export * from './StatisticsBuyersAdapter';
 export * from './StatisticsEventsAdapter';
+export * from './StatisticsInsightsAdapter';
 export * from './StatisticsOverviewAdapter';
 export * from './StatisticsSalesAdapter';
 export * from './TicketAdapter';

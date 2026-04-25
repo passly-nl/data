@@ -35,6 +35,7 @@ export * from './MerchantShopsService';
 export * from './MerchantStatisticsService';
 export * from './MerchantStatisticsBuyersService';
 export * from './MerchantStatisticsEventsService';
+export * from './MerchantStatisticsInsightsService';
 export * from './MerchantStatisticsOverviewService';
 export * from './MerchantStatisticsSalesService';
 export * from './MerchantTicketService';

@@ -4,6 +4,7 @@ export type * from './emailTemplateEditor';
 export type * from './general';
 export type * from './event';
 export type * from './finance';
+export type * from './insights';
 export type * from './order';
 export type * from './payment';
 export type * from './product';
