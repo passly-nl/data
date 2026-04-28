@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { ReservationItemDto } from '#data/dto';
+import type { MarketingAttributionDto, ReservationItemDto } from '#data/dto';
 
 @dto
 export class ReservationDto {
@@ -44,17 +44,27 @@ export class ReservationDto {
         this.#items = value;
     }
 
+    get attribution(): MarketingAttributionDto | null {
+        return this.#attribution;
+    }
+
+    set attribution(value: MarketingAttributionDto | null) {
+        this.#attribution = value;
+    }
+
     #id: string;
     #createdOn: DateTime;
     #expiresOn: DateTime;
     #isExpired: boolean;
     #items: ReservationItemDto[];
+    #attribution: MarketingAttributionDto | null;
 
-    constructor(id: string, createdOn: DateTime, expiresOn: DateTime, isExpired: boolean, items: ReservationItemDto[]) {
+    constructor(id: string, createdOn: DateTime, expiresOn: DateTime, isExpired: boolean, items: ReservationItemDto[], attribution: MarketingAttributionDto | null) {
         this.#id = id;
         this.#createdOn = createdOn;
         this.#expiresOn = expiresOn;
         this.#isExpired = isExpired;
         this.#items = items;
+        this.#attribution = attribution;
     }
 }

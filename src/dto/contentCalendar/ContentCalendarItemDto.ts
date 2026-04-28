@@ -1,11 +1,12 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 
-export type AiContentCalendarItemStatus = 'draft' | 'scheduled' | 'published' | 'archived';
-export type AiContentCalendarItemSource = 'manual' | 'ai' | 'insight';
+export type ContentCalendarItemStatus = 'draft' | 'scheduled' | 'published' | 'archived';
+export type ContentCalendarItemSource = 'manual' | 'ai' | 'insight';
+export type ContentCalendarItemChannel = 'instagram' | 'facebook' | 'twitter' | 'tiktok';
 
 @dto
-export class AiContentCalendarItemDto {
+export class ContentCalendarItemDto {
     get id(): string {
         return this.#id;
     }
@@ -30,44 +31,44 @@ export class AiContentCalendarItemDto {
         this.#scheduledOn = value;
     }
 
-    get status(): AiContentCalendarItemStatus {
+    get status(): ContentCalendarItemStatus {
         return this.#status;
     }
 
-    set status(value: AiContentCalendarItemStatus) {
+    set status(value: ContentCalendarItemStatus) {
         this.#status = value;
     }
 
-    get source(): AiContentCalendarItemSource {
+    get source(): ContentCalendarItemSource {
         return this.#source;
     }
 
-    set source(value: AiContentCalendarItemSource) {
+    set source(value: ContentCalendarItemSource) {
         this.#source = value;
     }
 
-    get channelHint(): string | null {
-        return this.#channelHint;
+    get channel(): ContentCalendarItemChannel | null {
+        return this.#channel;
     }
 
-    set channelHint(value: string | null) {
-        this.#channelHint = value;
+    set channel(value: ContentCalendarItemChannel | null) {
+        this.#channel = value;
     }
 
-    get copyText(): string | null {
-        return this.#copyText;
+    get content(): string | null {
+        return this.#content;
     }
 
-    set copyText(value: string | null) {
-        this.#copyText = value;
+    set content(value: string | null) {
+        this.#content = value;
     }
 
-    get imagePrompt(): string | null {
-        return this.#imagePrompt;
+    get imageSuggestion(): string | null {
+        return this.#imageSuggestion;
     }
 
-    set imagePrompt(value: string | null) {
-        this.#imagePrompt = value;
+    set imageSuggestion(value: string | null) {
+        this.#imageSuggestion = value;
     }
 
     get insightId(): string | null {
@@ -97,36 +98,24 @@ export class AiContentCalendarItemDto {
     #id: string;
     #eventId: string | null;
     #scheduledOn: DateTime;
-    #status: AiContentCalendarItemStatus;
-    #source: AiContentCalendarItemSource;
-    #channelHint: string | null;
-    #copyText: string | null;
-    #imagePrompt: string | null;
+    #status: ContentCalendarItemStatus;
+    #source: ContentCalendarItemSource;
+    #channel: ContentCalendarItemChannel | null;
+    #content: string | null;
+    #imageSuggestion: string | null;
     #insightId: string | null;
     #createdOn: DateTime;
     #updatedOn: DateTime;
 
-    constructor(
-        id: string,
-        eventId: string | null,
-        scheduledOn: DateTime,
-        status: AiContentCalendarItemStatus,
-        source: AiContentCalendarItemSource,
-        channelHint: string | null,
-        copyText: string | null,
-        imagePrompt: string | null,
-        insightId: string | null,
-        createdOn: DateTime,
-        updatedOn: DateTime
-    ) {
+    constructor(id: string, eventId: string | null, scheduledOn: DateTime, status: ContentCalendarItemStatus, source: ContentCalendarItemSource, channel: ContentCalendarItemChannel | null, content: string | null, imageSuggestion: string | null, insightId: string | null, createdOn: DateTime, updatedOn: DateTime) {
         this.#id = id;
         this.#eventId = eventId;
         this.#scheduledOn = scheduledOn;
         this.#status = status;
         this.#source = source;
-        this.#channelHint = channelHint;
-        this.#copyText = copyText;
-        this.#imagePrompt = imagePrompt;
+        this.#channel = channel;
+        this.#content = content;
+        this.#imageSuggestion = imageSuggestion;
         this.#insightId = insightId;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;

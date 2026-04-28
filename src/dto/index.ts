@@ -1,6 +1,6 @@
 export * from './address';
 export * from './aiChat';
-export * from './aiContentCalendar';
+export * from './contentCalendar';
 export * from './aiUsage';
 export * from './auth';
 export * from './bundle';
@@ -9,6 +9,7 @@ export * from './emailTemplate';
 export * from './event';
 export * from './fileSystem';
 export * from './finance';
+export * from './marketingAttribution';
 export * from './merchant';
 export * from './order';
 export * from './payment';

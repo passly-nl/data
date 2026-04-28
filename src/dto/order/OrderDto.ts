@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { BuyerDto, CostDto, EventDto, OrderLineDto, OrderPaymentProviderDto, PublicShopDto, TransactionDto } from '#data/dto';
+import type { BuyerDto, CostDto, EventDto, MarketingAttributionDto, OrderLineDto, OrderPaymentProviderDto, PublicShopDto, TransactionDto } from '#data/dto';
 import type { OrderOrigin, OrderType } from '#data/types';
 
 @dto
@@ -125,6 +125,14 @@ export class OrderDto {
         this.#transaction = value;
     }
 
+    get attribution(): MarketingAttributionDto | null {
+        return this.#attribution;
+    }
+
+    set attribution(value: MarketingAttributionDto | null) {
+        this.#attribution = value;
+    }
+
     #id: string;
     #code: string;
     #origin: OrderOrigin;
@@ -140,8 +148,9 @@ export class OrderDto {
     #lines: OrderLineDto[] | null;
     #shop: PublicShopDto | null;
     #transaction: TransactionDto | null;
+    #attribution: MarketingAttributionDto | null;
 
-    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null) {
+    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null, attribution: MarketingAttributionDto | null) {
         this.#id = id;
         this.#code = code;
         this.#origin = origin;
@@ -157,5 +166,6 @@ export class OrderDto {
         this.#lines = lines;
         this.#shop = shop;
         this.#transaction = transaction;
+        this.#attribution = attribution;
     }
 }

@@ -1,9 +1,26 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import { OrderAdapter, PublicShopAdapter } from '#data/adapter';
-import type { OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto } from '#data/dto';
+import type { MarketingAttributionDto, OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto } from '#data/dto';
 import type { Gender } from '#data/types';
 import { emptyNull } from '#data/util';
+
+function attributionBody(attribution: MarketingAttributionDto | null): Record<string, string | null> {
+    if (attribution === null) {
+        return {};
+    }
+
+    return {
+        utm_source: attribution.utmSource,
+        utm_medium: attribution.utmMedium,
+        utm_campaign: attribution.utmCampaign,
+        utm_term: attribution.utmTerm,
+        utm_content: attribution.utmContent,
+        gclid: attribution.gclid,
+        fbclid: attribution.fbclid,
+        referrer: attribution.referrer
+    };
+}
 
 export class PublicShopService extends BaseService {
     async get(shopId: string): Promise<BaseResponse<PublicShopDto>> {
@@ -15,7 +32,7 @@ export class PublicShopService extends BaseService {
             .runAdapter(PublicShopAdapter.parsePublicShop);
     }
 
-    async buy(shopId: string, reservationId: string, firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: DateTime | null, gender: Gender | null, addressCity: string | null, addressCountry: string | null, addressNumber: string | null, addressPostalCode: string | null, addressStreet: string | null): Promise<BaseResponse<OrderDto>> {
+    async buy(shopId: string, reservationId: string, firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: DateTime | null, gender: Gender | null, addressCity: string | null, addressCountry: string | null, addressNumber: string | null, addressPostalCode: string | null, addressStreet: string | null, attribution: MarketingAttributionDto | null = null): Promise<BaseResponse<OrderDto>> {
         let address: Record<string, string | null> = null;
 
         addressCity = emptyNull(addressCity);
@@ -46,12 +63,13 @@ export class PublicShopService extends BaseService {
                 phone_number: phoneNumber.trim() === '' ? null : phoneNumber.trim(),
                 date_of_birth: dateOfBirth?.toISODate(),
                 gender: gender,
-                address
+                address,
+                ...attributionBody(attribution)
             })
             .runAdapter(OrderAdapter.parseOrder);
     }
 
-    async reserve(shopId: string, products: PublicShopCartProductDto[]): Promise<BaseResponse<PublicShopReservationDto>> {
+    async reserve(shopId: string, products: PublicShopCartProductDto[], attribution: MarketingAttributionDto | null = null): Promise<BaseResponse<PublicShopReservationDto>> {
         return await this
             .request(`/shops/${shopId}/reserve`)
             .method('post')
@@ -62,7 +80,8 @@ export class PublicShopService extends BaseService {
                     p.productId,
                     p.quantity,
                     p.timeSlotId
-                ])
+                ]),
+                ...attributionBody(attribution)
             })
             .runAdapter(PublicShopAdapter.parsePublicShopReservation);
     }

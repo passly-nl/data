@@ -1,6 +1,6 @@
 export * from './AddressAdapter';
 export * from './AiChatAdapter';
-export * from './AiContentCalendarAdapter';
+export * from './ContentCalendarAdapter';
 export * from './AiUsageAdapter';
 export * from './AuthAdapter';
 export * from './BundleAdapter';
@@ -12,6 +12,7 @@ export * from './EventAdapter';
 export * from './FileSystemAdapter';
 export * from './FinanceAdapter';
 export * from './FluxAdapter';
+export * from './MarketingAttributionAdapter';
 export * from './MerchantAdapter';
 export * from './MerchantDashboardAdapter';
 export * from './OrderAdapter';

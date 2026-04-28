@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter } from '#data/adapter';
+import { DateTimeAdapter, FileSystemAdapter, MarketingAttributionAdapter } from '#data/adapter';
 import { ReservationDto, ReservationItemDto, ReservationProductDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
@@ -11,7 +11,8 @@ export class ReservationAdapter {
             DateTimeAdapter.parseDateTime(data.created_on),
             DateTimeAdapter.parseDateTime(data.expires_on),
             data.is_expired,
-            optionalArray(data.products, ReservationAdapter.parseReservationItem)!
+            optionalArray(data.products, ReservationAdapter.parseReservationItem)!,
+            optional(data.attribution, MarketingAttributionAdapter.parseMarketingAttribution)
         );
     }
 

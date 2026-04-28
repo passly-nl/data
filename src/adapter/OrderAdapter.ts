@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { BuyerAdapter, DateTimeAdapter, EventAdapter, PaymentAdapter, PublicShopAdapter } from '#data/adapter';
+import { BuyerAdapter, DateTimeAdapter, EventAdapter, MarketingAttributionAdapter, PaymentAdapter, PublicShopAdapter } from '#data/adapter';
 import { OrderDto, OrderLineDto, OrderPaymentProviderDto, OrderProductDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
@@ -21,7 +21,8 @@ export class OrderAdapter {
             optional(data.event, EventAdapter.parseEvent),
             optionalArray(data.lines, OrderAdapter.parseOrderLine),
             optional(data.shop, PublicShopAdapter.parsePublicShop),
-            optional(data.transaction, PaymentAdapter.parseTransaction)
+            optional(data.transaction, PaymentAdapter.parseTransaction),
+            optional(data.attribution, MarketingAttributionAdapter.parseMarketingAttribution)
         );
     }
 

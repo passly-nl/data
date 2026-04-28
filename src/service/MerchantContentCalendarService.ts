@@ -1,22 +1,22 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { AiContentCalendarAdapter } from '#data/adapter';
-import type { AiContentCalendarItemDto } from '#data/dto';
+import { ContentCalendarAdapter } from '#data/adapter';
+import type { ContentCalendarItemChannel, ContentCalendarItemDto } from '#data/dto';
 
-export type AiContentCalendarItemPayload = {
+export type ContentCalendarItemPayload = {
     readonly eventId?: string | null;
     readonly scheduledOn: string;
     readonly status?: string;
-    readonly channelHint?: string | null;
-    readonly copyText?: string | null;
-    readonly imagePrompt?: string | null;
+    readonly channel?: ContentCalendarItemChannel | null;
+    readonly content?: string | null;
+    readonly imageSuggestion?: string | null;
 };
 
-export class MerchantAiContentCalendarService extends BaseService {
+export class MerchantContentCalendarService extends BaseService {
     async list(merchantId: string, params?: {
         eventId?: string;
         from?: string;
         to?: string
-    }): Promise<BaseResponse<{ items: AiContentCalendarItemDto[] }>> {
+    }): Promise<BaseResponse<{ items: ContentCalendarItemDto[] }>> {
         const qs = QueryString.builder();
 
         if (params?.eventId) {
@@ -37,11 +37,11 @@ export class MerchantAiContentCalendarService extends BaseService {
             .queryString(qs)
             .bearerToken()
             .runAdapter((data: any) => ({
-                items: (data.items ?? []).map(AiContentCalendarAdapter.parseItem)
+                items: (data.items ?? []).map(ContentCalendarAdapter.parseItem)
             }));
     }
 
-    async create(merchantId: string, payload: AiContentCalendarItemPayload): Promise<BaseResponse<AiContentCalendarItemDto>> {
+    async create(merchantId: string, payload: ContentCalendarItemPayload): Promise<BaseResponse<ContentCalendarItemDto>> {
         return await this
             .request(`/merchants/${merchantId}/content-calendar`)
             .method('post')
@@ -50,14 +50,14 @@ export class MerchantAiContentCalendarService extends BaseService {
                 event_id: payload.eventId,
                 scheduled_on: payload.scheduledOn,
                 status: payload.status,
-                channel_hint: payload.channelHint,
-                copy_text: payload.copyText,
-                image_prompt: payload.imagePrompt
+                channel: payload.channel,
+                content: payload.content,
+                image_suggestion: payload.imageSuggestion
             })
-            .runAdapter(AiContentCalendarAdapter.parseItem);
+            .runAdapter(ContentCalendarAdapter.parseItem);
     }
 
-    async update(merchantId: string, itemId: string, payload: Partial<AiContentCalendarItemPayload>): Promise<BaseResponse<AiContentCalendarItemDto>> {
+    async update(merchantId: string, itemId: string, payload: Partial<ContentCalendarItemPayload>): Promise<BaseResponse<ContentCalendarItemDto>> {
         return await this
             .request(`/merchants/${merchantId}/content-calendar/${itemId}`)
             .method('patch')
@@ -65,11 +65,11 @@ export class MerchantAiContentCalendarService extends BaseService {
             .body({
                 scheduled_on: payload.scheduledOn,
                 status: payload.status,
-                channel_hint: payload.channelHint,
-                copy_text: payload.copyText,
-                image_prompt: payload.imagePrompt
+                channel: payload.channel,
+                content: payload.content,
+                image_suggestion: payload.imageSuggestion
             })
-            .runAdapter(AiContentCalendarAdapter.parseItem);
+            .runAdapter(ContentCalendarAdapter.parseItem);
     }
 
     async delete(merchantId: string, itemId: string): Promise<BaseResponse<unknown>> {
@@ -97,11 +97,11 @@ export class MerchantAiContentCalendarService extends BaseService {
 
     async generateText(merchantId: string, options: {
         eventId?: string | null;
-        channel?: string | null;
+        channel?: ContentCalendarItemChannel | null;
         scheduledOn?: string | null;
-        copyText?: string | null;
+        content?: string | null;
         additionalInstructions?: string | null;
-    }): Promise<BaseResponse<{ copyText: string; imagePrompt: string | null }>> {
+    }): Promise<BaseResponse<{ content: string; imageSuggestion: string | null }>> {
         return await this
             .request(`/merchants/${merchantId}/content-calendar/generate-text`)
             .method('post')
@@ -110,12 +110,12 @@ export class MerchantAiContentCalendarService extends BaseService {
                 event_id: options.eventId ?? null,
                 channel: options.channel ?? null,
                 scheduled_on: options.scheduledOn ?? null,
-                copy_text: options.copyText ?? null,
+                content: options.content ?? null,
                 additional_instructions: options.additionalInstructions ?? null
             })
             .runAdapter((data: any) => ({
-                copyText: String(data.copy_text ?? ''),
-                imagePrompt: data.image_prompt ?? null
+                content: String(data.content ?? ''),
+                imageSuggestion: data.image_suggestion ?? null
             }));
     }
 }
