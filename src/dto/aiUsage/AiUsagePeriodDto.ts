@@ -1,21 +1,22 @@
 import { dto } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import type { AiUsageFeatureStatusDto } from './AiUsageFeatureStatusDto';
 
 @dto
 export class AiUsagePeriodDto {
-    get periodStart(): string | null {
+    get periodStart(): DateTime | null {
         return this.#periodStart;
     }
 
-    set periodStart(value: string | null) {
+    set periodStart(value: DateTime | null) {
         this.#periodStart = value;
     }
 
-    get periodEnd(): string | null {
+    get periodEnd(): DateTime | null {
         return this.#periodEnd;
     }
 
-    set periodEnd(value: string | null) {
+    set periodEnd(value: DateTime | null) {
         this.#periodEnd = value;
     }
 
@@ -43,11 +44,11 @@ export class AiUsagePeriodDto {
         this.#percentage = value;
     }
 
-    get lastEventOn(): string | null {
+    get lastEventOn(): DateTime | null {
         return this.#lastEventOn;
     }
 
-    set lastEventOn(value: string | null) {
+    set lastEventOn(value: DateTime | null) {
         this.#lastEventOn = value;
     }
 
@@ -59,23 +60,15 @@ export class AiUsagePeriodDto {
         this.#features = value;
     }
 
-    #periodStart: string | null;
-    #periodEnd: string | null;
+    #periodStart: DateTime | null;
+    #periodEnd: DateTime | null;
     #tokensUsed: number;
     #limitTokens: number | null;
     #percentage: number;
-    #lastEventOn: string | null;
+    #lastEventOn: DateTime | null;
     #features: AiUsageFeatureStatusDto[];
 
-    constructor(
-        periodStart: string | null,
-        periodEnd: string | null,
-        tokensUsed: number,
-        limitTokens: number | null,
-        percentage: number,
-        lastEventOn: string | null,
-        features: AiUsageFeatureStatusDto[]
-    ) {
+    constructor(periodStart: DateTime | null, periodEnd: DateTime | null, tokensUsed: number, limitTokens: number | null, percentage: number, lastEventOn: DateTime | null, features: AiUsageFeatureStatusDto[]) {
         this.#periodStart = periodStart;
         this.#periodEnd = periodEnd;
         this.#tokensUsed = tokensUsed;

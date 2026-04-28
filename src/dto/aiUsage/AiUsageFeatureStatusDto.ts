@@ -22,10 +22,7 @@ export class AiUsageFeatureStatusDto {
     #feature: ContractFeature;
     #enabled: boolean;
 
-    constructor(
-        feature: ContractFeature,
-        enabled: boolean
-    ) {
+    constructor(feature: ContractFeature, enabled: boolean) {
         this.#feature = feature;
         this.#enabled = enabled;
     }

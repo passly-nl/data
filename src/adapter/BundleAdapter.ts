@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { PaymentAdapter } from '#data/adapter';
 import { BundleDto, BundleQuotaPreviewDto } from '#data/dto';
-import type { ContractFeature } from '#data/types';
+import { optional } from '#data/util';
 
 @adapter
 export class BundleAdapter {
@@ -9,15 +9,15 @@ export class BundleAdapter {
         return new BundleDto(
             data.key,
             data.label,
-            (data.features ?? []) as ContractFeature[],
-            data.quota != null ? BundleAdapter.parseQuota(data.quota) : null,
+            data.features ?? [],
+            optional(data.quota, BundleAdapter.parseQuota),
             PaymentAdapter.parseCost(data.price_monthly)
         );
     }
 
     static parseQuota(data: ForeignData): BundleQuotaPreviewDto {
         return new BundleQuotaPreviewDto(
-            data.limit_tokens != null ? Number(data.limit_tokens) : null
+            data.limit_tokens ?? null
         );
     }
 }

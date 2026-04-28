@@ -1,4 +1,4 @@
-import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
+import { BaseResponse, BaseService, type ForeignData, QueryString } from '@basmilius/http-client';
 import { ContentCalendarAdapter } from '#data/adapter';
 import type { ContentCalendarItemChannel, ContentCalendarItemDto } from '#data/dto';
 
@@ -12,11 +12,7 @@ export type ContentCalendarItemPayload = {
 };
 
 export class MerchantContentCalendarService extends BaseService {
-    async list(merchantId: string, params?: {
-        eventId?: string;
-        from?: string;
-        to?: string
-    }): Promise<BaseResponse<{ items: ContentCalendarItemDto[] }>> {
+    async list(merchantId: string, params?: { eventId?: string; from?: string; to?: string }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
         const qs = QueryString.builder();
 
         if (params?.eventId) {
@@ -36,9 +32,7 @@ export class MerchantContentCalendarService extends BaseService {
             .method('get')
             .queryString(qs)
             .bearerToken()
-            .runAdapter((data: any) => ({
-                items: (data.items ?? []).map(ContentCalendarAdapter.parseItem)
-            }));
+            .runArrayAdapter(ContentCalendarAdapter.parseItem);
     }
 
     async create(merchantId: string, payload: ContentCalendarItemPayload): Promise<BaseResponse<ContentCalendarItemDto>> {
@@ -80,10 +74,7 @@ export class MerchantContentCalendarService extends BaseService {
             .run();
     }
 
-    async generate(merchantId: string, options?: {
-        eventId?: string;
-        additionalInstructions?: string | null;
-    }): Promise<BaseResponse<unknown>> {
+    async generate(merchantId: string, options?: { eventId?: string; additionalInstructions?: string | null; }): Promise<BaseResponse<unknown>> {
         return await this
             .request(`/merchants/${merchantId}/content-calendar/generate`)
             .method('post')
@@ -95,13 +86,7 @@ export class MerchantContentCalendarService extends BaseService {
             .run();
     }
 
-    async generateText(merchantId: string, options: {
-        eventId?: string | null;
-        channel?: ContentCalendarItemChannel | null;
-        scheduledOn?: string | null;
-        content?: string | null;
-        additionalInstructions?: string | null;
-    }): Promise<BaseResponse<{ content: string; imageSuggestion: string | null }>> {
+    async generateText(merchantId: string, options: { eventId?: string | null; channel?: ContentCalendarItemChannel | null; scheduledOn?: string | null; content?: string | null; additionalInstructions?: string | null; }): Promise<BaseResponse<{ content: string; imageSuggestion: string | null }>> {
         return await this
             .request(`/merchants/${merchantId}/content-calendar/generate-text`)
             .method('post')
@@ -113,7 +98,7 @@ export class MerchantContentCalendarService extends BaseService {
                 content: options.content ?? null,
                 additional_instructions: options.additionalInstructions ?? null
             })
-            .runAdapter((data: any) => ({
+            .runAdapter((data: ForeignData) => ({
                 content: String(data.content ?? ''),
                 imageSuggestion: data.image_suggestion ?? null
             }));

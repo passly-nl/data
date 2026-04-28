@@ -1,7 +1,7 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { AuthAdapter, DateTimeAdapter } from '#data/adapter';
-import type { AiChatMessageRole } from '#data/dto';
 import { AiChatConversationDto, AiChatMessageDto, AiChatToolCallDto } from '#data/dto';
+import { optional, optionalArray } from '#data/util';
 
 @adapter
 export class AiChatAdapter {
@@ -17,12 +17,10 @@ export class AiChatAdapter {
     static parseMessage(data: ForeignData): AiChatMessageDto {
         return new AiChatMessageDto(
             data.id,
-            data.role as AiChatMessageRole,
+            data.role,
             data.content ?? null,
-            data.tool_calls
-                ? (data.tool_calls as ForeignData[]).map((call: ForeignData) => AiChatAdapter.parseToolCall(call))
-                : null,
-            data.creator ? AuthAdapter.parseUser(data.creator) : null,
+            optionalArray(data.tool_calls, AiChatAdapter.parseToolCall),
+            optional(data.creator, AuthAdapter.parseUser),
             DateTimeAdapter.parseDateTime(data.generated_on)
         );
     }
@@ -31,7 +29,7 @@ export class AiChatAdapter {
         return new AiChatToolCallDto(
             data.id ?? '',
             data.name,
-            (data.input ?? {}) as Record<string, unknown>,
+            data.input ?? {},
             data.output ?? null,
             !!data.is_error
         );

@@ -1,39 +1,40 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
+import { DateTimeAdapter } from '#data/adapter';
 import { AiUsageDto, AiUsageFeatureStatusDto, AiUsagePeriodDto, AiUsageQuotaDto } from '#data/dto';
-import type { ContractFeature } from '#data/types';
+import { optional, optionalArray } from '#data/util';
 
 @adapter
 export class AiUsageAdapter {
     static parseAiUsage(data: ForeignData): AiUsageDto {
         return new AiUsageDto(
             data.id,
-            data.feature as ContractFeature,
+            data.feature,
             data.operation,
             data.model,
-            Number(data.prompt_tokens ?? 0),
-            Number(data.cached_tokens ?? 0),
-            Number(data.output_tokens ?? 0),
+            data.prompt_tokens ?? 0,
+            data.cached_tokens ?? 0,
+            data.output_tokens ?? 0,
             data.reference_class ?? null,
             data.reference_id ?? null,
-            data.created_on
+            DateTimeAdapter.parseDateTime(data.created_on)
         );
     }
 
     static parseAiUsagePeriod(data: ForeignData): AiUsagePeriodDto {
         return new AiUsagePeriodDto(
-            data.period_start ?? null,
-            data.period_end ?? null,
-            Number(data.tokens_used ?? 0),
-            data.limit_tokens != null ? Number(data.limit_tokens) : null,
-            Number(data.percentage ?? 0),
-            data.last_event_on ?? null,
-            (data.features ?? []).map((feature: ForeignData) => AiUsageAdapter.parseAiUsageFeatureStatus(feature))
+            optional(data.period_start, DateTimeAdapter.parseDateTime),
+            optional(data.period_end, DateTimeAdapter.parseDateTime),
+            data.tokens_used ?? 0,
+            data.limit_tokens ?? null,
+            data.percentage ?? 0,
+            optional(data.last_event_on, DateTimeAdapter.parseDateTime),
+            optionalArray(data.features, AiUsageAdapter.parseAiUsageFeatureStatus)
         );
     }
 
     static parseAiUsageFeatureStatus(data: ForeignData): AiUsageFeatureStatusDto {
         return new AiUsageFeatureStatusDto(
-            data.feature as ContractFeature,
+            data.feature,
             !!data.enabled
         );
     }
@@ -42,7 +43,7 @@ export class AiUsageAdapter {
         return new AiUsageQuotaDto(
             data.contract_id,
             data.bundle_key ?? null,
-            data.limit_tokens != null ? Number(data.limit_tokens) : null,
+            data.limit_tokens ?? null,
             data.note ?? null
         );
     }

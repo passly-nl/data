@@ -62,14 +62,7 @@ export class AiChatMessageDto {
     #creator: UserDto | null;
     #generatedOn: DateTime;
 
-    constructor(
-        id: string,
-        role: AiChatMessageRole,
-        content: string | null,
-        toolCalls: AiChatToolCallDto[] | null,
-        creator: UserDto | null,
-        generatedOn: DateTime
-    ) {
+    constructor(id: string, role: AiChatMessageRole, content: string | null, toolCalls: AiChatToolCallDto[] | null, creator: UserDto | null, generatedOn: DateTime) {
         this.#id = id;
         this.#role = role;
         this.#content = content;

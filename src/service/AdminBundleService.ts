@@ -3,10 +3,7 @@ import { BundleAdapter } from '#data/adapter';
 import type { BundleDto } from '#data/dto';
 
 export class AdminBundleService extends BaseService {
-    async list(merchantId: string): Promise<BaseResponse<{
-        available: BundleDto[];
-        active: string[];
-    }>> {
+    async list(merchantId: string): Promise<BaseResponse<{ available: BundleDto[]; active: string[]; }>> {
         return await this
             .request(`/admin/merchants/${merchantId}/bundles`)
             .method('get')

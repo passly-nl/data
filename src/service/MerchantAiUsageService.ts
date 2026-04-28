@@ -11,10 +11,7 @@ export class MerchantAiUsageService extends BaseService {
             .runAdapter(AiUsageAdapter.parseAiUsagePeriod);
     }
 
-    async getHistory(merchantId: string, params?: {
-        feature?: string;
-        limit?: number;
-    }): Promise<BaseResponse<{ items: AiUsageDto[] }>> {
+    async getHistory(merchantId: string, params?: { feature?: string; limit?: number; }): Promise<BaseResponse<AiUsageDto[]>> {
         const qs = QueryString.builder();
 
         if (params?.feature) {
@@ -30,8 +27,6 @@ export class MerchantAiUsageService extends BaseService {
             .method('get')
             .queryString(qs)
             .bearerToken()
-            .runAdapter((data: any) => ({
-                items: (data.items ?? []).map(AiUsageAdapter.parseAiUsage)
-            }));
+            .runArrayAdapter(AiUsageAdapter.parseAiUsage);
     }
 }

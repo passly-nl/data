@@ -1,16 +1,14 @@
-import { BaseResponse, BaseService } from '@basmilius/http-client';
+import { BaseResponse, BaseService, type ForeignData } from '@basmilius/http-client';
 import { AiChatAdapter } from '#data/adapter';
 import type { AiChatConversationDto, AiChatMessageDto } from '#data/dto';
 
 export class MerchantAiChatService extends BaseService {
-    async listConversations(merchantId: string): Promise<BaseResponse<{ items: AiChatConversationDto[] }>> {
+    async listConversations(merchantId: string): Promise<BaseResponse<AiChatConversationDto[]>> {
         return await this
             .request(`/merchants/${merchantId}/ai-chat`)
             .method('get')
             .bearerToken()
-            .runAdapter((data: any) => ({
-                items: (data.items ?? []).map(AiChatAdapter.parseConversation)
-            }));
+            .runArrayAdapter(AiChatAdapter.parseConversation);
     }
 
     async createConversation(merchantId: string, title?: string | null): Promise<BaseResponse<AiChatConversationDto>> {
@@ -18,18 +16,18 @@ export class MerchantAiChatService extends BaseService {
             .request(`/merchants/${merchantId}/ai-chat`)
             .method('post')
             .bearerToken()
-            .body({title: title ?? null})
+            .body({
+                title: title ?? null
+            })
             .runAdapter(AiChatAdapter.parseConversation);
     }
 
-    async getMessages(merchantId: string, conversationId: string): Promise<BaseResponse<{ items: AiChatMessageDto[] }>> {
+    async getMessages(merchantId: string, conversationId: string): Promise<BaseResponse<AiChatMessageDto[]>> {
         return await this
             .request(`/merchants/${merchantId}/ai-chat/${conversationId}/messages`)
             .method('get')
             .bearerToken()
-            .runAdapter((data: any) => ({
-                items: (data.items ?? []).map(AiChatAdapter.parseMessage)
-            }));
+            .runArrayAdapter(AiChatAdapter.parseMessage);
     }
 
     async postMessage(merchantId: string, conversationId: string, content: string): Promise<BaseResponse<{ userMessage: AiChatMessageDto }>> {
@@ -38,7 +36,7 @@ export class MerchantAiChatService extends BaseService {
             .method('post')
             .bearerToken()
             .body({content})
-            .runAdapter((data: any) => ({
+            .runAdapter((data: ForeignData) => ({
                 userMessage: AiChatAdapter.parseMessage(data.user_message)
             }));
     }

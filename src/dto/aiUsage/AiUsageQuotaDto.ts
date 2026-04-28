@@ -39,12 +39,7 @@ export class AiUsageQuotaDto {
     #limitTokens: number | null;
     #note: string | null;
 
-    constructor(
-        contractId: string,
-        bundleKey: string | null,
-        limitTokens: number | null,
-        note: string | null
-    ) {
+    constructor(contractId: string, bundleKey: string | null, limitTokens: number | null, note: string | null) {
         this.#contractId = contractId;
         this.#bundleKey = bundleKey;
         this.#limitTokens = limitTokens;

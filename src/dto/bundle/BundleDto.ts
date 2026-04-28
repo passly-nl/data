@@ -51,13 +51,7 @@ export class BundleDto {
     #quota: BundleQuotaPreviewDto | null;
     #priceMonthly: CostDto;
 
-    constructor(
-        key: string,
-        label: string,
-        features: ContractFeature[],
-        quota: BundleQuotaPreviewDto | null,
-        priceMonthly: CostDto
-    ) {
+    constructor(key: string, label: string, features: ContractFeature[], quota: BundleQuotaPreviewDto | null, priceMonthly: CostDto) {
         this.#key = key;
         this.#label = label;
         this.#features = features;

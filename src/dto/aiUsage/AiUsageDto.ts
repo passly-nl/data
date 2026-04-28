@@ -1,4 +1,5 @@
 import { dto } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import type { ContractFeature } from '#data/types';
 
 @dto
@@ -75,11 +76,11 @@ export class AiUsageDto {
         this.#referenceId = value;
     }
 
-    get createdOn(): string {
+    get createdOn(): DateTime {
         return this.#createdOn;
     }
 
-    set createdOn(value: string) {
+    set createdOn(value: DateTime) {
         this.#createdOn = value;
     }
 
@@ -92,20 +93,9 @@ export class AiUsageDto {
     #outputTokens: number;
     #referenceClass: string | null;
     #referenceId: string | null;
-    #createdOn: string;
+    #createdOn: DateTime;
 
-    constructor(
-        id: string,
-        feature: ContractFeature,
-        operation: string,
-        model: string,
-        promptTokens: number,
-        cachedTokens: number,
-        outputTokens: number,
-        referenceClass: string | null,
-        referenceId: string | null,
-        createdOn: string
-    ) {
+    constructor(id: string, feature: ContractFeature, operation: string, model: string, promptTokens: number, cachedTokens: number, outputTokens: number, referenceClass: string | null, referenceId: string | null, createdOn: DateTime) {
         this.#id = id;
         this.#feature = feature;
         this.#operation = operation;
