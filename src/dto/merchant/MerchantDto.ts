@@ -108,6 +108,14 @@ export class MerchantDto {
         this.#updatedOn = value;
     }
 
+    get aiBrandVoice(): string | null {
+        return this.#aiBrandVoice;
+    }
+
+    set aiBrandVoice(value: string | null) {
+        this.#aiBrandVoice = value;
+    }
+
     #id: string;
     #name: string;
     #email: string;
@@ -121,8 +129,24 @@ export class MerchantDto {
     #logo: PictureDto | null;
     #createdOn: DateTime;
     #updatedOn: DateTime;
+    #aiBrandVoice: string | null;
 
-    constructor(id: string, name: string, email: string, phoneNumber: string, url: string, chamberOfCommerceNumber: string | null, vatNumber: string | null, currency: string, address: AddressDto, currentContract: ContractDto | null, logo: PictureDto | null, createdOn: DateTime, updatedOn: DateTime) {
+    constructor(
+        id: string,
+        name: string,
+        email: string,
+        phoneNumber: string,
+        url: string,
+        chamberOfCommerceNumber: string | null,
+        vatNumber: string | null,
+        currency: string,
+        address: AddressDto,
+        currentContract: ContractDto | null,
+        logo: PictureDto | null,
+        createdOn: DateTime,
+        updatedOn: DateTime,
+        aiBrandVoice: string | null = null
+    ) {
         this.#id = id;
         this.#name = name;
         this.#email = email;
@@ -136,5 +160,6 @@ export class MerchantDto {
         this.#logo = logo;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;
+        this.#aiBrandVoice = aiBrandVoice;
     }
 }

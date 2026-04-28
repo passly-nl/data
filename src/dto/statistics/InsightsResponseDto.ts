@@ -28,13 +28,28 @@ export class InsightsResponseDto {
         this.#cards = value;
     }
 
+    get lastGeneratedOn(): string | null {
+        return this.#lastGeneratedOn;
+    }
+
+    set lastGeneratedOn(value: string | null) {
+        this.#lastGeneratedOn = value;
+    }
+
     #insightsEnabled: boolean;
     #language: InsightLanguage;
     #cards: InsightDto[];
+    #lastGeneratedOn: string | null;
 
-    constructor(insightsEnabled: boolean, language: InsightLanguage, cards: InsightDto[]) {
+    constructor(
+        insightsEnabled: boolean,
+        language: InsightLanguage,
+        cards: InsightDto[],
+        lastGeneratedOn: string | null
+    ) {
         this.#insightsEnabled = insightsEnabled;
         this.#language = language;
         this.#cards = cards;
+        this.#lastGeneratedOn = lastGeneratedOn;
     }
 }

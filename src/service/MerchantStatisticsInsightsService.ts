@@ -14,6 +14,11 @@ export class MerchantStatisticsInsightsService extends BaseService {
             .runAdapter(StatisticsInsightsAdapter.parseInsightsResponse);
     }
 
+    /**
+     * @deprecated Insights now run on a nightly scheduler. The refresh
+     *  endpoint has been removed from the backend; this method is kept
+     *  only so older frontend builds still type-check during the rollout.
+     */
     async refreshAll(merchantId: string): Promise<BaseResponse<unknown>> {
         return await this
             .request(`/merchants/${merchantId}/statistics/insights/refresh`)
@@ -22,6 +27,9 @@ export class MerchantStatisticsInsightsService extends BaseService {
             .run();
     }
 
+    /**
+     * @deprecated See {@link refreshAll}.
+     */
     async refreshCard(merchantId: string, cardType: InsightCardType): Promise<BaseResponse<unknown>> {
         return await this
             .request(`/merchants/${merchantId}/statistics/insights/card/${cardType}/refresh`)

@@ -25,9 +25,10 @@ export class StatisticsInsightsAdapter {
 
     static parseInsightsResponse(data: ForeignData): InsightsResponseDto {
         return new InsightsResponseDto(
-            !!data.insights_enabled,
+            !!(data.enabled ?? data.insights_enabled),
             data.language as InsightLanguage,
-            (data.cards ?? []).map((card: ForeignData) => StatisticsInsightsAdapter.parseInsight(card))
+            (data.cards ?? []).map((card: ForeignData) => StatisticsInsightsAdapter.parseInsight(card)),
+            data.last_generated_on ?? null
         );
     }
 

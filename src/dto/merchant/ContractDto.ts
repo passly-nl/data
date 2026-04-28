@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { CostDto } from '#data/dto';
+import type { ContractFeature } from '#data/types';
 
 @dto
 export class ContractDto {
@@ -44,17 +45,34 @@ export class ContractDto {
         this.#remark = value;
     }
 
+    get enabledFeatures(): ContractFeature[] {
+        return this.#enabledFeatures;
+    }
+
+    set enabledFeatures(value: ContractFeature[]) {
+        this.#enabledFeatures = value;
+    }
+
     #id: string;
     #startsOn: DateTime;
     #endsOn: DateTime;
     #fee: CostDto;
     #remark: string;
+    #enabledFeatures: ContractFeature[];
 
-    constructor(id: string, startsOn: DateTime, endsOn: DateTime, fee: CostDto, remark: string) {
+    constructor(
+        id: string,
+        startsOn: DateTime,
+        endsOn: DateTime,
+        fee: CostDto,
+        remark: string,
+        enabledFeatures: ContractFeature[]
+    ) {
         this.#id = id;
         this.#startsOn = startsOn;
         this.#endsOn = endsOn;
         this.#fee = fee;
         this.#remark = remark;
+        this.#enabledFeatures = enabledFeatures;
     }
 }
