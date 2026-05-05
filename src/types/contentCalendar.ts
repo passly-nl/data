@@ -1,3 +1,3 @@
-export type ContentCalendarItemStatus = 'draft' | 'scheduled' | 'published' | 'archived';
+export type ContentCalendarItemStatus = 'idea' | 'concept' | 'scheduled' | 'published';
 export type ContentCalendarItemSource = 'manual' | 'ai' | 'insight';
-export type ContentCalendarItemChannel = 'instagram' | 'facebook' | 'twitter' | 'tiktok';
+export type ContentCalendarItemChannel = 'instagram' | 'facebook' | 'tiktok' | 'mail';

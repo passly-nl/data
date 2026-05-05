@@ -1,13 +1,13 @@
 import { dto } from '@basmilius/http-client';
-import type { ContractFeature } from '#data/types';
+import type { Feature } from '#data/types';
 
 @dto
 export class AiUsageFeatureStatusDto {
-    get feature(): ContractFeature {
+    get feature(): Feature {
         return this.#feature;
     }
 
-    set feature(value: ContractFeature) {
+    set feature(value: Feature) {
         this.#feature = value;
     }
 
@@ -19,11 +19,21 @@ export class AiUsageFeatureStatusDto {
         this.#enabled = value;
     }
 
-    #feature: ContractFeature;
-    #enabled: boolean;
+    get tokensUsed(): number {
+        return this.#tokensUsed;
+    }
 
-    constructor(feature: ContractFeature, enabled: boolean) {
+    set tokensUsed(value: number) {
+        this.#tokensUsed = value;
+    }
+
+    #feature: Feature;
+    #enabled: boolean;
+    #tokensUsed: number;
+
+    constructor(feature: Feature, enabled: boolean, tokensUsed: number) {
         this.#feature = feature;
         this.#enabled = enabled;
+        this.#tokensUsed = tokensUsed;
     }
 }

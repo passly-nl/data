@@ -1,9 +1,9 @@
 export type * from './aiUsage';
 export type * from './auth';
 export type * from './contentCalendar';
-export type * from './contract';
 export type * from './emailTemplate';
 export type * from './emailTemplateEditor';
+export type * from './feature';
 export type * from './general';
 export type * from './event';
 export type * from './finance';
@@ -13,4 +13,5 @@ export type * from './order';
 export type * from './payment';
 export type * from './product';
 export type * from './publicShop';
+export type * from './subscription';
 export type * from './ticket';

@@ -11,8 +11,7 @@ export class MerchantAdapter {
             DateTimeAdapter.parseDateTime(data.starts_on),
             DateTimeAdapter.parseDateTime(data.ends_on),
             PaymentAdapter.parseCost(data.fee),
-            data.remark,
-            data.enabled_features
+            data.remark
         );
     }
 
@@ -42,6 +41,7 @@ export class MerchantAdapter {
             data.currency,
             optional(data.address, AddressAdapter.parseAddress),
             optional(data.current_contract, MerchantAdapter.parseContract),
+            data.enabled_features ?? [],
             optional(data.logo, FileSystemAdapter.parsePicture),
             optional(data.created_on, DateTimeAdapter.parseDateTime),
             optional(data.updated_on, DateTimeAdapter.parseDateTime),

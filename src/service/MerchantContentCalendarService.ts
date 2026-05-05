@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, type ForeignData, QueryString } from '@basmilius/http-client';
 import { ContentCalendarAdapter } from '#data/adapter';
 import type { ContentCalendarItemDto } from '#data/dto';
-import type { ContentCalendarItemChannel } from '#data/types';
+import type { ContentCalendarItemChannel, ContentCalendarItemStatus } from '#data/types';
 
 export class MerchantContentCalendarService extends BaseService {
     async list(merchantId: string, params?: { eventId?: string; from?: string; to?: string }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
@@ -49,6 +49,7 @@ export class MerchantContentCalendarService extends BaseService {
             .method('patch')
             .bearerToken()
             .body({
+                event_id: payload.eventId,
                 scheduled_on: payload.scheduledOn,
                 status: payload.status,
                 channel: payload.channel,
@@ -95,12 +96,40 @@ export class MerchantContentCalendarService extends BaseService {
                 imageSuggestion: data.image_suggestion ?? null
             }));
     }
+
+    async brainstorm(merchantId: string, payload: { eventId: string; ideas: string[]; }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
+        return await this
+            .request(`/merchants/${merchantId}/content-calendar/brainstorm`)
+            .method('post')
+            .bearerToken()
+            .body({
+                event_id: payload.eventId,
+                ideas: payload.ideas
+            })
+            .runArrayAdapter(ContentCalendarAdapter.parseItem);
+    }
+
+    async getGenerationStatus(merchantId: string, eventId: string): Promise<BaseResponse<{ eventId: string; generating: boolean; since: string | null }>> {
+        const qs = QueryString.builder();
+        qs.append('event_id', eventId);
+
+        return await this
+            .request(`/merchants/${merchantId}/content-calendar/generation-status`)
+            .method('get')
+            .queryString(qs)
+            .bearerToken()
+            .runAdapter((data: ForeignData) => ({
+                eventId: String(data.event_id),
+                generating: Boolean(data.generating),
+                since: data.since ?? null
+            }));
+    }
 }
 
 export type ContentCalendarItemPayload = {
     readonly eventId?: string | null;
-    readonly scheduledOn: string;
-    readonly status?: string;
+    readonly scheduledOn?: string | null;
+    readonly status?: ContentCalendarItemStatus;
     readonly channel?: ContentCalendarItemChannel | null;
     readonly content?: string | null;
     readonly imageSuggestion?: string | null;

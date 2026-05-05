@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter } from '#data/adapter';
-import { AiUsageDto, AiUsageFeatureStatusDto, AiUsagePeriodDto, AiUsageQuotaDto } from '#data/dto';
+import { AiUsageDto, AiUsageFeatureStatusDto, AiUsagePeriodDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
 @adapter
@@ -35,16 +35,8 @@ export class AiUsageAdapter {
     static parseAiUsageFeatureStatus(data: ForeignData): AiUsageFeatureStatusDto {
         return new AiUsageFeatureStatusDto(
             data.feature,
-            !!data.enabled
-        );
-    }
-
-    static parseAiUsageQuota(data: ForeignData): AiUsageQuotaDto {
-        return new AiUsageQuotaDto(
-            data.contract_id,
-            data.bundle_key ?? null,
-            data.limit_tokens ?? null,
-            data.note ?? null
+            !!data.enabled,
+            data.tokens_used ?? 0
         );
     }
 }

@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { AddressDto, ContractDto, PictureDto } from '#data/dto';
+import type { Feature } from '#data/types';
 
 @dto
 export class MerchantDto {
@@ -84,6 +85,14 @@ export class MerchantDto {
         this.#currentContract = value;
     }
 
+    get enabledFeatures(): Feature[] {
+        return this.#enabledFeatures;
+    }
+
+    set enabledFeatures(value: Feature[]) {
+        this.#enabledFeatures = value;
+    }
+
     get logo(): PictureDto | null {
         return this.#logo;
     }
@@ -126,6 +135,7 @@ export class MerchantDto {
     #currency: string;
     #address: AddressDto;
     #currentContract: ContractDto | null;
+    #enabledFeatures: Feature[];
     #logo: PictureDto | null;
     #createdOn: DateTime;
     #updatedOn: DateTime;
@@ -142,6 +152,7 @@ export class MerchantDto {
         currency: string,
         address: AddressDto,
         currentContract: ContractDto | null,
+        enabledFeatures: Feature[],
         logo: PictureDto | null,
         createdOn: DateTime,
         updatedOn: DateTime,
@@ -157,6 +168,7 @@ export class MerchantDto {
         this.#currency = currency;
         this.#address = address;
         this.#currentContract = currentContract;
+        this.#enabledFeatures = enabledFeatures;
         this.#logo = logo;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;

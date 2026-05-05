@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { ContentCalendarItemChannel, ContentCalendarItemSource, ContentCalendarItemStatus } from '#data/types';
+import type { ContentCalendarItemCreatorDto } from './ContentCalendarItemCreatorDto';
 
 @dto
 export class ContentCalendarItemDto {
@@ -20,11 +21,11 @@ export class ContentCalendarItemDto {
         this.#eventId = value;
     }
 
-    get scheduledOn(): DateTime {
+    get scheduledOn(): DateTime | null {
         return this.#scheduledOn;
     }
 
-    set scheduledOn(value: DateTime) {
+    set scheduledOn(value: DateTime | null) {
         this.#scheduledOn = value;
     }
 
@@ -68,12 +69,12 @@ export class ContentCalendarItemDto {
         this.#imageSuggestion = value;
     }
 
-    get insightId(): string | null {
-        return this.#insightId;
+    get creator(): ContentCalendarItemCreatorDto | null {
+        return this.#creator;
     }
 
-    set insightId(value: string | null) {
-        this.#insightId = value;
+    set creator(value: ContentCalendarItemCreatorDto | null) {
+        this.#creator = value;
     }
 
     get createdOn(): DateTime {
@@ -94,17 +95,29 @@ export class ContentCalendarItemDto {
 
     #id: string;
     #eventId: string | null;
-    #scheduledOn: DateTime;
+    #scheduledOn: DateTime | null;
     #status: ContentCalendarItemStatus;
     #source: ContentCalendarItemSource;
     #channel: ContentCalendarItemChannel | null;
     #content: string | null;
     #imageSuggestion: string | null;
-    #insightId: string | null;
+    #creator: ContentCalendarItemCreatorDto | null;
     #createdOn: DateTime;
     #updatedOn: DateTime;
 
-    constructor(id: string, eventId: string | null, scheduledOn: DateTime, status: ContentCalendarItemStatus, source: ContentCalendarItemSource, channel: ContentCalendarItemChannel | null, content: string | null, imageSuggestion: string | null, insightId: string | null, createdOn: DateTime, updatedOn: DateTime) {
+    constructor(
+        id: string,
+        eventId: string | null,
+        scheduledOn: DateTime | null,
+        status: ContentCalendarItemStatus,
+        source: ContentCalendarItemSource,
+        channel: ContentCalendarItemChannel | null,
+        content: string | null,
+        imageSuggestion: string | null,
+        creator: ContentCalendarItemCreatorDto | null,
+        createdOn: DateTime,
+        updatedOn: DateTime
+    ) {
         this.#id = id;
         this.#eventId = eventId;
         this.#scheduledOn = scheduledOn;
@@ -113,7 +126,7 @@ export class ContentCalendarItemDto {
         this.#channel = channel;
         this.#content = content;
         this.#imageSuggestion = imageSuggestion;
-        this.#insightId = insightId;
+        this.#creator = creator;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;
     }
