@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 
 @dto
-export class EventStatisticsSwapTotalsDto {
+export class EventStatisticsSwapsDto {
     get swaps(): number {
         return this.#swaps;
     }

@@ -19,11 +19,21 @@ export class EventStatisticsFinancialDto {
         this.#revenue = value;
     }
 
+    get netRevenue(): CostDto {
+        return this.#netRevenue;
+    }
+
+    set netRevenue(value: CostDto) {
+        this.#netRevenue = value;
+    }
+
     #platformCost: CostDto;
     #revenue: CostDto;
+    #netRevenue: CostDto;
 
-    constructor(platformCost: CostDto, revenue: CostDto) {
+    constructor(platformCost: CostDto, revenue: CostDto, netRevenue: CostDto) {
         this.#platformCost = platformCost;
         this.#revenue = revenue;
+        this.#netRevenue = netRevenue;
     }
 }

@@ -7,6 +7,13 @@ export type Gender =
     | 'male'
     | 'other';
 
+export type Granularity =
+    | 'hourly'
+    | 'daily'
+    | 'weekly'
+    | 'monthly'
+    | 'yearly';
+
 export type HeadingLevel =
     | 1
     | 2

@@ -3,13 +3,9 @@ import { ContentCalendarAdapter } from '#data/adapter';
 import type { ContentCalendarItemDto } from '#data/dto';
 import type { ContentCalendarItemChannel, ContentCalendarItemStatus } from '#data/types';
 
-export class MerchantContentCalendarService extends BaseService {
-    async list(merchantId: string, params?: { eventId?: string; from?: string; to?: string }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
+export class MerchantEventContentCalendarService extends BaseService {
+    async list(merchantId: string, eventId: string, params?: { from?: string; to?: string }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
         const qs = QueryString.builder();
-
-        if (params?.eventId) {
-            qs.append('eventId', params.eventId);
-        }
 
         if (params?.from) {
             qs.append('from', params.from);
@@ -20,20 +16,19 @@ export class MerchantContentCalendarService extends BaseService {
         }
 
         return await this
-            .request(`/merchants/${merchantId}/content-calendar`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar`)
             .method('get')
             .queryString(qs)
             .bearerToken()
             .runArrayAdapter(ContentCalendarAdapter.parseItem);
     }
 
-    async create(merchantId: string, payload: ContentCalendarItemPayload): Promise<BaseResponse<ContentCalendarItemDto>> {
+    async create(merchantId: string, eventId: string, payload: ContentCalendarItemPayload): Promise<BaseResponse<ContentCalendarItemDto>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar`)
             .method('post')
             .bearerToken()
             .body({
-                event_id: payload.eventId,
                 scheduled_on: payload.scheduledOn,
                 status: payload.status,
                 channel: payload.channel,
@@ -43,13 +38,12 @@ export class MerchantContentCalendarService extends BaseService {
             .runAdapter(ContentCalendarAdapter.parseItem);
     }
 
-    async update(merchantId: string, itemId: string, payload: Partial<ContentCalendarItemPayload>): Promise<BaseResponse<ContentCalendarItemDto>> {
+    async update(merchantId: string, eventId: string, itemId: string, payload: Partial<ContentCalendarItemPayload>): Promise<BaseResponse<ContentCalendarItemDto>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/${itemId}`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/${itemId}`)
             .method('patch')
             .bearerToken()
             .body({
-                event_id: payload.eventId,
                 scheduled_on: payload.scheduledOn,
                 status: payload.status,
                 channel: payload.channel,
@@ -59,33 +53,31 @@ export class MerchantContentCalendarService extends BaseService {
             .runAdapter(ContentCalendarAdapter.parseItem);
     }
 
-    async delete(merchantId: string, itemId: string): Promise<BaseResponse<unknown>> {
+    async delete(merchantId: string, eventId: string, itemId: string): Promise<BaseResponse<unknown>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/${itemId}`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/${itemId}`)
             .method('delete')
             .bearerToken()
             .run();
     }
 
-    async generate(merchantId: string, options?: { eventId?: string; additionalInstructions?: string | null; }): Promise<BaseResponse<unknown>> {
+    async generate(merchantId: string, eventId: string, options?: { additionalInstructions?: string | null; }): Promise<BaseResponse<unknown>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/generate`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/generate`)
             .method('post')
             .bearerToken()
             .body({
-                event_id: options?.eventId ?? null,
                 additional_instructions: options?.additionalInstructions ?? null
             })
             .run();
     }
 
-    async generateText(merchantId: string, options: { eventId?: string | null; channel?: ContentCalendarItemChannel | null; scheduledOn?: string | null; content?: string | null; additionalInstructions?: string | null; }): Promise<BaseResponse<{ content: string; imageSuggestion: string | null }>> {
+    async generateText(merchantId: string, eventId: string, options: { channel?: ContentCalendarItemChannel | null; scheduledOn?: string | null; content?: string | null; additionalInstructions?: string | null; }): Promise<BaseResponse<{ content: string; imageSuggestion: string | null }>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/generate-text`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/generate-text`)
             .method('post')
             .bearerToken()
             .body({
-                event_id: options.eventId ?? null,
                 channel: options.channel ?? null,
                 scheduled_on: options.scheduledOn ?? null,
                 content: options.content ?? null,
@@ -97,26 +89,21 @@ export class MerchantContentCalendarService extends BaseService {
             }));
     }
 
-    async brainstorm(merchantId: string, payload: { eventId: string; ideas: string[]; }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
+    async brainstorm(merchantId: string, eventId: string, payload: { ideas: string[]; }): Promise<BaseResponse<ContentCalendarItemDto[]>> {
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/brainstorm`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/brainstorm`)
             .method('post')
             .bearerToken()
             .body({
-                event_id: payload.eventId,
                 ideas: payload.ideas
             })
             .runArrayAdapter(ContentCalendarAdapter.parseItem);
     }
 
     async getGenerationStatus(merchantId: string, eventId: string): Promise<BaseResponse<{ eventId: string; generating: boolean; since: string | null }>> {
-        const qs = QueryString.builder();
-        qs.append('event_id', eventId);
-
         return await this
-            .request(`/merchants/${merchantId}/content-calendar/generation-status`)
+            .request(`/merchants/${merchantId}/events/${eventId}/content-calendar/generation-status`)
             .method('get')
-            .queryString(qs)
             .bearerToken()
             .runAdapter((data: ForeignData) => ({
                 eventId: String(data.event_id),
@@ -127,7 +114,6 @@ export class MerchantContentCalendarService extends BaseService {
 }
 
 export type ContentCalendarItemPayload = {
-    readonly eventId?: string | null;
     readonly scheduledOn?: string | null;
     readonly status?: ContentCalendarItemStatus;
     readonly channel?: ContentCalendarItemChannel | null;

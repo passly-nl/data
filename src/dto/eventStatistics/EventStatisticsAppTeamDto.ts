@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 
 @dto
-export class EventStatisticsScansPerAppTeamDto {
+export class EventStatisticsAppTeamDto {
     get id(): string {
         return this.#id;
     }
@@ -26,13 +26,33 @@ export class EventStatisticsScansPerAppTeamDto {
         this.#scans = value;
     }
 
+    get checkins(): number {
+        return this.#checkins;
+    }
+
+    set checkins(value: number) {
+        this.#checkins = value;
+    }
+
+    get checkouts(): number {
+        return this.#checkouts;
+    }
+
+    set checkouts(value: number) {
+        this.#checkouts = value;
+    }
+
     #id: string;
     #name: string;
     #scans: number;
+    #checkins: number;
+    #checkouts: number;
 
-    constructor(id: string, name: string, scans: number) {
+    constructor(id: string, name: string, scans: number, checkins: number, checkouts: number) {
         this.#id = id;
         this.#name = name;
         this.#scans = scans;
+        this.#checkins = checkins;
+        this.#checkouts = checkouts;
     }
 }

@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 
 @dto
-export class EventStatisticsOrderTotalsDto {
+export class EventStatisticsStatusDto {
     get fulfilled(): number {
         return this.#fulfilled;
     }

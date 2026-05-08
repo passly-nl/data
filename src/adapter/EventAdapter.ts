@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '#data/adapter';
-import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementInformationDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto, TimeSlotDto } from '#data/dto';
+import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, ProductAdapter } from '#data/adapter';
+import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementInformationDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto, TimeSlotDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -188,79 +188,6 @@ export class EventAdapter {
             DateTimeAdapter.parseDateTime(data.from_time),
             DateTimeAdapter.parseDateTime(data.to_time),
             data.product_count
-        );
-    }
-
-    static parseEventStatisticsAttendance(data: ForeignData): EventStatisticsAttendanceDto {
-        return new EventStatisticsAttendanceDto(
-            data.attended,
-            data.expected,
-            data.rate
-        );
-    }
-
-    static parseEventStatisticsBuyerTotals(data: ForeignData): EventStatisticsBuyerTotalsDto {
-        return new EventStatisticsBuyerTotalsDto(
-            data.acquired,
-            data.average_tickets,
-            data.doubting,
-            data.returning,
-            data.total
-        );
-    }
-
-    static parseEventStatisticsFinancial(data: ForeignData): EventStatisticsFinancialDto {
-        return new EventStatisticsFinancialDto(
-            PaymentAdapter.parseCost(data.platform_cost),
-            PaymentAdapter.parseCost(data.revenue)
-        );
-    }
-
-    static parseEventStatisticsOrders(data: ForeignData): EventStatisticsOrdersDto {
-        return new EventStatisticsOrdersDto(
-            data.chart,
-            EventAdapter.parseEventStatisticsOrderTotals(data.totals)
-        );
-    }
-
-    static parseEventStatisticsOrderTotals(data: ForeignData): EventStatisticsOrderTotalsDto {
-        return new EventStatisticsOrderTotalsDto(
-            data.fulfilled,
-            data.interrupted,
-            data.pending,
-            data.total
-        );
-    }
-
-    static parseEventStatisticsScans(data: ForeignData): EventStatisticsScansDto {
-        return new EventStatisticsScansDto(
-            data.app_teams.map(EventAdapter.parseEventStatisticsScansPerAppTeam),
-            data.chart,
-            EventAdapter.parseEventStatisticsScanTotals(data.totals)
-        );
-    }
-
-    static parseEventStatisticsScansPerAppTeam(data: ForeignData): EventStatisticsScansPerAppTeamDto {
-        return new EventStatisticsScansPerAppTeamDto(
-            data.id,
-            data.name,
-            data.scans
-        );
-    }
-
-    static parseEventStatisticsScanTotals(data: ForeignData): EventStatisticsScanTotalsDto {
-        return new EventStatisticsScanTotalsDto(
-            data.total,
-            data.checkins,
-            data.checkouts
-        );
-    }
-
-    static parseEventStatisticsSwapTotals(data: ForeignData): EventStatisticsSwapTotalsDto {
-        return new EventStatisticsSwapTotalsDto(
-            data.swaps,
-            data.tickets,
-            data.rate
         );
     }
 }

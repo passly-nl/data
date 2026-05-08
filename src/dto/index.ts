@@ -8,6 +8,7 @@ export * from './common';
 export * from './discountCode';
 export * from './emailTemplate';
 export * from './event';
+export * from './eventStatistics';
 export * from './fileSystem';
 export * from './finance';
 export * from './marketingAttribution';
