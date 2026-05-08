@@ -30,6 +30,36 @@ export class PublicOrderService extends BaseService {
             .runAdapter(OrderAdapter.parseOrder);
     }
 
+    async postDiscountCode(orderId: string, code: string): Promise<BaseResponse<OrderDto>> {
+        return await this
+            .request(`/orders/${orderId}/discount-code`)
+            .method('post')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .body({
+                code
+            })
+            .runAdapter(OrderAdapter.parseOrder);
+    }
+
+    async deleteDiscountCode(orderId: string): Promise<BaseResponse<OrderDto>> {
+        return await this
+            .request(`/orders/${orderId}/discount-code`)
+            .method('delete')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runAdapter(OrderAdapter.parseOrder);
+    }
+
+    async postCheckoutFree(orderId: string): Promise<BaseResponse<TransactionDto>> {
+        return await this
+            .request(`/orders/${orderId}/checkout-free`)
+            .method('post')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .runAdapter(PaymentAdapter.parseTransaction);
+    }
+
     async postPay(orderId: string, paymentMethodId: string): Promise<BaseResponse<TransactionDto>> {
         return await this
             .request(`/orders/${orderId}/pay`)

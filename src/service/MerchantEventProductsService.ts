@@ -29,7 +29,7 @@ export class MerchantEventProductsService extends BaseService {
             .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
-    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null, ticketsReleasedOn: DateTime | null = null): Promise<BaseResponse<ProductDto>> {
+    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null, ticketsReleasedOn: DateTime | null = null, timeSlotIds: string[] | null = null): Promise<BaseResponse<ProductDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/products`)
             .method('post')
@@ -43,7 +43,8 @@ export class MerchantEventProductsService extends BaseService {
                 stock,
                 max_quantity: maxQuantity,
                 stock_pool_id: stockPoolId,
-                tickets_released_on: ticketsReleasedOn?.toISO() ?? null
+                tickets_released_on: ticketsReleasedOn?.toISO() ?? null,
+                time_slot_ids: timeSlotIds
             })
             .runAdapter(ProductAdapter.parseProduct);
     }

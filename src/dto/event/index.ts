@@ -25,3 +25,4 @@ export * from './StockOverviewDto';
 export * from './StockOverviewItemDto';
 export * from './StockPoolDto';
 export * from './TicketTemplateDto';
+export * from './TimeSlotDto';

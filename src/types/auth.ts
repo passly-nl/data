@@ -5,6 +5,7 @@ export type Claim =
     | 'admin:statistics'
     | 'auth:login'
     | 'buyers:view'
+    | 'discounts:manage'
     | 'events:create'
     | 'events:manage'
     | 'events:publish'

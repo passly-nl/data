@@ -2,7 +2,7 @@ import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 
 @dto
-export class PublicShopTimeSlotDto {
+export class TimeSlotDto {
     get id(): string {
         return this.#id;
     }
@@ -35,15 +35,25 @@ export class PublicShopTimeSlotDto {
         this.#toTime = value;
     }
 
+    get productCount(): number {
+        return this.#productCount;
+    }
+
+    set productCount(value: number) {
+        this.#productCount = value;
+    }
+
     #id: string;
     #label: string | null;
     #fromTime: DateTime;
     #toTime: DateTime;
+    #productCount: number;
 
-    constructor(id: string, label: string | null, fromTime: DateTime, toTime: DateTime) {
+    constructor(id: string, label: string | null, fromTime: DateTime, toTime: DateTime, productCount: number) {
         this.#id = id;
         this.#label = label;
         this.#fromTime = fromTime;
         this.#toTime = toTime;
+        this.#productCount = productCount;
     }
 }

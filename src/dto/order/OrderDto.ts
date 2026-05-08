@@ -45,6 +45,22 @@ export class OrderDto {
         this.#createdOn = value;
     }
 
+    get discountAmount(): CostDto | null {
+        return this.#discountAmount;
+    }
+
+    set discountAmount(value: CostDto | null) {
+        this.#discountAmount = value;
+    }
+
+    get discountCodeApplied(): string | null {
+        return this.#discountCodeApplied;
+    }
+
+    set discountCodeApplied(value: string | null) {
+        this.#discountCodeApplied = value;
+    }
+
     get paymentProvider(): OrderPaymentProviderDto | null {
         return this.#paymentProvider;
     }
@@ -59,6 +75,14 @@ export class OrderDto {
 
     set platformCost(value: CostDto) {
         this.#platformCost = value;
+    }
+
+    get refundedTotal(): CostDto {
+        return this.#refundedTotal;
+    }
+
+    set refundedTotal(value: CostDto) {
+        this.#refundedTotal = value;
     }
 
     get subTotal(): CostDto {
@@ -138,8 +162,11 @@ export class OrderDto {
     #origin: OrderOrigin;
     #type: OrderType;
     #createdOn: DateTime;
+    #discountAmount: CostDto | null;
+    #discountCodeApplied: string | null;
     #paymentProvider: OrderPaymentProviderDto | null;
     #platformCost: CostDto;
+    #refundedTotal: CostDto;
     #subTotal: CostDto;
     #total: CostDto;
     #url: string;
@@ -150,14 +177,17 @@ export class OrderDto {
     #transaction: TransactionDto | null;
     #attribution: MarketingAttributionDto | null;
 
-    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null, attribution: MarketingAttributionDto | null) {
+    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, discountAmount: CostDto | null, discountCodeApplied: string | null, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, refundedTotal: CostDto, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null, attribution: MarketingAttributionDto | null) {
         this.#id = id;
         this.#code = code;
         this.#origin = origin;
         this.#type = type;
         this.#createdOn = createdOn;
+        this.#discountAmount = discountAmount;
+        this.#discountCodeApplied = discountCodeApplied;
         this.#paymentProvider = paymentProvider;
         this.#platformCost = platformCost;
+        this.#refundedTotal = refundedTotal;
         this.#subTotal = subTotal;
         this.#total = total;
         this.#url = url;

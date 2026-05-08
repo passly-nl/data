@@ -78,8 +78,7 @@ export class PublicShopService extends BaseService {
             .body({
                 products: products.map(p => [
                     p.productId,
-                    p.quantity,
-                    p.timeSlotId
+                    p.quantity
                 ]),
                 ...attributionBody(attribution)
             })

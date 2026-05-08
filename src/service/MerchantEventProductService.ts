@@ -1,4 +1,5 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import { ProductAdapter } from '#data/adapter';
 import type { ProductDto } from '#data/dto';
 
@@ -27,20 +28,45 @@ export class MerchantEventProductService extends BaseService {
             .run();
     }
 
-    async patch(merchantId: string, eventId: string, productId: string, product: ProductDto): Promise<BaseResponse<ProductDto>> {
+    async patchGeneral(merchantId: string, eventId: string, productId: string, name: string, description: string | null): Promise<BaseResponse<ProductDto>> {
         return await this
-            .request(`/merchants/${merchantId}/events/${eventId}/products/${productId}`)
+            .request(`/merchants/${merchantId}/events/${eventId}/products/${productId}/general`)
             .method('patch')
             .bearerToken()
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body({
-                name: product.name,
-                description: product.description,
-                price: product.price.cents,
-                max_quantity: product.maxQuantity,
-                is_swappable: product.isSwappable,
-                tickets_released_on: product.ticketsReleasedOn?.toISO() ?? null
+                name,
+                description
+            })
+            .runAdapter(ProductAdapter.parseProduct);
+    }
+
+    async patchSales(merchantId: string, eventId: string, productId: string, price: number, maxQuantity: number, isSwappable: boolean, ticketsReleasedOn: DateTime | null): Promise<BaseResponse<ProductDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/products/${productId}/sales`)
+            .method('patch')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .body({
+                price,
+                max_quantity: maxQuantity,
+                is_swappable: isSwappable,
+                tickets_released_on: ticketsReleasedOn?.toISO() ?? null
+            })
+            .runAdapter(ProductAdapter.parseProduct);
+    }
+
+    async patchValidity(merchantId: string, eventId: string, productId: string, timeSlotIds: string[]): Promise<BaseResponse<ProductDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/products/${productId}/validity`)
+            .method('patch')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .body({
+                time_slot_ids: timeSlotIds
             })
             .runAdapter(ProductAdapter.parseProduct);
     }

@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { AddressAdapter, AuthAdapter, DateTimeAdapter, FileSystemAdapter, MerchantAdapter, PaymentAdapter, ProductAdapter } from '#data/adapter';
-import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementInformationDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto } from '#data/dto';
+import { AppTeamDto, EventAvailabilityDto, EventCountersDto, EventDto, EventStatisticsAttendanceDto, EventStatisticsBuyerTotalsDto, EventStatisticsFinancialDto, EventStatisticsOrdersDto, EventStatisticsOrderTotalsDto, EventStatisticsScansDto, EventStatisticsScansPerAppTeamDto, EventStatisticsScanTotalsDto, EventStatisticsSwapTotalsDto, ShopDesignDto, ShopDto, ShopElementButtonDto, ShopElementDividerDto, ShopElementDto, ShopElementHeadingDto, ShopElementInformationDto, ShopElementNoticeDto, ShopElementProductDto, ShopElementTextDto, StockOverviewDto, StockOverviewItemDto, StockPoolDto, TicketTemplateDto, TimeSlotDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -178,6 +178,16 @@ export class EventAdapter {
             data.product_id,
             data.variant,
             optional(data.visual, FileSystemAdapter.parsePicture)
+        );
+    }
+
+    static parseTimeSlot(data: ForeignData): TimeSlotDto {
+        return new TimeSlotDto(
+            data.id,
+            data.label,
+            DateTimeAdapter.parseDateTime(data.from_time),
+            DateTimeAdapter.parseDateTime(data.to_time),
+            data.product_count
         );
     }
 

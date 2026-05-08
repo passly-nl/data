@@ -18,21 +18,11 @@ export class PublicShopCartProductDto {
         this.#quantity = value;
     }
 
-    get timeSlotId(): string | null {
-        return this.#timeSlotId;
-    }
-
-    set timeSlotId(value: string | null) {
-        this.#timeSlotId = value;
-    }
-
     #productId: string;
     #quantity: number;
-    #timeSlotId: string | null;
 
-    constructor(productId: string, quantity: number, timeSlotId: string | null) {
+    constructor(productId: string, quantity: number) {
         this.#productId = productId;
         this.#quantity = quantity;
-        this.#timeSlotId = timeSlotId;
     }
 }

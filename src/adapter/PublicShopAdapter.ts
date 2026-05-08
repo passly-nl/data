@@ -152,8 +152,7 @@ export class PublicShopAdapter {
             data.id,
             data.label,
             DateTimeAdapter.parseDateTime(data.from_time),
-            DateTimeAdapter.parseDateTime(data.to_time),
-            data.max_quantity
+            DateTimeAdapter.parseDateTime(data.to_time)
         );
     }
 }

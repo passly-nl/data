@@ -45,6 +45,14 @@ export class TicketDto {
         this.#validity = value;
     }
 
+    get isRefundable(): boolean {
+        return this.#isRefundable;
+    }
+
+    set isRefundable(value: boolean) {
+        this.#isRefundable = value;
+    }
+
     get buyer(): BuyerDto {
         return this.#buyer;
     }
@@ -106,6 +114,7 @@ export class TicketDto {
     #code: string;
     #status: ScanStatus;
     #validity: TicketValidity;
+    #isRefundable: boolean;
     #buyer: BuyerDto;
     #event: EventDto;
     #holder: BuyerDto | null;
@@ -114,12 +123,13 @@ export class TicketDto {
     #createdOn: DateTime;
     #updatedOn: DateTime;
 
-    constructor(id: string, sequence: number, code: string, status: ScanStatus, validity: TicketValidity, buyer: BuyerDto, event: EventDto, holder: BuyerDto | null, order: OrderDto, product: ProductDto, createdOn: DateTime, updatedOn: DateTime) {
+    constructor(id: string, sequence: number, code: string, status: ScanStatus, validity: TicketValidity, isRefundable: boolean, buyer: BuyerDto, event: EventDto, holder: BuyerDto | null, order: OrderDto, product: ProductDto, createdOn: DateTime, updatedOn: DateTime) {
         this.#id = id;
         this.#sequence = sequence;
         this.#code = code;
         this.#status = status;
         this.#validity = validity;
+        this.#isRefundable = isRefundable;
         this.#buyer = buyer;
         this.#event = event;
         this.#holder = holder;

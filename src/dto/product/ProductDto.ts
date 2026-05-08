@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import type { CostDto, PictureDto, StockPoolDto } from '#data/dto';
+import type { CostDto, PictureDto, StockPoolDto, TimeSlotDto } from '#data/dto';
 import type { ProductType } from '#data/types';
 
 @dto
@@ -69,6 +69,30 @@ export class ProductDto {
         this.#isSwappable = value;
     }
 
+    get hasSales(): boolean {
+        return this.#hasSales;
+    }
+
+    set hasSales(value: boolean) {
+        this.#hasSales = value;
+    }
+
+    get isTimeslotted(): boolean {
+        return this.#isTimeslotted;
+    }
+
+    set isTimeslotted(value: boolean) {
+        this.#isTimeslotted = value;
+    }
+
+    get timeSlots(): TimeSlotDto[] {
+        return this.#timeSlots;
+    }
+
+    set timeSlots(value: TimeSlotDto[]) {
+        this.#timeSlots = value;
+    }
+
     get remainingStock(): number {
         return this.#remainingStock;
     }
@@ -117,13 +141,16 @@ export class ProductDto {
     #maxQuantity: number;
     #isActive: boolean;
     #isSwappable: boolean;
+    #hasSales: boolean;
+    #isTimeslotted: boolean;
+    #timeSlots: TimeSlotDto[];
     #remainingStock: number;
     #stock: StockPoolDto;
     #image: PictureDto;
     #images: PictureDto[];
     #ticketsReleasedOn: DateTime | null;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isSwappable: boolean, remainingStock: number, stock: StockPoolDto, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isSwappable: boolean, hasSales: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -132,6 +159,9 @@ export class ProductDto {
         this.#maxQuantity = maxQuantity;
         this.#isActive = isActive;
         this.#isSwappable = isSwappable;
+        this.#hasSales = hasSales;
+        this.#isTimeslotted = isTimeslotted;
+        this.#timeSlots = timeSlots;
         this.#remainingStock = remainingStock;
         this.#stock = stock;
         this.#image = image;

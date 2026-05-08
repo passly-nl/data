@@ -12,6 +12,7 @@ export class TicketAdapter {
             data.code,
             data.status,
             data.validity,
+            data.is_refundable ?? false,
             optional(data.buyer, BuyerAdapter.parseBuyer)!,
             optional(data.event, EventAdapter.parseEvent)!,
             optional(data.holder, BuyerAdapter.parseBuyer)!,
