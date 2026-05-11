@@ -61,20 +61,20 @@ export class ProductDto {
         this.#isActive = value;
     }
 
+    get isPersonalizationRequired(): boolean {
+        return this.#isPersonalizationRequired;
+    }
+
+    set isPersonalizationRequired(value: boolean) {
+        this.#isPersonalizationRequired = value;
+    }
+
     get isSwappable(): boolean {
         return this.#isSwappable;
     }
 
     set isSwappable(value: boolean) {
         this.#isSwappable = value;
-    }
-
-    get hasSales(): boolean {
-        return this.#hasSales;
-    }
-
-    set hasSales(value: boolean) {
-        this.#hasSales = value;
     }
 
     get isTimeslotted(): boolean {
@@ -109,6 +109,14 @@ export class ProductDto {
         this.#stock = value;
     }
 
+    get hasSales(): boolean {
+        return this.#hasSales;
+    }
+
+    set hasSales(value: boolean) {
+        this.#hasSales = value;
+    }
+
     get image(): PictureDto {
         return this.#image;
     }
@@ -140,17 +148,18 @@ export class ProductDto {
     #price: CostDto;
     #maxQuantity: number;
     #isActive: boolean;
+    #isPersonalizationRequired: boolean;
     #isSwappable: boolean;
-    #hasSales: boolean;
     #isTimeslotted: boolean;
     #timeSlots: TimeSlotDto[];
     #remainingStock: number;
     #stock: StockPoolDto;
+    #hasSales: boolean;
     #image: PictureDto;
     #images: PictureDto[];
     #ticketsReleasedOn: DateTime | null;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isSwappable: boolean, hasSales: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -158,12 +167,13 @@ export class ProductDto {
         this.#price = price;
         this.#maxQuantity = maxQuantity;
         this.#isActive = isActive;
+        this.#isPersonalizationRequired = isPersonalizationRequired;
         this.#isSwappable = isSwappable;
-        this.#hasSales = hasSales;
         this.#isTimeslotted = isTimeslotted;
         this.#timeSlots = timeSlots;
         this.#remainingStock = remainingStock;
         this.#stock = stock;
+        this.#hasSales = hasSales;
         this.#image = image;
         this.#images = images;
         this.#ticketsReleasedOn = ticketsReleasedOn;
