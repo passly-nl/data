@@ -1,4 +1,5 @@
 import { dto } from '@basmilius/http-client';
+import type { PictureDto } from '#data/dto';
 
 @dto
 export class OrderProductDto {
@@ -26,20 +27,20 @@ export class OrderProductDto {
         this.#description = value;
     }
 
-    get image(): string | null {
+    get image(): PictureDto | null {
         return this.#image;
     }
 
-    set image(value: string | null) {
+    set image(value: PictureDto | null) {
         this.#image = value;
     }
 
     #id: string;
     #name: string;
     #description: string;
-    #image: string | null;
+    #image: PictureDto | null;
 
-    constructor(id: string, name: string, description: string, image: string | null) {
+    constructor(id: string, name: string, description: string, image: PictureDto | null) {
         this.#id = id;
         this.#name = name;
         this.#description = description;
