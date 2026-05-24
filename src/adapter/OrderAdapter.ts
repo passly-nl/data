@@ -17,6 +17,7 @@ export class OrderAdapter {
             optional(data.payment_provider, OrderAdapter.parseOrderPaymentProvider),
             optional(data.platform_cost, PaymentAdapter.parseCost)!,
             optional(data.refunded_total, PaymentAdapter.parseCost)!,
+            data.refund_status,
             optional(data.sub_total, PaymentAdapter.parseCost)!,
             optional(data.total, PaymentAdapter.parseCost)!,
             data.url,

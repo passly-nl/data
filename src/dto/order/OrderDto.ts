@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { BuyerDto, CostDto, EventDto, MarketingAttributionDto, OrderLineDto, OrderPaymentProviderDto, PublicShopDto, TransactionDto } from '#data/dto';
-import type { OrderOrigin, OrderType } from '#data/types';
+import type { OrderOrigin, OrderRefundStatus, OrderType } from '#data/types';
 
 @dto
 export class OrderDto {
@@ -83,6 +83,14 @@ export class OrderDto {
 
     set refundedTotal(value: CostDto) {
         this.#refundedTotal = value;
+    }
+
+    get refundStatus(): OrderRefundStatus {
+        return this.#refundStatus;
+    }
+
+    set refundStatus(value: OrderRefundStatus) {
+        this.#refundStatus = value;
     }
 
     get subTotal(): CostDto {
@@ -167,6 +175,7 @@ export class OrderDto {
     #paymentProvider: OrderPaymentProviderDto | null;
     #platformCost: CostDto;
     #refundedTotal: CostDto;
+    #refundStatus: OrderRefundStatus;
     #subTotal: CostDto;
     #total: CostDto;
     #url: string;
@@ -177,7 +186,7 @@ export class OrderDto {
     #transaction: TransactionDto | null;
     #attribution: MarketingAttributionDto | null;
 
-    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, discountAmount: CostDto | null, discountCodeApplied: string | null, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, refundedTotal: CostDto, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null, attribution: MarketingAttributionDto | null) {
+    constructor(id: string, code: string, origin: OrderOrigin, type: OrderType, createdOn: DateTime, discountAmount: CostDto | null, discountCodeApplied: string | null, paymentProvider: OrderPaymentProviderDto | null, platformCost: CostDto, refundedTotal: CostDto, refundStatus: OrderRefundStatus, subTotal: CostDto, total: CostDto, url: string, buyer: BuyerDto | null, event: EventDto | null, lines: OrderLineDto[] | null, shop: PublicShopDto | null, transaction: TransactionDto | null, attribution: MarketingAttributionDto | null) {
         this.#id = id;
         this.#code = code;
         this.#origin = origin;
@@ -188,6 +197,7 @@ export class OrderDto {
         this.#paymentProvider = paymentProvider;
         this.#platformCost = platformCost;
         this.#refundedTotal = refundedTotal;
+        this.#refundStatus = refundStatus;
         this.#subTotal = subTotal;
         this.#total = total;
         this.#url = url;
