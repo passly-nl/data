@@ -1,6 +1,6 @@
 import { adapter, type ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, PaymentAdapter } from '#data/adapter';
-import { StatisticsOperationsAppTeamDto, StatisticsOperationsNoShowRateDto, StatisticsOperationsNoShowRateEventDto, StatisticsOperationsOverviewDto, StatisticsOperationsScanTimeDistributionDto, StatisticsOperationsStewardDto, StatisticsOperationsStockUtilizationDto, StatisticsOperationsTaskAssigneeDto, StatisticsOperationsTasksOverviewDto } from '#data/dto';
+import { StatisticsOperationsAppTeamDto, StatisticsOperationsNoShowRateDto, StatisticsOperationsNoShowRateEventDto, StatisticsOperationsOverviewDto, StatisticsOperationsScanTimeDistributionDto, StatisticsOperationsStewardDto, StatisticsOperationsStockUtilizationDto } from '#data/dto';
 
 @adapter
 export class StatisticsOperationsAdapter {
@@ -23,26 +23,6 @@ export class StatisticsOperationsAdapter {
             data.scans,
             data.checkins,
             data.checkouts
-        );
-    }
-
-    static parseTasksOverview(data: ForeignData): StatisticsOperationsTasksOverviewDto {
-        return new StatisticsOperationsTasksOverviewDto(
-            data.open,
-            data.in_progress,
-            data.resolved,
-            data.canceled,
-            data.average_resolve_time_seconds,
-            data.top_assignees.map(StatisticsOperationsAdapter.parseTaskAssignee)
-        );
-    }
-
-    static parseTaskAssignee(data: ForeignData): StatisticsOperationsTaskAssigneeDto {
-        return new StatisticsOperationsTaskAssigneeDto(
-            data.user.id,
-            data.user.full_name,
-            data.user.initials,
-            data.resolved_count
         );
     }
 

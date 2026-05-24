@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import { PaymentAdapter, StatisticsAdapter, StatisticsChartAdapter, StatisticsOverviewAdapter } from '#data/adapter';
-import type { CostDto, StatisticsChartDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsOverviewRefundRateKpiDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto, StatisticsTrendDto } from '#data/dto';
+import type { CostDto, StatisticsChartDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto, StatisticsTrendDto } from '#data/dto';
 
 export class MerchantStatisticsOverviewService extends BaseService {
     async getBestRevenueMonth(merchantId: string): Promise<BaseResponse<StatisticsOverviewBestRevenueMonthDto>> {
@@ -51,16 +51,6 @@ export class MerchantStatisticsOverviewService extends BaseService {
                 .append('language', 'nl'))
             .bearerToken()
             .runAdapter(r => StatisticsAdapter.parseTrend(r, PaymentAdapter.parseCost));
-    }
-
-    async getRefundRateKpi(merchantId: string): Promise<BaseResponse<StatisticsOverviewRefundRateKpiDto>> {
-        return await this
-            .request(`/merchants/${merchantId}/statistics/overview/refund-rate-kpi`)
-            .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl'))
-            .bearerToken()
-            .runAdapter(StatisticsOverviewAdapter.parseRefundRateKpi);
     }
 
     async getTopShops(merchantId: string): Promise<BaseResponse<StatisticsOverviewTopShopDto[]>> {

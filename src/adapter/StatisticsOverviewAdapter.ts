@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, EventAdapter, FileSystemAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
-import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto, StatisticsOverviewRefundRateKpiDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto } from '#data/dto';
+import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -80,16 +80,6 @@ export class StatisticsOverviewAdapter {
         return new StatisticsOverviewKPIsTotalTicketsSoldDto(
             data.lifetime,
             StatisticsAdapter.parseTrend(data.trend, Number)
-        );
-    }
-
-    static parseRefundRateKpi(data: ForeignData): StatisticsOverviewRefundRateKpiDto {
-        return new StatisticsOverviewRefundRateKpiDto(
-            data.current,
-            data.previous,
-            data.growth_rate,
-            data.refund_count_current,
-            data.refund_count_previous
         );
     }
 

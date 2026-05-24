@@ -94,16 +94,6 @@ export class MerchantStatisticsSalesService extends BaseService {
             .runAdapter(StatisticsSalesAdapter.parseOrderValueDistribution);
     }
 
-    async getNetRevenueTrend(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<StatisticsChartDto>> {
-        return await this
-            .request(`/merchants/${merchantId}/statistics/sales/net-revenue-trend/${from.toSQLDate()}/${to.toSQLDate()}`)
-            .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl'))
-            .bearerToken()
-            .runAdapter(StatisticsChartAdapter.parseChart);
-    }
-
     async getFailedTransactionReasons(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<StatisticsSalesFailedTransactionReasonDto[]>> {
         return await this
             .request(`/merchants/${merchantId}/statistics/sales/failed-transaction-reasons/${from.toSQLDate()}/${to.toSQLDate()}`)

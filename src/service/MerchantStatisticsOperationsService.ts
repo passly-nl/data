@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import { StatisticsChartAdapter, StatisticsOperationsAdapter } from '#data/adapter';
-import type { StatisticsChartDto, StatisticsOperationsAppTeamDto, StatisticsOperationsNoShowRateDto, StatisticsOperationsOverviewDto, StatisticsOperationsScanTimeDistributionDto, StatisticsOperationsStewardDto, StatisticsOperationsStockUtilizationDto, StatisticsOperationsTasksOverviewDto } from '#data/dto';
+import type { StatisticsChartDto, StatisticsOperationsAppTeamDto, StatisticsOperationsNoShowRateDto, StatisticsOperationsOverviewDto, StatisticsOperationsScanTimeDistributionDto, StatisticsOperationsStewardDto, StatisticsOperationsStockUtilizationDto } from '#data/dto';
 
 export class MerchantStatisticsOperationsService extends BaseService {
     async getOverview(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<StatisticsOperationsOverviewDto>> {
@@ -42,16 +42,6 @@ export class MerchantStatisticsOperationsService extends BaseService {
                 .append('language', 'nl'))
             .bearerToken()
             .runArrayAdapter(StatisticsOperationsAdapter.parseAppTeam);
-    }
-
-    async getTasksOverview(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<StatisticsOperationsTasksOverviewDto>> {
-        return await this
-            .request(`/merchants/${merchantId}/statistics/operations/tasks-overview/${from.toSQLDate()}/${to.toSQLDate()}`)
-            .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl'))
-            .bearerToken()
-            .runAdapter(StatisticsOperationsAdapter.parseTasksOverview);
     }
 
     async getNoShowRate(merchantId: string, from: DateTime, to: DateTime): Promise<BaseResponse<StatisticsOperationsNoShowRateDto>> {
