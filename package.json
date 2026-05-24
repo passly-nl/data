@@ -54,7 +54,7 @@
         "@flux-ui/types": "^3.0.0-next.67",
         "@fortawesome/fontawesome-common-types": "^7.2.0",
         "@types/luxon": "^3.7.1",
-        "@typescript/native-preview": "^7.0.0-dev.20260512.1",
+        "@typescript/native-preview": "^7.0.0-dev.20260514.1",
         "apexcharts": "^5.11.0",
         "luxon": "^3.7.2",
         "tsdown": "^0.22.0"

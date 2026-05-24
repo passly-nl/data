@@ -4,6 +4,5 @@ export * from './EventStatisticsBuyersOverviewDto';
 export * from './EventStatisticsFinancialDto';
 export * from './EventStatisticsKpisDto';
 export * from './EventStatisticsOperationsOverviewDto';
-export * from './EventStatisticsSalesFlowChartDto';
 export * from './EventStatisticsStatusDto';
 export * from './EventStatisticsSwapsDto';

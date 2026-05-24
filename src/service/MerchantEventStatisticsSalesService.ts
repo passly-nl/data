@@ -1,7 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import type { ApexOptions } from 'apexcharts';
-import { EventStatisticsSalesAdapter, StatisticsSalesAdapter } from '#data/adapter';
-import type { EventStatisticsSalesFlowChartDto, StatisticsSalesLifetimeTotalsDto, StatisticsSalesPurchaseBehaviorDto, StatisticsSalesTransactionSuccessRateDto } from '#data/dto';
+import { StatisticsChartAdapter, StatisticsSalesAdapter } from '#data/adapter';
+import type { StatisticsChartDto, StatisticsPieChartDto, StatisticsSalesLifetimeTotalsDto, StatisticsSalesPurchaseBehaviorDto, StatisticsSalesTransactionSuccessRateDto } from '#data/dto';
 
 export class MerchantEventStatisticsSalesService extends BaseService {
     async getLifetimeTotals(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsSalesLifetimeTotalsDto>> {
@@ -14,34 +13,34 @@ export class MerchantEventStatisticsSalesService extends BaseService {
             .runAdapter(StatisticsSalesAdapter.parseLifetimeTotals);
     }
 
-    async getSalesFlowChart(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsSalesFlowChartDto>> {
+    async getSalesFlowChart(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/sales/sales-flow-chart`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .runAdapter(EventStatisticsSalesAdapter.parseSalesFlowChart);
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 
-    async getRevenueTrend(merchantId: string, eventId: string): Promise<BaseResponse<ApexOptions>> {
+    async getRevenueTrend(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/sales/revenue-trend`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 
-    async getPaymentMethodsChart(merchantId: string, eventId: string): Promise<BaseResponse<ApexOptions>> {
+    async getPaymentMethodsChart(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsPieChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/sales/payment-methods-chart`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parsePie);
     }
 
     async getPurchaseBehavior(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsSalesPurchaseBehaviorDto>> {
@@ -64,13 +63,13 @@ export class MerchantEventStatisticsSalesService extends BaseService {
             .runAdapter(StatisticsSalesAdapter.parseTransactionSuccessRate);
     }
 
-    async getSalesByDayOfWeek(merchantId: string, eventId: string): Promise<BaseResponse<ApexOptions>> {
+    async getSalesByDayOfWeek(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/sales/sales-by-day-of-week`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 }

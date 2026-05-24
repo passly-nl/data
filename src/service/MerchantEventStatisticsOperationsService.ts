@@ -1,7 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import type { ApexOptions } from 'apexcharts';
-import { EventStatisticsOperationsAdapter } from '#data/adapter';
-import type { EventStatisticsAppTeamDto, EventStatisticsAttendanceDto, EventStatisticsOperationsOverviewDto, EventStatisticsSwapsDto } from '#data/dto';
+import { EventStatisticsOperationsAdapter, StatisticsChartAdapter } from '#data/adapter';
+import type { EventStatisticsAppTeamDto, EventStatisticsAttendanceDto, EventStatisticsOperationsOverviewDto, EventStatisticsSwapsDto, StatisticsChartDto } from '#data/dto';
 
 export class MerchantEventStatisticsOperationsService extends BaseService {
     async getOverview(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsOperationsOverviewDto>> {
@@ -34,14 +33,14 @@ export class MerchantEventStatisticsOperationsService extends BaseService {
             .runAdapter(EventStatisticsOperationsAdapter.parseAttendance);
     }
 
-    async getScansTrend(merchantId: string, eventId: string): Promise<BaseResponse<ApexOptions>> {
+    async getScansTrend(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/operations/scans-trend`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 
     async getSwaps(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsSwapsDto>> {

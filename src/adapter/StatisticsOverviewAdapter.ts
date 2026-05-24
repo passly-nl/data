@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
-import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto } from '#data/dto';
+import { DateTimeAdapter, EventAdapter, FileSystemAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
+import { StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewEventPerformanceEventDto, StatisticsOverviewEventPerformanceSummaryDto, StatisticsOverviewKPIsDto, StatisticsOverviewKPIsTotalEventsHostedDto, StatisticsOverviewKPIsTotalRevenueDto, StatisticsOverviewKPIsTotalTicketsSoldDto, StatisticsOverviewRefundRateKpiDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -80,6 +80,47 @@ export class StatisticsOverviewAdapter {
         return new StatisticsOverviewKPIsTotalTicketsSoldDto(
             data.lifetime,
             StatisticsAdapter.parseTrend(data.trend, Number)
+        );
+    }
+
+    static parseRefundRateKpi(data: ForeignData): StatisticsOverviewRefundRateKpiDto {
+        return new StatisticsOverviewRefundRateKpiDto(
+            data.current,
+            data.previous,
+            data.growth_rate,
+            data.refund_count_current,
+            data.refund_count_previous
+        );
+    }
+
+    static parseTopShop(data: ForeignData): StatisticsOverviewTopShopDto {
+        return new StatisticsOverviewTopShopDto(
+            EventAdapter.parseShop(data.shop),
+            PaymentAdapter.parseCost(data.revenue),
+            data.orders,
+            data.tickets
+        );
+    }
+
+    static parseCancellationFunnel(data: ForeignData): StatisticsOverviewCancellationFunnelDto {
+        return new StatisticsOverviewCancellationFunnelDto(
+            data.paid_orders,
+            data.orders_with_refund,
+            data.orders_fully_refunded,
+            data.partial_refund_rate,
+            data.full_refund_rate
+        );
+    }
+
+    static parseReservationConversionRate(data: ForeignData): StatisticsOverviewReservationConversionRateDto {
+        return new StatisticsOverviewReservationConversionRateDto(
+            data.current,
+            data.previous,
+            data.growth_rate,
+            data.reservations_current,
+            data.reservations_previous,
+            data.orders_current,
+            data.orders_previous
         );
     }
 }

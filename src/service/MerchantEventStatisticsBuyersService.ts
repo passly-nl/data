@@ -1,7 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import type { ApexOptions } from 'apexcharts';
-import { EventStatisticsBuyersAdapter } from '#data/adapter';
-import type { EventStatisticsBuyersOverviewDto, StatisticsBuyersRankedDto } from '#data/dto';
+import { EventStatisticsBuyersAdapter, StatisticsChartAdapter } from '#data/adapter';
+import type { EventStatisticsBuyersOverviewDto, StatisticsBuyersRankedDto, StatisticsChartDto } from '#data/dto';
 
 export class MerchantEventStatisticsBuyersService extends BaseService {
     async getOverview(merchantId: string, eventId: string): Promise<BaseResponse<EventStatisticsBuyersOverviewDto>> {
@@ -14,14 +13,14 @@ export class MerchantEventStatisticsBuyersService extends BaseService {
             .runAdapter(EventStatisticsBuyersAdapter.parseOverview);
     }
 
-    async getAcquisitionChart(merchantId: string, eventId: string): Promise<BaseResponse<ApexOptions>> {
+    async getAcquisitionChart(merchantId: string, eventId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/statistics/buyers/acquisition-chart`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 
     async getAgeDistribution(merchantId: string, eventId: string): Promise<BaseResponse<Record<string, number>>> {

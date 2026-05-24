@@ -16,5 +16,6 @@ export type * from './payment';
 export type * from './product';
 export type * from './publicShop';
 export type * from './refund';
+export type * from './statistics';
 export type * from './subscription';
 export type * from './ticket';

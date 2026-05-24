@@ -1,7 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import type { ApexOptions } from 'apexcharts';
-import { PaymentAdapter, StatisticsAdapter, StatisticsOverviewAdapter } from '#data/adapter';
-import type { CostDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsTrendDto } from '#data/dto';
+import { PaymentAdapter, StatisticsAdapter, StatisticsChartAdapter, StatisticsOverviewAdapter } from '#data/adapter';
+import type { CostDto, StatisticsChartDto, StatisticsOverviewBestRevenueMonthDto, StatisticsOverviewCancellationFunnelDto, StatisticsOverviewEventPerformanceDto, StatisticsOverviewKPIsDto, StatisticsOverviewRefundRateKpiDto, StatisticsOverviewReservationConversionRateDto, StatisticsOverviewTopShopDto, StatisticsTrendDto } from '#data/dto';
 
 export class MerchantStatisticsOverviewService extends BaseService {
     async getBestRevenueMonth(merchantId: string): Promise<BaseResponse<StatisticsOverviewBestRevenueMonthDto>> {
@@ -34,14 +33,14 @@ export class MerchantStatisticsOverviewService extends BaseService {
             .runAdapter(StatisticsOverviewAdapter.parseKPIs);
     }
 
-    async getRevenueAnalysis(merchantId: string): Promise<BaseResponse<ApexOptions>> {
+    async getRevenueAnalysis(merchantId: string): Promise<BaseResponse<StatisticsChartDto>> {
         return await this
             .request(`/merchants/${merchantId}/statistics/overview/revenue-analysis`)
             .method('get')
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .bearerToken()
-            .run();
+            .runAdapter(StatisticsChartAdapter.parseChart);
     }
 
     async getRevenueMonthComparison(merchantId: string): Promise<BaseResponse<StatisticsTrendDto<CostDto>>> {
@@ -52,5 +51,45 @@ export class MerchantStatisticsOverviewService extends BaseService {
                 .append('language', 'nl'))
             .bearerToken()
             .runAdapter(r => StatisticsAdapter.parseTrend(r, PaymentAdapter.parseCost));
+    }
+
+    async getRefundRateKpi(merchantId: string): Promise<BaseResponse<StatisticsOverviewRefundRateKpiDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/statistics/overview/refund-rate-kpi`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runAdapter(StatisticsOverviewAdapter.parseRefundRateKpi);
+    }
+
+    async getTopShops(merchantId: string): Promise<BaseResponse<StatisticsOverviewTopShopDto[]>> {
+        return await this
+            .request(`/merchants/${merchantId}/statistics/overview/top-shops`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runArrayAdapter(StatisticsOverviewAdapter.parseTopShop);
+    }
+
+    async getCancellationFunnel(merchantId: string): Promise<BaseResponse<StatisticsOverviewCancellationFunnelDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/statistics/overview/cancellation-funnel`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runAdapter(StatisticsOverviewAdapter.parseCancellationFunnel);
+    }
+
+    async getReservationConversionRate(merchantId: string): Promise<BaseResponse<StatisticsOverviewReservationConversionRateDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/statistics/overview/reservation-conversion-rate`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runAdapter(StatisticsOverviewAdapter.parseReservationConversionRate);
     }
 }

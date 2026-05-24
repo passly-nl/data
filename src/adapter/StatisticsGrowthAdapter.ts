@@ -1,6 +1,6 @@
 import { adapter, type ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, PaymentAdapter, StatisticsAdapter } from '#data/adapter';
-import { MilestoneDto, StatisticsGrowthOverviewDto } from '#data/dto';
+import { MilestoneDto, StatisticsGrowthCmgrDto, StatisticsGrowthOverviewDto } from '#data/dto';
 
 @adapter
 export class StatisticsGrowthAdapter {
@@ -23,6 +23,14 @@ export class StatisticsGrowthAdapter {
             data.reference_class ?? null,
             data.reference_id ?? null,
             DateTimeAdapter.parseDateTime(data.achieved_on)
+        );
+    }
+
+    static parseCmgr(data: ForeignData): StatisticsGrowthCmgrDto {
+        return new StatisticsGrowthCmgrDto(
+            data.revenue_cmgr,
+            data.tickets_cmgr,
+            data.months_observed
         );
     }
 
