@@ -10,3 +10,9 @@ export type RefundStatus =
     | 'processing'
     | 'completed'
     | 'failed';
+
+export type RefundabilityReason =
+    | 'no_provider'
+    | 'order_not_refundable'
+    | 'provider_not_capable'
+    | 'transaction_not_paid';

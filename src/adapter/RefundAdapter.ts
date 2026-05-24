@@ -1,6 +1,6 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
 import { DateTimeAdapter, PaymentAdapter } from '#data/adapter';
-import { RefundDto, RefundInitiatorDto, RefundTicketRefDto } from '#data/dto';
+import { RefundabilityDto, RefundDto, RefundInitiatorDto, RefundTicketRefDto } from '#data/dto';
 import { optional } from '#data/util';
 
 @adapter
@@ -15,6 +15,13 @@ export class RefundAdapter {
             data.note,
             DateTimeAdapter.parseDateTime(data.created_on),
             optional(data.completed_on, DateTimeAdapter.parseDateTime)
+        );
+    }
+
+    static parseRefundability(data: ForeignData): RefundabilityDto {
+        return new RefundabilityDto(
+            data.supported,
+            data.reason
         );
     }
 

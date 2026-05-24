@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, BlobResponse, QueryString } from '@basmilius/http-client';
 import { CashFlowAdapter, OrderAdapter, RefundAdapter, TicketAdapter } from '#data/adapter';
-import type { CashFlowDto, OrderDto, RefundDto, TicketDto } from '#data/dto';
+import type { CashFlowDto, OrderDto, RefundabilityDto, RefundDto, TicketDto } from '#data/dto';
 import type { RefundReason } from '#data/types';
 
 export class MerchantOrderService extends BaseService {
@@ -22,6 +22,14 @@ export class MerchantOrderService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .runAdapter(CashFlowAdapter.parseCashFlow);
+    }
+
+    async getRefundability(merchantId: string, orderId: string): Promise<BaseResponse<RefundabilityDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/orders/${orderId}/refundability`)
+            .method('get')
+            .bearerToken()
+            .runAdapter(RefundAdapter.parseRefundability);
     }
 
     async getPasses(merchantId: string, orderId: string): Promise<BlobResponse> {
