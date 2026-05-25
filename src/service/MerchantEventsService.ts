@@ -1,6 +1,7 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
+import type { FluxFormSelectEntry } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
-import { EventAdapter } from '#data/adapter';
+import { EventAdapter, FluxAdapter } from '#data/adapter';
 import type { EventDto } from '#data/dto';
 
 export class MerchantEventsService extends BaseService {
@@ -14,6 +15,18 @@ export class MerchantEventsService extends BaseService {
                 .append('offset', offset)
                 .append('limit', limit))
             .runPaginatedAdapter(EventAdapter.parseEvent);
+    }
+
+    async getSelectOptions(merchantId: string, searchQuery: string | null = null, ids: string[] | null = null): Promise<BaseResponse<FluxFormSelectEntry[]>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/select-options`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl')
+                .appendArray('ids[]', ids)
+                .append('searchQuery', searchQuery))
+            .bearerToken()
+            .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
     async post(merchantId: string, name: string, description: string, startsOn: DateTime, endsOn: DateTime, minimumAge: number): Promise<BaseResponse<EventDto>> {

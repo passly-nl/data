@@ -10,6 +10,7 @@ export type * from './general';
 export type * from './event';
 export type * from './finance';
 export type * from './insights';
+export type * from './list';
 export type * from './milestone';
 export type * from './order';
 export type * from './payment';
