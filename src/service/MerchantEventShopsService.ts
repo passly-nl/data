@@ -2,16 +2,15 @@ import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/ht
 import type { DateTime } from 'luxon';
 import { CommonAdapter, EventAdapter } from '#data/adapter';
 import type { ShopDto, StatusResponseDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantEventShopsService extends BaseService {
-    async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<ShopDto>>> {
+    async get(merchantId: string, eventId: string, params: ListParams): Promise<BaseResponse<Paginated<ShopDto>>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/shops`)
             .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .bearerToken()
             .runPaginatedAdapter(EventAdapter.parseShop);
     }

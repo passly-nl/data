@@ -1,5 +1,8 @@
 import { QueryString } from '@basmilius/http-client';
-import type { FilterValueSingle, ListParams } from '#data/types';
+import { DateTime } from 'luxon';
+import type { ListParams } from '#data/types';
+
+type QueryValue = string | number | boolean | null;
 
 export default function (params: ListParams, language: string = 'nl'): QueryString {
     const query = QueryString
@@ -15,12 +18,31 @@ export default function (params: ListParams, language: string = 'nl'): QueryStri
     if (params.filters) {
         for (const [key, value] of Object.entries(params.filters)) {
             if (Array.isArray(value)) {
-                query.appendArray(`${key}[]`, value as FilterValueSingle[]);
-            } else if (value !== null) {
-                query.append(key, value);
+                query.appendArray(`${key}[]`, value.map(serialize));
+            } else if (value !== null && value !== undefined) {
+                const serialized = serialize(value);
+                if (serialized !== null) {
+                    query.append(key, serialized);
+                }
             }
         }
     }
 
     return query;
+}
+
+function serialize(value: unknown): QueryValue {
+    if (DateTime.isDateTime(value)) {
+        return value.toISO();
+    }
+
+    if (value === null || value === undefined) {
+        return null;
+    }
+
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        return value;
+    }
+
+    return String(value);
 }

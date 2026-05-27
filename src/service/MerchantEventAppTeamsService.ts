@@ -1,17 +1,16 @@
 import { type BaseResponse, BaseService, type Paginated, QueryString } from '@basmilius/http-client';
 import { EventAdapter } from '#data/adapter';
 import type { AppTeamDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantEventAppTeamsService extends BaseService {
-    async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<AppTeamDto>>> {
+    async get(merchantId: string, eventId: string, params: ListParams): Promise<BaseResponse<Paginated<AppTeamDto>>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/app-teams`)
             .method('get')
             .bearerToken()
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .runPaginatedAdapter(EventAdapter.parseAppTeam);
     }
 

@@ -2,24 +2,16 @@ import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/ht
 import type { DateTime } from 'luxon';
 import { DiscountCodeAdapter } from '#data/adapter';
 import type { DiscountCodeDto } from '#data/dto';
-import type { DiscountCodeType } from '#data/types';
+import type { DiscountCodeType, ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantDiscountCodesService extends BaseService {
-    async get(merchantId: string, offset: number, limit: number, eventId: string | null = null): Promise<BaseResponse<Paginated<DiscountCodeDto>>> {
-        const qs = QueryString.builder()
-            .append('language', 'nl')
-            .append('offset', offset)
-            .append('limit', limit);
-
-        if (eventId !== null) {
-            qs.append('event_id', eventId);
-        }
-
+    async get(merchantId: string, params: ListParams): Promise<BaseResponse<Paginated<DiscountCodeDto>>> {
         return await this
             .request(`/merchants/${merchantId}/discount-codes`)
             .method('get')
             .bearerToken()
-            .queryString(qs)
+            .queryString(buildListQuery(params))
             .runPaginatedAdapter(DiscountCodeAdapter.parseDiscountCode);
     }
 

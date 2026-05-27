@@ -20,11 +20,11 @@ export class InsightsResponseDto {
         this.#language = value;
     }
 
-    get cards(): InsightDto[] {
+    get cards(): InsightDto[] | null {
         return this.#cards;
     }
 
-    set cards(value: InsightDto[]) {
+    set cards(value: InsightDto[] | null) {
         this.#cards = value;
     }
 
@@ -38,10 +38,10 @@ export class InsightsResponseDto {
 
     #insightsEnabled: boolean;
     #language: InsightLanguage;
-    #cards: InsightDto[];
+    #cards: InsightDto[] | null;
     #lastGeneratedOn: string | null;
 
-    constructor(insightsEnabled: boolean, language: InsightLanguage, cards: InsightDto[], lastGeneratedOn: string | null) {
+    constructor(insightsEnabled: boolean, language: InsightLanguage, cards: InsightDto[] | null, lastGeneratedOn: string | null) {
         this.#insightsEnabled = insightsEnabled;
         this.#language = language;
         this.#cards = cards;

@@ -1,17 +1,15 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import { MerchantAdapter } from '#data/adapter';
 import type { InvitationDto, MerchantUserDto } from '#data/dto';
-import type { Claim } from '#data/types';
+import type { Claim, ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantUsersService extends BaseService {
-    async get(merchantId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<MerchantUserDto>>> {
+    async get(merchantId: string, params: ListParams): Promise<BaseResponse<Paginated<MerchantUserDto>>> {
         return await this
             .request(`/merchants/${merchantId}/users`)
             .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .bearerToken()
             .runPaginatedAdapter(MerchantAdapter.parseMerchantUser);
     }

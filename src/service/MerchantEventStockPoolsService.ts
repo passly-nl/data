@@ -2,16 +2,15 @@ import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/ht
 import type { FluxFormSelectEntry } from '@flux-ui/types';
 import { EventAdapter, FluxAdapter } from '#data/adapter';
 import type { StockOverviewDto, StockPoolDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantEventStockPoolsService extends BaseService {
-    async get(merchantId: string, eventId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<StockPoolDto>>> {
+    async get(merchantId: string, eventId: string, params: ListParams): Promise<BaseResponse<Paginated<StockPoolDto>>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/stock-pools`)
             .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .bearerToken()
             .runPaginatedAdapter(EventAdapter.parseStockPool);
     }

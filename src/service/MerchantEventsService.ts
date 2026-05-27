@@ -3,17 +3,16 @@ import type { FluxFormSelectEntry } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
 import { EventAdapter, FluxAdapter } from '#data/adapter';
 import type { EventDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantEventsService extends BaseService {
-    async get(merchantId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<EventDto>>> {
+    async get(merchantId: string, params: ListParams): Promise<BaseResponse<Paginated<EventDto>>> {
         return await this
             .request(`/merchants/${merchantId}/events`)
             .method('get')
             .bearerToken()
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .runPaginatedAdapter(EventAdapter.parseEvent);
     }
 

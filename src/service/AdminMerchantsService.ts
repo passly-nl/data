@@ -1,16 +1,15 @@
-import { type BaseResponse, BaseService, type Paginated, QueryString } from '@basmilius/http-client';
+import { type BaseResponse, BaseService, type Paginated } from '@basmilius/http-client';
 import { MerchantAdapter } from '#data/adapter';
 import { MerchantDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class AdminMerchantsService extends BaseService {
-    async get(offset: number, limit: number): Promise<BaseResponse<Paginated<MerchantDto>>> {
+    async get(params: ListParams): Promise<BaseResponse<Paginated<MerchantDto>>> {
         return await this
             .request('/admin/merchants')
             .method('get')
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .bearerToken()
             .runPaginatedAdapter(MerchantAdapter.parseMerchant);
     }

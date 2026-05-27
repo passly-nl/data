@@ -1,6 +1,8 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import { BuyerAdapter, OrderAdapter } from '#data/adapter';
 import type { BuyerDto, OrderDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantBuyerService extends BaseService {
     async get(merchantId: string, buyerId: string): Promise<BaseResponse<BuyerDto>> {
@@ -23,15 +25,12 @@ export class MerchantBuyerService extends BaseService {
             .runAdapter(OrderAdapter.parseOrder);
     }
 
-    async getOrders(merchantId: string, buyerId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<OrderDto>>> {
+    async getOrders(merchantId: string, buyerId: string, params: ListParams): Promise<BaseResponse<Paginated<OrderDto>>> {
         return await this
             .request(`/merchants/${merchantId}/buyers/${buyerId}/orders`)
             .method('get')
             .bearerToken()
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .runPaginatedAdapter(OrderAdapter.parseOrder);
     }
 }

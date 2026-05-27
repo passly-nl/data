@@ -33,7 +33,7 @@ export class PublicShopService extends BaseService {
     }
 
     async buy(shopId: string, reservationId: string, firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: DateTime | null, gender: Gender | null, addressCity: string | null, addressCountry: string | null, addressNumber: string | null, addressPostalCode: string | null, addressStreet: string | null, attribution: MarketingAttributionDto | null = null): Promise<BaseResponse<OrderDto>> {
-        let address: Record<string, string | null> = null;
+        let address: Record<string, string | null> | null = null;
 
         addressCity = emptyNull(addressCity);
         addressCountry = emptyNull(addressCountry);

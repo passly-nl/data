@@ -52,11 +52,11 @@ export class AiUsagePeriodDto {
         this.#lastEventOn = value;
     }
 
-    get features(): AiUsageFeatureStatusDto[] {
+    get features(): AiUsageFeatureStatusDto[] | null {
         return this.#features;
     }
 
-    set features(value: AiUsageFeatureStatusDto[]) {
+    set features(value: AiUsageFeatureStatusDto[] | null) {
         this.#features = value;
     }
 
@@ -66,9 +66,9 @@ export class AiUsagePeriodDto {
     #limitTokens: number | null;
     #percentage: number;
     #lastEventOn: DateTime | null;
-    #features: AiUsageFeatureStatusDto[];
+    #features: AiUsageFeatureStatusDto[] | null;
 
-    constructor(periodStart: DateTime | null, periodEnd: DateTime | null, tokensUsed: number, limitTokens: number | null, percentage: number, lastEventOn: DateTime | null, features: AiUsageFeatureStatusDto[]) {
+    constructor(periodStart: DateTime | null, periodEnd: DateTime | null, tokensUsed: number, limitTokens: number | null, percentage: number, lastEventOn: DateTime | null, features: AiUsageFeatureStatusDto[] | null) {
         this.#periodStart = periodStart;
         this.#periodEnd = periodEnd;
         this.#tokensUsed = tokensUsed;

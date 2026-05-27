@@ -1,4 +1,6 @@
-export type FilterValueSingle = string | number | boolean | null;
+import type { DateTime } from 'luxon';
+
+export type FilterValueSingle = string | number | boolean | DateTime | null;
 export type FilterValue = FilterValueSingle | FilterValueSingle[];
 export type Filters = Record<string, FilterValue>;
 

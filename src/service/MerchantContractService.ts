@@ -1,18 +1,17 @@
 import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
 import { MerchantAdapter } from '#data/adapter';
 import type { ContractDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 import type { DateTime } from 'luxon';
 
 export class MerchantContractService extends BaseService {
-    async get(merchantId: string, offset: number, limit: number): Promise<BaseResponse<Paginated<ContractDto>>> {
+    async get(merchantId: string, params: ListParams): Promise<BaseResponse<Paginated<ContractDto>>> {
         return await this
             .request(`/merchants/${merchantId}/contracts`)
             .method('get')
             .bearerToken()
-            .queryString(QueryString.builder()
-                .append('language', 'nl')
-                .append('offset', offset)
-                .append('limit', limit))
+            .queryString(buildListQuery(params))
             .runPaginatedAdapter(MerchantAdapter.parseContract);
     }
 

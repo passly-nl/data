@@ -1,25 +1,15 @@
-import { BaseResponse, BaseService, Paginated, QueryString } from '@basmilius/http-client';
+import { BaseResponse, BaseService, Paginated } from '@basmilius/http-client';
 import { TicketAdapter } from '#data/adapter';
 import type { TicketDto } from '#data/dto';
+import type { ListParams } from '#data/types';
+import { buildListQuery } from '#data/util';
 
 export class MerchantTicketsService extends BaseService {
-    async get(merchantId: string, offset: number, limit: number, filter?: Record<string, string | number | boolean>): Promise<BaseResponse<Paginated<TicketDto>>> {
-        const query = QueryString
-            .builder()
-            .append('language', 'nl')
-            .append('offset', offset)
-            .append('limit', limit);
-
-        if (filter) {
-            Object
-                .entries(filter)
-                .forEach(([key, value]) => query.append(key, value));
-        }
-
+    async get(merchantId: string, params: ListParams): Promise<BaseResponse<Paginated<TicketDto>>> {
         return await this
             .request(`/merchants/${merchantId}/tickets`)
             .method('get')
-            .queryString(query)
+            .queryString(buildListQuery(params))
             .bearerToken()
             .runPaginatedAdapter(TicketAdapter.parseTicket);
     }
