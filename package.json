@@ -50,7 +50,7 @@
         "./*": "./*"
     },
     "devDependencies": {
-        "@basmilius/http-client": "^3.38.0",
+        "@basmilius/http-client": "^3.39.0",
         "@flux-ui/types": "^3.0.0-next.72",
         "@types/luxon": "^3.7.1",
         "@typescript/native-preview": "^7.0.0-dev.20260527.1",
@@ -58,7 +58,7 @@
         "tsdown": "^0.22.0"
     },
     "peerDependencies": {
-        "@basmilius/http-client": "^3.38.0",
+        "@basmilius/http-client": "^3.39.0",
         "@flux-ui/types": "^3.0.0-next.72",
         "luxon": "^3.7.2"
     }
