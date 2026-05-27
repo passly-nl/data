@@ -5,7 +5,7 @@
     "": {
       "name": "@passly-nl/data",
       "devDependencies": {
-        "@basmilius/http-client": "^3.37.0",
+        "@basmilius/http-client": "^3.38.0",
         "@flux-ui/types": "^3.0.0-next.72",
         "@types/luxon": "^3.7.1",
         "@typescript/native-preview": "^7.0.0-dev.20260527.1",
@@ -13,7 +13,7 @@
         "tsdown": "^0.22.0",
       },
       "peerDependencies": {
-        "@basmilius/http-client": "^3.37.0",
+        "@basmilius/http-client": "^3.38.0",
         "@flux-ui/types": "^3.0.0-next.72",
         "luxon": "^3.7.2",
       },
@@ -30,9 +30,9 @@
 
     "@babel/types": ["@babel/types@8.0.0-rc.4", "", { "dependencies": { "@babel/helper-string-parser": "^8.0.0-rc.4", "@babel/helper-validator-identifier": "^8.0.0-rc.4" } }, "sha512-bw30DV880P/VYtsjWWdoWmJpb9S2Vn1/PqayyccTELzRQ/HslIO7+BD9rNoZ4AAFOAjC1vrNeBCkAsyh6Ibfww=="],
 
-    "@basmilius/http-client": ["@basmilius/http-client@3.37.0", "", { "dependencies": { "@basmilius/utils": "3.37.0" }, "peerDependencies": { "luxon": "^3.7.2", "vite": ">=5", "vue": "^3.6.0-beta.12" }, "optionalPeers": ["vite"] }, "sha512-QsPabvvUJy7rtIqpOn5MUtoS800hjwgue52hLNRcu5OKyljFm4+Z5YDLL0aPvzEAdjIrzlUZdU5DKZY5YqpP3Q=="],
+    "@basmilius/http-client": ["@basmilius/http-client@3.38.0", "", { "dependencies": { "@basmilius/utils": "3.38.0" }, "peerDependencies": { "luxon": "^3.7.2", "vite": ">=5", "vue": "^3.6.0-beta.12" }, "optionalPeers": ["vite"] }, "sha512-fRwObm/x4VnTGvev3roZhV/TQ4r6MfaaoW3TRkQrd0q02jT13zzVDUvBUt8EVrOgLOmqP9nOxmKYk89EeuEC+w=="],
 
-    "@basmilius/utils": ["@basmilius/utils@3.37.0", "", { "peerDependencies": { "luxon": "^3.7.2" } }, "sha512-Gc5JVO9tpzBpYcQd6ZkiuSqOdR4f5BUlmvQXoTpC9/lobpP68nmMcH2OT9OvakuY+JYPlEbklr5Fo+INiScMWw=="],
+    "@basmilius/utils": ["@basmilius/utils@3.38.0", "", { "peerDependencies": { "luxon": "^3.7.2" } }, "sha512-wiirS90kdm3smwlklpXG0lq3dza7D1yEAK/eulSf6sAmVl1mpB5rCZbb3o9cAGNjy85vvB7sXWw63g/jh4mEWA=="],
 
     "@emnapi/core": ["@emnapi/core@1.10.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw=="],
 
