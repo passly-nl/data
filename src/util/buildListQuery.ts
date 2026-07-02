@@ -12,7 +12,7 @@ export default function (params: ListParams, language: string = 'nl'): QueryStri
         .append('limit', params.limit);
 
     if (params.search) {
-        query.append('search', params.search);
+        query.append('q', params.search);
     }
 
     if (params.filters) {
