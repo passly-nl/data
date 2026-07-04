@@ -50,16 +50,16 @@
         "./*": "./*"
     },
     "devDependencies": {
-        "@basmilius/http-client": "^3.49.0",
-        "@flux-ui/types": "^3.1.12",
+        "@basmilius/http-client": "^3.50.0",
+        "@flux-ui/types": "^3.2.0",
         "@types/luxon": "^3.7.2",
-        "@typescript/native-preview": "^7.0.0-dev.20260702.3",
+        "@typescript/native-preview": "^7.0.0-dev.20260704.1",
         "luxon": "^3.7.2",
         "tsdown": "^0.22.3"
     },
     "peerDependencies": {
-        "@basmilius/http-client": "^3.49.0",
-        "@flux-ui/types": "^3.1.12",
+        "@basmilius/http-client": "^3.50.0",
+        "@flux-ui/types": "^3.2.0",
         "luxon": "^3.7.2"
     }
 }
