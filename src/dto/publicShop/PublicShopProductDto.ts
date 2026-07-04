@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
+import type { DateTime } from 'luxon';
 import type { CostDto, PictureDto, PublicShopTimeSlotDto } from '#data/dto';
-import type { ProductType } from '#data/types';
+import type { ProductAvailability, ProductType } from '#data/types';
 
 @dto
 export class PublicShopProductDto {
@@ -92,6 +93,30 @@ export class PublicShopProductDto {
         this.#images = value;
     }
 
+    get availability(): ProductAvailability {
+        return this.#availability;
+    }
+
+    set availability(value: ProductAvailability) {
+        this.#availability = value;
+    }
+
+    get saleStartsOn(): DateTime | null {
+        return this.#saleStartsOn;
+    }
+
+    set saleStartsOn(value: DateTime | null) {
+        this.#saleStartsOn = value;
+    }
+
+    get saleEndsOn(): DateTime | null {
+        return this.#saleEndsOn;
+    }
+
+    set saleEndsOn(value: DateTime | null) {
+        this.#saleEndsOn = value;
+    }
+
     #id: string;
     #type: ProductType;
     #name: string;
@@ -103,8 +128,11 @@ export class PublicShopProductDto {
     #timeSlots: PublicShopTimeSlotDto[];
     #image: PictureDto | null;
     #images: PictureDto[];
+    #availability: ProductAvailability;
+    #saleStartsOn: DateTime | null;
+    #saleEndsOn: DateTime | null;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isTimeslotted: boolean, timeSlots: PublicShopTimeSlotDto[], image: PictureDto | null, images: PictureDto[]) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isTimeslotted: boolean, timeSlots: PublicShopTimeSlotDto[], image: PictureDto | null, images: PictureDto[], availability: ProductAvailability, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -116,5 +144,8 @@ export class PublicShopProductDto {
         this.#timeSlots = timeSlots;
         this.#image = image;
         this.#images = images;
+        this.#availability = availability;
+        this.#saleStartsOn = saleStartsOn;
+        this.#saleEndsOn = saleEndsOn;
     }
 }

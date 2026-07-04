@@ -23,7 +23,11 @@ export class ProductAdapter {
             data.has_sales,
             optional(data.image, FileSystemAdapter.parsePicture),
             optionalArray(data.images, FileSystemAdapter.parsePicture)!,
-            optional(data.tickets_released_on, DateTimeAdapter.parseDateTime)
+            optional(data.tickets_released_on, DateTimeAdapter.parseDateTime),
+            data.show_when_unavailable,
+            optional(data.sale_starts_on, DateTimeAdapter.parseDateTime),
+            optional(data.sale_ends_on, DateTimeAdapter.parseDateTime),
+            data.availability
         );
     }
 }

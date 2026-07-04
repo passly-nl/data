@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { CostDto, PictureDto, StockPoolDto, TimeSlotDto } from '#data/dto';
-import type { ProductType } from '#data/types';
+import type { ProductAvailability, ProductType } from '#data/types';
 
 @dto
 export class ProductDto {
@@ -141,6 +141,38 @@ export class ProductDto {
         this.#ticketsReleasedOn = value;
     }
 
+    get showWhenUnavailable(): boolean {
+        return this.#showWhenUnavailable;
+    }
+
+    set showWhenUnavailable(value: boolean) {
+        this.#showWhenUnavailable = value;
+    }
+
+    get saleStartsOn(): DateTime | null {
+        return this.#saleStartsOn;
+    }
+
+    set saleStartsOn(value: DateTime | null) {
+        this.#saleStartsOn = value;
+    }
+
+    get saleEndsOn(): DateTime | null {
+        return this.#saleEndsOn;
+    }
+
+    set saleEndsOn(value: DateTime | null) {
+        this.#saleEndsOn = value;
+    }
+
+    get availability(): ProductAvailability {
+        return this.#availability;
+    }
+
+    set availability(value: ProductAvailability) {
+        this.#availability = value;
+    }
+
     #id: string;
     #type: ProductType;
     #name: string;
@@ -158,8 +190,12 @@ export class ProductDto {
     #image: PictureDto;
     #images: PictureDto[];
     #ticketsReleasedOn: DateTime | null;
+    #showWhenUnavailable: boolean;
+    #saleStartsOn: DateTime | null;
+    #saleEndsOn: DateTime | null;
+    #availability: ProductAvailability;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -177,5 +213,9 @@ export class ProductDto {
         this.#image = image;
         this.#images = images;
         this.#ticketsReleasedOn = ticketsReleasedOn;
+        this.#showWhenUnavailable = showWhenUnavailable;
+        this.#saleStartsOn = saleStartsOn;
+        this.#saleEndsOn = saleEndsOn;
+        this.#availability = availability;
     }
 }

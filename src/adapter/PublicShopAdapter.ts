@@ -118,7 +118,10 @@ export class PublicShopAdapter {
             data.is_timeslotted,
             optionalArray(data.time_slots, PublicShopAdapter.parsePublicShopTimeSlot)!,
             optional(data.image, FileSystemAdapter.parsePicture),
-            optionalArray(data.images, FileSystemAdapter.parsePicture)!
+            optionalArray(data.images, FileSystemAdapter.parsePicture)!,
+            data.availability,
+            optional(data.sale_starts_on, DateTimeAdapter.parseDateTime),
+            optional(data.sale_ends_on, DateTimeAdapter.parseDateTime)
         );
     }
 
