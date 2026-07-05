@@ -1,4 +1,5 @@
 import { dto } from '@basmilius/http-client';
+import type { PictureDto } from '#data/dto';
 
 @dto
 export class ShopDesignDto {
@@ -26,13 +27,33 @@ export class ShopDesignDto {
         this.#primaryColor = value;
     }
 
+    get background(): PictureDto | null {
+        return this.#background;
+    }
+
+    set background(value: PictureDto | null) {
+        this.#background = value;
+    }
+
+    get backgroundScrim(): number {
+        return this.#backgroundScrim;
+    }
+
+    set backgroundScrim(value: number) {
+        this.#backgroundScrim = value;
+    }
+
     #backgroundColor: string;
     #foregroundColor: string;
     #primaryColor: string;
+    #background: PictureDto | null;
+    #backgroundScrim: number;
 
-    constructor(backgroundColor: string, foregroundColor: string, primaryColor: string) {
+    constructor(backgroundColor: string, foregroundColor: string, primaryColor: string, background: PictureDto | null, backgroundScrim: number) {
         this.#backgroundColor = backgroundColor;
         this.#foregroundColor = foregroundColor;
         this.#primaryColor = primaryColor;
+        this.#background = background;
+        this.#backgroundScrim = backgroundScrim;
     }
 }

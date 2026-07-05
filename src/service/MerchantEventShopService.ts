@@ -1,6 +1,6 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
-import { EventAdapter, ShortlinkAdapter } from '#data/adapter';
-import type { ShopDesignDto, ShopDto, ShopElementDto, ShortlinkDto } from '#data/dto';
+import { CommonAdapter, EventAdapter, ShortlinkAdapter } from '#data/adapter';
+import type { ShopDesignDto, ShopDto, ShopElementDto, ShortlinkDto, StatusResponseDto } from '#data/dto';
 
 export class MerchantEventShopService extends BaseService {
     async get(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<ShopDto>> {
@@ -60,7 +60,8 @@ export class MerchantEventShopService extends BaseService {
             .body({
                 background_color: design.backgroundColor,
                 foreground_color: design.foregroundColor,
-                primary_color: design.primaryColor
+                primary_color: design.primaryColor,
+                background_scrim: design.backgroundScrim
             })
             .runAdapter(EventAdapter.parseShopDesign);
     }
@@ -95,6 +96,20 @@ export class MerchantEventShopService extends BaseService {
             .runAdapter(EventAdapter.parseShop);
     }
 
+    async postBackground(merchantId: string, eventId: string, shopId: string, picture: File): Promise<BaseResponse<StatusResponseDto>> {
+        const data = new FormData();
+        data.append('file', picture);
+
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/shops/${shopId}/design/background`)
+            .method('post')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .body(data)
+            .runAdapter(CommonAdapter.parseStatusResponse);
+    }
+
     async postShortlink(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<ShortlinkDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/shops/${shopId}/shortlink`)
@@ -103,5 +118,15 @@ export class MerchantEventShopService extends BaseService {
                 .append('language', 'nl'))
             .bearerToken()
             .runAdapter(ShortlinkAdapter.parse);
+    }
+
+    async deleteBackground(merchantId: string, eventId: string, shopId: string): Promise<BaseResponse<StatusResponseDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/shops/${shopId}/design/background`)
+            .method('delete')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runAdapter(CommonAdapter.parseStatusResponse);
     }
 }

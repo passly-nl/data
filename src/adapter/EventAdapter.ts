@@ -77,7 +77,9 @@ export class EventAdapter {
         return new ShopDesignDto(
             data.background_color,
             data.foreground_color,
-            data.primary_color
+            data.primary_color,
+            optional(data.background, FileSystemAdapter.parsePicture),
+            data.background_scrim ?? 0
         );
     }
 
