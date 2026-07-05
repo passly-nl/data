@@ -67,6 +67,14 @@ export class AppTeamDto {
         this.#merchant = value;
     }
 
+    get productIds(): string[] {
+        return this.#productIds;
+    }
+
+    set productIds(value: string[]) {
+        this.#productIds = value;
+    }
+
     #id: string;
     #name: string;
     #secret: string;
@@ -75,8 +83,9 @@ export class AppTeamDto {
     #creator: UserDto;
     #event: EventDto;
     #merchant: MerchantDto;
+    #productIds: string[];
 
-    constructor(id: string, name: string, secret: string, checkinCount: number, checkoutCount: number, creator: UserDto, event: EventDto, merchant: MerchantDto) {
+    constructor(id: string, name: string, secret: string, checkinCount: number, checkoutCount: number, creator: UserDto, event: EventDto, merchant: MerchantDto, productIds: string[]) {
         this.#id = id;
         this.#name = name;
         this.#secret = secret;
@@ -85,5 +94,6 @@ export class AppTeamDto {
         this.#creator = creator;
         this.#event = event;
         this.#merchant = merchant;
+        this.#productIds = productIds;
     }
 }

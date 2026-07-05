@@ -14,7 +14,7 @@ export class MerchantEventAppTeamsService extends BaseService {
             .runPaginatedAdapter(EventAdapter.parseAppTeam);
     }
 
-    async post(merchantId: string, eventId: string, name: string): Promise<BaseResponse<AppTeamDto>> {
+    async post(merchantId: string, eventId: string, name: string, productIds: string[] = []): Promise<BaseResponse<AppTeamDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/app-teams`)
             .method('post')
@@ -22,7 +22,8 @@ export class MerchantEventAppTeamsService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body({
-                name
+                name,
+                product_ids: productIds
             })
             .runAdapter(EventAdapter.parseAppTeam);
     }

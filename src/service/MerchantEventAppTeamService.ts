@@ -31,7 +31,8 @@ export class MerchantEventAppTeamService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body({
-                name: appTeam.name
+                name: appTeam.name,
+                product_ids: appTeam.productIds
             })
             .runAdapter(EventAdapter.parseAppTeam);
     }

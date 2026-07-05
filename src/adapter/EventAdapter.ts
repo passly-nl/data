@@ -14,7 +14,8 @@ export class EventAdapter {
             data.checkout_count,
             optional(data.creator, AuthAdapter.parseUser),
             optional(data.event, EventAdapter.parseEvent),
-            optional(data.merchant, MerchantAdapter.parseMerchant)
+            optional(data.merchant, MerchantAdapter.parseMerchant),
+            (data.products ?? []).map((product: { id: string }) => product.id)
         );
     }
 
