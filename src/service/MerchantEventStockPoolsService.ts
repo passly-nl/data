@@ -37,6 +37,29 @@ export class MerchantEventStockPoolsService extends BaseService {
             .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
+    async getSingle(merchantId: string, eventId: string, stockPoolId: string): Promise<BaseResponse<StockPoolDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/stock-pools/${stockPoolId}`)
+            .method('get')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .bearerToken()
+            .runAdapter(EventAdapter.parseStockPool);
+    }
+
+    async patch(merchantId: string, eventId: string, stockPoolId: string, stock: number): Promise<BaseResponse<StockPoolDto>> {
+        return await this
+            .request(`/merchants/${merchantId}/events/${eventId}/stock-pools/${stockPoolId}`)
+            .method('patch')
+            .bearerToken()
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .body({
+                stock
+            })
+            .runAdapter(EventAdapter.parseStockPool);
+    }
+
     async post(merchantId: string, eventId: string, name: string, stock: number): Promise<BaseResponse<StockPoolDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/stock-pools`)

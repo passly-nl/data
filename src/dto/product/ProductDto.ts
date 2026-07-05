@@ -173,6 +173,14 @@ export class ProductDto {
         this.#availability = value;
     }
 
+    get sold(): number {
+        return this.#sold;
+    }
+
+    set sold(value: number) {
+        this.#sold = value;
+    }
+
     #id: string;
     #type: ProductType;
     #name: string;
@@ -194,8 +202,9 @@ export class ProductDto {
     #saleStartsOn: DateTime | null;
     #saleEndsOn: DateTime | null;
     #availability: ProductAvailability;
+    #sold: number;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability, sold: number) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -217,5 +226,6 @@ export class ProductDto {
         this.#saleStartsOn = saleStartsOn;
         this.#saleEndsOn = saleEndsOn;
         this.#availability = availability;
+        this.#sold = sold;
     }
 }

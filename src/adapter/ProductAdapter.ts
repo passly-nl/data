@@ -27,7 +27,8 @@ export class ProductAdapter {
             data.show_when_unavailable,
             optional(data.sale_starts_on, DateTimeAdapter.parseDateTime),
             optional(data.sale_ends_on, DateTimeAdapter.parseDateTime),
-            data.availability
+            data.availability,
+            data.sold
         );
     }
 }
