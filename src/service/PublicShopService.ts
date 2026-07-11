@@ -76,9 +76,9 @@ export class PublicShopService extends BaseService {
             .queryString(QueryString.builder()
                 .append('language', 'nl'))
             .body({
-                products: products.map(p => [
-                    p.productId,
-                    p.quantity
+                products: products.map(product => [
+                    product.productId,
+                    product.quantity
                 ])
             })
             .runAdapter(ReservationAdapter.parseReservation);

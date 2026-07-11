@@ -30,7 +30,7 @@ export class ReservationAdapter {
             data.description,
             optional(data.image, FileSystemAdapter.parsePicture),
             PaymentAdapter.parseCost(data.price),
-            data.type
+            data.type ?? 'ticket'
         );
     }
 }
