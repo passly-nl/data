@@ -1,4 +1,4 @@
-import type { ShopElementType } from '#data/types';
+import type { ShopElementPage, ShopElementType } from '#data/types';
 
 export abstract class ShopElementDto {
     get id(): string {
@@ -7,6 +7,14 @@ export abstract class ShopElementDto {
 
     set id(value: string) {
         this.#id = value;
+    }
+
+    get page(): ShopElementPage {
+        return this.#page;
+    }
+
+    set page(value: ShopElementPage) {
+        this.#page = value;
     }
 
     get type(): ShopElementType {
@@ -18,6 +26,7 @@ export abstract class ShopElementDto {
     }
 
     #id: string;
+    #page: ShopElementPage = 'main';
     #type: ShopElementType;
 
     protected constructor(id: string, type: ShopElementType) {

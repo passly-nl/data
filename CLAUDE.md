@@ -3,7 +3,7 @@
 ## Wat is dit project
 
 Gedeelde TypeScript-package (`@passly-nl/data`) met API-types en service
-classes voor het Passly platform. Wordt geconsumeerd door `passly-frontend`
+classes voor het Passly platform. Wordt geconsumeerd door `frontend`
 en (potentieel) andere clients. **Pure transport-laag** — geen UI, geen state.
 
 ## Tech stack
@@ -56,9 +56,9 @@ src/
 
 ## Werken met andere Passly-projecten
 
-- **`passly-backend`** consumeert dit pakket nooit, maar de **API-contracten**
+- **`backend`** consumeert dit pakket nooit, maar de **API-contracten**
   hier moeten matchen met wat de backend serveert. Wijzigingen aan service-
   signatures of DTO-shapes coördineren met backend.
-- **`passly-frontend`** consumeert dit pakket via npm; bij lokale dev kun je
+- **`frontend`** consumeert dit pakket via npm; bij lokale dev kun je
   via een file/link-dependency direct testen. Na breaking changes hier altijd
   `bun run build` in frontend om type-issues te vangen.

@@ -42,7 +42,7 @@ export class MerchantEventProductService extends BaseService {
             .runAdapter(ProductAdapter.parseProduct);
     }
 
-    async patchSales(merchantId: string, eventId: string, productId: string, price: number, maxQuantity: number, isSwappable: boolean, ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null): Promise<BaseResponse<ProductDto>> {
+    async patchSales(merchantId: string, eventId: string, productId: string, price: number, maxQuantity: number, isSwappable: boolean, ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, isScannable: boolean | null = null): Promise<BaseResponse<ProductDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/products/${productId}/sales`)
             .method('patch')
@@ -56,7 +56,8 @@ export class MerchantEventProductService extends BaseService {
                 tickets_released_on: ticketsReleasedOn?.toISO() ?? null,
                 show_when_unavailable: showWhenUnavailable,
                 sale_starts_on: saleStartsOn?.toISO() ?? null,
-                sale_ends_on: saleEndsOn?.toISO() ?? null
+                sale_ends_on: saleEndsOn?.toISO() ?? null,
+                is_scannable: isScannable
             })
             .runAdapter(ProductAdapter.parseProduct);
     }

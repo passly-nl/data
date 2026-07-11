@@ -1,5 +1,6 @@
 export type ProductType =
-    | 'ticket'
+    | 'add_on'
+    | 'ticket';
 
 export type ProductAvailability =
     | 'available'

@@ -54,7 +54,8 @@ export class OrderAdapter {
             data.id,
             data.name,
             data.description,
-            data.image
+            data.image,
+            data.type ?? 'ticket'
         );
     }
 }

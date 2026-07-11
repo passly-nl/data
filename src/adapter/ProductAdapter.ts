@@ -28,7 +28,8 @@ export class ProductAdapter {
             optional(data.sale_starts_on, DateTimeAdapter.parseDateTime),
             optional(data.sale_ends_on, DateTimeAdapter.parseDateTime),
             data.availability,
-            data.sold
+            data.sold,
+            data.is_scannable ?? true
         );
     }
 }

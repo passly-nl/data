@@ -34,6 +34,13 @@ export class PublicShopAdapter {
     }
 
     static parsePublicShopElement(data: ForeignData): PublicShopElementDto {
+        const element = PublicShopAdapter.parsePublicShopElementOfType(data);
+        element.page = data.page ?? 'main';
+
+        return element;
+    }
+
+    private static parsePublicShopElementOfType(data: ForeignData): PublicShopElementDto {
         switch (data.type) {
             case 'button':
                 return new PublicShopElementButtonDto(

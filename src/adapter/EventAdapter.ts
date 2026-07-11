@@ -84,6 +84,13 @@ export class EventAdapter {
     }
 
     static parseShopElement(data: ForeignData): ShopElementDto {
+        const element = EventAdapter.parseShopElementOfType(data);
+        element.page = data.page ?? 'main';
+
+        return element;
+    }
+
+    private static parseShopElementOfType(data: ForeignData): ShopElementDto {
         switch (data.type) {
             case 'button':
                 return new ShopElementButtonDto(

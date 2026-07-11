@@ -10,6 +10,10 @@ export type EventStatisticsStatus =
     | 'concluded'
     | 'upcoming';
 
+export type ShopElementPage =
+    | 'main'
+    | 'add_ons';
+
 export type ShopElementType =
     | 'button'
     | 'divider'
