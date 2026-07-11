@@ -34,17 +34,11 @@ export class PublicShopAdapter {
     }
 
     static parsePublicShopElement(data: ForeignData): PublicShopElementDto {
-        const element = PublicShopAdapter.parsePublicShopElementOfType(data);
-        element.page = data.page ?? 'main';
-
-        return element;
-    }
-
-    private static parsePublicShopElementOfType(data: ForeignData): PublicShopElementDto {
         switch (data.type) {
             case 'button':
                 return new PublicShopElementButtonDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.text,
                     data.url
@@ -53,6 +47,7 @@ export class PublicShopAdapter {
             case 'divider':
                 return new PublicShopElementDividerDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.text
                 );
@@ -60,18 +55,21 @@ export class PublicShopAdapter {
             case 'heading':
                 return new PublicShopElementHeadingDto(
                     data.id,
+                    data.page,
                     data.heading_level,
                     data.title
                 );
 
             case 'information':
                 return new PublicShopElementInformationDto(
-                    data.id
+                    data.id,
+                    data.page
                 );
 
             case 'notice':
                 return new PublicShopElementNoticeDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.notice_type,
                     data.title,
@@ -81,12 +79,14 @@ export class PublicShopAdapter {
             case 'product':
                 return new PublicShopElementProductDto(
                     data.id,
+                    data.page,
                     PublicShopAdapter.parsePublicShopProduct(data.product)
                 );
 
             case 'text':
                 return new PublicShopElementTextDto(
                     data.id,
+                    data.page,
                     data.text
                 );
         }

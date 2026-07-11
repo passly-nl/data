@@ -26,11 +26,12 @@ export abstract class ShopElementDto {
     }
 
     #id: string;
-    #page: ShopElementPage = 'main';
+    #page: ShopElementPage;
     #type: ShopElementType;
 
-    protected constructor(id: string, type: ShopElementType) {
+    protected constructor(id: string, type: ShopElementType, page: ShopElementPage) {
         this.#id = id;
+        this.#page = page;
         this.#type = type;
     }
 }
