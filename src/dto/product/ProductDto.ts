@@ -69,6 +69,14 @@ export class ProductDto {
         this.#isPersonalizationRequired = value;
     }
 
+    get isScannable(): boolean {
+        return this.#isScannable;
+    }
+
+    set isScannable(value: boolean) {
+        this.#isScannable = value;
+    }
+
     get isSwappable(): boolean {
         return this.#isSwappable;
     }
@@ -203,8 +211,9 @@ export class ProductDto {
     #saleEndsOn: DateTime | null;
     #availability: ProductAvailability;
     #sold: number;
+    #isScannable: boolean;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability, sold: number) {
+    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability, sold: number, isScannable: boolean = true) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
@@ -227,5 +236,6 @@ export class ProductDto {
         this.#saleEndsOn = saleEndsOn;
         this.#availability = availability;
         this.#sold = sold;
+        this.#isScannable = isScannable;
     }
 }

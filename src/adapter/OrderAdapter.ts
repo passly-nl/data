@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { BuyerAdapter, DateTimeAdapter, EventAdapter, MarketingAttributionAdapter, PaymentAdapter, PublicShopAdapter } from '#data/adapter';
+import { BuyerAdapter, DateTimeAdapter, EventAdapter, FileSystemAdapter, MarketingAttributionAdapter, PaymentAdapter, PublicShopAdapter } from '#data/adapter';
 import { OrderDto, OrderLineDto, OrderPaymentProviderDto, OrderProductDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
@@ -54,7 +54,8 @@ export class OrderAdapter {
             data.id,
             data.name,
             data.description,
-            data.image
+            optional(data.image, FileSystemAdapter.parsePicture),
+            data.type ?? 'ticket'
         );
     }
 }

@@ -1,5 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import { type ProductDto, ShopElementDto } from '#data/dto';
+import type { ShopElementPage } from '#data/types';
 
 @dto
 export class ShopElementProductDto extends ShopElementDto {
@@ -13,8 +14,8 @@ export class ShopElementProductDto extends ShopElementDto {
 
     #product: ProductDto;
 
-    constructor(id: string, product: ProductDto) {
-        super(id, 'product');
+    constructor(id: string, page: ShopElementPage, product: ProductDto) {
+        super(id, 'product', page);
         this.#product = product;
     }
 }

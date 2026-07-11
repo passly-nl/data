@@ -1,7 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { FluxIconName } from '@flux-ui/types';
 import { PublicShopElementDto } from '#data/dto';
-import type { NoticeType } from '#data/types';
+import type { NoticeType, ShopElementPage } from '#data/types';
 
 @dto
 export class PublicShopElementNoticeDto extends PublicShopElementDto {
@@ -42,8 +42,8 @@ export class PublicShopElementNoticeDto extends PublicShopElementDto {
     #title: string | null;
     #text: string;
 
-    constructor(id: string, icon: FluxIconName, noticeType: NoticeType, title: string | null, text: string) {
-        super(id, 'notice');
+    constructor(id: string, page: ShopElementPage, icon: FluxIconName, noticeType: NoticeType, title: string | null, text: string) {
+        super(id, 'notice', page);
         this.#icon = icon;
         this.#noticeType = noticeType;
         this.#title = title;

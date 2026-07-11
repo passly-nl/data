@@ -1,6 +1,7 @@
 import { dto } from '@basmilius/http-client';
 import type { FluxIconName } from '@flux-ui/types';
 import { ShopElementDto } from '#data/dto';
+import type { ShopElementPage } from '#data/types';
 
 @dto
 export class ShopElementButtonDto extends ShopElementDto {
@@ -32,8 +33,8 @@ export class ShopElementButtonDto extends ShopElementDto {
     #text: string;
     #url: string;
 
-    constructor(id: string, icon: FluxIconName | null, text: string, url: string) {
-        super(id, 'button');
+    constructor(id: string, page: ShopElementPage, icon: FluxIconName | null, text: string, url: string) {
+        super(id, 'button', page);
         this.#icon = icon;
         this.#text = text;
         this.#url = url;

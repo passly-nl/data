@@ -1,5 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { PictureDto } from '#data/dto';
+import type { ProductType } from '#data/types';
 
 @dto
 export class OrderProductDto {
@@ -35,15 +36,25 @@ export class OrderProductDto {
         this.#image = value;
     }
 
+    get type(): ProductType {
+        return this.#type;
+    }
+
+    set type(value: ProductType) {
+        this.#type = value;
+    }
+
     #id: string;
     #name: string;
     #description: string;
     #image: PictureDto | null;
+    #type: ProductType;
 
-    constructor(id: string, name: string, description: string, image: PictureDto | null) {
+    constructor(id: string, name: string, description: string, image: PictureDto | null, type: ProductType) {
         this.#id = id;
         this.#name = name;
         this.#description = description;
         this.#image = image;
+        this.#type = type;
     }
 }

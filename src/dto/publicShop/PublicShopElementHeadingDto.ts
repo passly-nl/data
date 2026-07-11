@@ -1,6 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import { PublicShopElementDto } from '#data/dto';
-import type { HeadingLevel } from '#data/types';
+import type { HeadingLevel, ShopElementPage } from '#data/types';
 
 @dto
 export class PublicShopElementHeadingDto extends PublicShopElementDto {
@@ -23,8 +23,8 @@ export class PublicShopElementHeadingDto extends PublicShopElementDto {
     #headingLevel: HeadingLevel;
     #title: string;
 
-    constructor(id: string, headingLevel: HeadingLevel, title: string) {
-        super(id, 'heading');
+    constructor(id: string, page: ShopElementPage, headingLevel: HeadingLevel, title: string) {
+        super(id, 'heading', page);
         this.#headingLevel = headingLevel;
         this.#title = title;
     }

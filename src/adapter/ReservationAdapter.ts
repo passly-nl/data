@@ -1,5 +1,5 @@
 import { adapter, ForeignData } from '@basmilius/http-client';
-import { DateTimeAdapter, FileSystemAdapter, MarketingAttributionAdapter } from '#data/adapter';
+import { DateTimeAdapter, FileSystemAdapter, MarketingAttributionAdapter, PaymentAdapter } from '#data/adapter';
 import { ReservationDto, ReservationItemDto, ReservationProductDto } from '#data/dto';
 import { optional, optionalArray } from '#data/util';
 
@@ -28,7 +28,9 @@ export class ReservationAdapter {
             data.id,
             data.name,
             data.description,
-            optional(data.image, FileSystemAdapter.parsePicture)
+            optional(data.image, FileSystemAdapter.parsePicture),
+            PaymentAdapter.parseCost(data.price),
+            data.type ?? 'ticket'
         );
     }
 }

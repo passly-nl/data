@@ -1,6 +1,6 @@
-# Filters & zoeken voor lijst-services (passly-data)
+# Filters & zoeken voor lijst-services (data)
 
-`passly-data` is **transport-laag**. Het kent de specifieke filter-keys per
+`data` is **transport-laag**. Het kent de specifieke filter-keys per
 endpoint **niet** — de backend bepaalt welke keys geldig zijn, de frontend bouwt
 de UI. Dit pakket levert alleen:
 
@@ -25,8 +25,8 @@ export type ListParams = {
 ```
 
 - `Filters` is open op key — elk endpoint heeft zijn eigen toegestane keys, en
-  die kennis hoort in de frontend (zie `passly-frontend/docs/filters.md`) en de
-  backend (zie `passly-backend/docs/filters.md`).
+  die kennis hoort in de frontend (zie `frontend/docs/filters.md`) en de
+  backend (zie `backend/docs/filters.md`).
 - `search` staat los van `filters` zodat de backend het semantisch apart kan
   behandelen (eigen LIKE-pad in `Model::applySearch`).
 

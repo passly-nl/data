@@ -1,7 +1,7 @@
 import { BaseResponse, BaseService, QueryString } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
-import { OrderAdapter, PublicShopAdapter } from '#data/adapter';
-import type { MarketingAttributionDto, OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto } from '#data/dto';
+import { OrderAdapter, PublicShopAdapter, ReservationAdapter } from '#data/adapter';
+import type { MarketingAttributionDto, OrderDto, PublicShopCartProductDto, PublicShopDto, PublicShopReservationDto, ReservationDto } from '#data/dto';
 import type { Gender } from '#data/types';
 import { emptyNull } from '#data/util';
 
@@ -67,6 +67,21 @@ export class PublicShopService extends BaseService {
                 ...attributionBody(attribution)
             })
             .runAdapter(OrderAdapter.parseOrder);
+    }
+
+    async putReservationProducts(shopId: string, reservationId: string, products: PublicShopCartProductDto[]): Promise<BaseResponse<ReservationDto>> {
+        return await this
+            .request(`/shops/${shopId}/reservations/${reservationId}/products`)
+            .method('put')
+            .queryString(QueryString.builder()
+                .append('language', 'nl'))
+            .body({
+                products: products.map(product => [
+                    product.productId,
+                    product.quantity
+                ])
+            })
+            .runAdapter(ReservationAdapter.parseReservation);
     }
 
     async reserve(shopId: string, products: PublicShopCartProductDto[], attribution: MarketingAttributionDto | null = null): Promise<BaseResponse<PublicShopReservationDto>> {

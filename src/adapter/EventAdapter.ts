@@ -88,6 +88,7 @@ export class EventAdapter {
             case 'button':
                 return new ShopElementButtonDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.text,
                     data.url
@@ -96,6 +97,7 @@ export class EventAdapter {
             case 'divider':
                 return new ShopElementDividerDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.text
                 );
@@ -103,18 +105,21 @@ export class EventAdapter {
             case 'heading':
                 return new ShopElementHeadingDto(
                     data.id,
+                    data.page,
                     data.heading_level,
                     data.title
                 );
 
             case 'information':
                 return new ShopElementInformationDto(
-                    data.id
+                    data.id,
+                    data.page
                 );
 
             case 'notice':
                 return new ShopElementNoticeDto(
                     data.id,
+                    data.page,
                     data.icon,
                     data.notice_type,
                     data.title,
@@ -124,18 +129,21 @@ export class EventAdapter {
             case 'product':
                 return new ShopElementProductDto(
                     data.id,
+                    data.page,
                     ProductAdapter.parseProduct(data.product)
                 );
 
             case 'text':
                 return new ShopElementTextDto(
                     data.id,
+                    data.page,
                     data.text
                 );
         }
 
         return new ShopElementTextDto(
             'unknown',
+            data.page,
             'Unknown element type.'
         );
     }

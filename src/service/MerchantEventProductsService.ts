@@ -3,6 +3,7 @@ import type { FluxFormSelectEntry } from '@flux-ui/types';
 import type { DateTime } from 'luxon';
 import { FluxAdapter, ProductAdapter } from '#data/adapter';
 import type { ProductDto } from '#data/dto';
+import type { ProductType } from '#data/types';
 import type { ListParams } from '#data/types';
 import { buildListQuery } from '#data/util';
 
@@ -28,7 +29,7 @@ export class MerchantEventProductsService extends BaseService {
             .runArrayAdapter(FluxAdapter.parseFluxFormSelectEntry);
     }
 
-    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null, ticketsReleasedOn: DateTime | null = null, timeSlotIds: string[] | null = null): Promise<BaseResponse<ProductDto>> {
+    async post(merchantId: string, eventId: string, name: string, description: string, price: number, maxQuantity: number, stock: number | null, stockPoolId: string | null, ticketsReleasedOn: DateTime | null = null, timeSlotIds: string[] | null = null, type: ProductType = 'ticket', isScannable: boolean | null = null): Promise<BaseResponse<ProductDto>> {
         return await this
             .request(`/merchants/${merchantId}/events/${eventId}/products`)
             .method('post')
@@ -43,7 +44,9 @@ export class MerchantEventProductsService extends BaseService {
                 max_quantity: maxQuantity,
                 stock_pool_id: stockPoolId,
                 tickets_released_on: ticketsReleasedOn?.toISO() ?? null,
-                time_slot_ids: timeSlotIds
+                time_slot_ids: timeSlotIds,
+                type,
+                is_scannable: isScannable
             })
             .runAdapter(ProductAdapter.parseProduct);
     }
