@@ -24,6 +24,7 @@ export class EventAdapter {
             data.id,
             data.name,
             data.description,
+            data.description_plaintext,
             DateTimeAdapter.parseDateTime(data.starts_on),
             DateTimeAdapter.parseDateTime(data.ends_on),
             data.minimum_age,

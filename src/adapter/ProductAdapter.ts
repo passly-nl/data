@@ -11,6 +11,7 @@ export class ProductAdapter {
             data.type,
             data.name,
             data.description,
+            data.description_plaintext,
             optional(data.price, PaymentAdapter.parseCost),
             data.max_quantity,
             data.is_active,

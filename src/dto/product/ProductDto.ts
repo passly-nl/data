@@ -37,6 +37,14 @@ export class ProductDto {
         this.#description = value;
     }
 
+    get descriptionPlaintext(): string {
+        return this.#descriptionPlaintext;
+    }
+
+    set descriptionPlaintext(value: string) {
+        this.#descriptionPlaintext = value;
+    }
+
     get price(): CostDto {
         return this.#price;
     }
@@ -193,6 +201,7 @@ export class ProductDto {
     #type: ProductType;
     #name: string;
     #description: string;
+    #descriptionPlaintext: string;
     #price: CostDto;
     #maxQuantity: number;
     #isActive: boolean;
@@ -213,11 +222,12 @@ export class ProductDto {
     #sold: number;
     #isScannable: boolean;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability, sold: number, isScannable: boolean = true) {
+    constructor(id: string, type: ProductType, name: string, description: string, descriptionPlaintext: string, price: CostDto, maxQuantity: number, isActive: boolean, isPersonalizationRequired: boolean, isSwappable: boolean, isTimeslotted: boolean, timeSlots: TimeSlotDto[], remainingStock: number, stock: StockPoolDto, hasSales: boolean, image: PictureDto, images: PictureDto[], ticketsReleasedOn: DateTime | null, showWhenUnavailable: boolean, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null, availability: ProductAvailability, sold: number, isScannable: boolean = true) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
         this.#description = description;
+        this.#descriptionPlaintext = descriptionPlaintext;
         this.#price = price;
         this.#maxQuantity = maxQuantity;
         this.#isActive = isActive;
