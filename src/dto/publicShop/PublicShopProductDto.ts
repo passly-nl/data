@@ -37,6 +37,14 @@ export class PublicShopProductDto {
         this.#description = value;
     }
 
+    get descriptionPlaintext(): string {
+        return this.#descriptionPlaintext;
+    }
+
+    set descriptionPlaintext(value: string) {
+        this.#descriptionPlaintext = value;
+    }
+
     get price(): CostDto {
         return this.#price;
     }
@@ -121,6 +129,7 @@ export class PublicShopProductDto {
     #type: ProductType;
     #name: string;
     #description: string;
+    #descriptionPlaintext: string;
     #price: CostDto;
     #maxQuantity: number;
     #isActive: boolean;
@@ -132,11 +141,12 @@ export class PublicShopProductDto {
     #saleStartsOn: DateTime | null;
     #saleEndsOn: DateTime | null;
 
-    constructor(id: string, type: ProductType, name: string, description: string, price: CostDto, maxQuantity: number, isActive: boolean, isTimeslotted: boolean, timeSlots: PublicShopTimeSlotDto[], image: PictureDto | null, images: PictureDto[], availability: ProductAvailability, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null) {
+    constructor(id: string, type: ProductType, name: string, description: string, descriptionPlaintext: string, price: CostDto, maxQuantity: number, isActive: boolean, isTimeslotted: boolean, timeSlots: PublicShopTimeSlotDto[], image: PictureDto | null, images: PictureDto[], availability: ProductAvailability, saleStartsOn: DateTime | null, saleEndsOn: DateTime | null) {
         this.#id = id;
         this.#type = type;
         this.#name = name;
         this.#description = description;
+        this.#descriptionPlaintext = descriptionPlaintext;
         this.#price = price;
         this.#maxQuantity = maxQuantity;
         this.#isActive = isActive;

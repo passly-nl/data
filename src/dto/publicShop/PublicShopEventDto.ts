@@ -29,6 +29,14 @@ export class PublicShopEventDto {
         this.#description = value;
     }
 
+    get descriptionPlaintext(): string {
+        return this.#descriptionPlaintext;
+    }
+
+    set descriptionPlaintext(value: string) {
+        this.#descriptionPlaintext = value;
+    }
+
     get status(): EventStatus {
         return this.#status;
     }
@@ -80,6 +88,7 @@ export class PublicShopEventDto {
     #id: string;
     #name: string;
     #description: string;
+    #descriptionPlaintext: string;
     #status: EventStatus;
     #address: AddressDto;
     #headerFile: PictureDto | null;
@@ -87,10 +96,11 @@ export class PublicShopEventDto {
     #startsOn: DateTime;
     #endsOn: DateTime;
 
-    constructor(id: string, name: string, description: string, status: EventStatus, address: AddressDto, headerFile: PictureDto | null, minimumAge: number, startsOn: DateTime, endsOn: DateTime) {
+    constructor(id: string, name: string, description: string, descriptionPlaintext: string, status: EventStatus, address: AddressDto, headerFile: PictureDto | null, minimumAge: number, startsOn: DateTime, endsOn: DateTime) {
         this.#id = id;
         this.#name = name;
         this.#description = description;
+        this.#descriptionPlaintext = descriptionPlaintext;
         this.#status = status;
         this.#address = address;
         this.#headerFile = headerFile;

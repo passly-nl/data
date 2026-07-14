@@ -29,6 +29,14 @@ export class EventDto {
         this.#description = value;
     }
 
+    get descriptionPlaintext(): string {
+        return this.#descriptionPlaintext;
+    }
+
+    set descriptionPlaintext(value: string) {
+        this.#descriptionPlaintext = value;
+    }
+
     get startsOn(): DateTime {
         return this.#startsOn;
     }
@@ -96,6 +104,7 @@ export class EventDto {
     #id: string;
     #name: string;
     #description: string;
+    #descriptionPlaintext: string;
     #startsOn: DateTime;
     #endsOn: DateTime;
     #minimumAge: number;
@@ -105,10 +114,11 @@ export class EventDto {
     #createdOn: DateTime;
     #updatedOn: DateTime;
 
-    constructor(id: string, name: string, description: string, startsOn: DateTime, endsOn: DateTime, minimumAge: number, status: EventStatus, address: AddressDto, headerFile: PictureDto | null, createdOn: DateTime, updatedOn: DateTime) {
+    constructor(id: string, name: string, description: string, descriptionPlaintext: string, startsOn: DateTime, endsOn: DateTime, minimumAge: number, status: EventStatus, address: AddressDto, headerFile: PictureDto | null, createdOn: DateTime, updatedOn: DateTime) {
         this.#id = id;
         this.#name = name;
         this.#description = description;
+        this.#descriptionPlaintext = descriptionPlaintext;
         this.#startsOn = startsOn;
         this.#endsOn = endsOn;
         this.#minimumAge = minimumAge;
