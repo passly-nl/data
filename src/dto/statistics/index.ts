@@ -1,6 +1,3 @@
-export * from './InsightDto';
-export * from './InsightSignalDto';
-export * from './InsightsResponseDto';
 export * from './MilestoneDto';
 export * from './StatisticsBuyersAcquisitionSourceDto';
 export * from './StatisticsBuyersAgeGenderMatrixDto';

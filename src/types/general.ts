@@ -1,7 +1,3 @@
-export type AiGenerationStatus =
-    | 'ready'
-    | 'failed';
-
 export type Gender =
     | 'female'
     | 'male'
