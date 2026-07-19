@@ -41,11 +41,9 @@ export class MerchantAdapter {
             data.currency,
             optional(data.address, AddressAdapter.parseAddress),
             optional(data.current_contract, MerchantAdapter.parseContract),
-            data.enabled_features ?? [],
             optional(data.logo, FileSystemAdapter.parsePicture),
             optional(data.created_on, DateTimeAdapter.parseDateTime),
-            optional(data.updated_on, DateTimeAdapter.parseDateTime),
-            data.ai_brand_voice ?? null
+            optional(data.updated_on, DateTimeAdapter.parseDateTime)
         );
     }
 

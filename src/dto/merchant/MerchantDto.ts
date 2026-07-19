@@ -1,7 +1,6 @@
 import { dto } from '@basmilius/http-client';
 import type { DateTime } from 'luxon';
 import type { AddressDto, ContractDto, PictureDto } from '#data/dto';
-import type { Feature } from '#data/types';
 
 @dto
 export class MerchantDto {
@@ -85,14 +84,6 @@ export class MerchantDto {
         this.#currentContract = value;
     }
 
-    get enabledFeatures(): Feature[] {
-        return this.#enabledFeatures;
-    }
-
-    set enabledFeatures(value: Feature[]) {
-        this.#enabledFeatures = value;
-    }
-
     get logo(): PictureDto | null {
         return this.#logo;
     }
@@ -117,14 +108,6 @@ export class MerchantDto {
         this.#updatedOn = value;
     }
 
-    get aiBrandVoice(): string | null {
-        return this.#aiBrandVoice;
-    }
-
-    set aiBrandVoice(value: string | null) {
-        this.#aiBrandVoice = value;
-    }
-
     #id: string;
     #name: string;
     #email: string;
@@ -135,11 +118,9 @@ export class MerchantDto {
     #currency: string;
     #address: AddressDto;
     #currentContract: ContractDto | null;
-    #enabledFeatures: Feature[];
     #logo: PictureDto | null;
     #createdOn: DateTime;
     #updatedOn: DateTime;
-    #aiBrandVoice: string | null;
 
     constructor(
         id: string,
@@ -152,11 +133,9 @@ export class MerchantDto {
         currency: string,
         address: AddressDto,
         currentContract: ContractDto | null,
-        enabledFeatures: Feature[],
         logo: PictureDto | null,
         createdOn: DateTime,
-        updatedOn: DateTime,
-        aiBrandVoice: string | null = null
+        updatedOn: DateTime
     ) {
         this.#id = id;
         this.#name = name;
@@ -168,10 +147,8 @@ export class MerchantDto {
         this.#currency = currency;
         this.#address = address;
         this.#currentContract = currentContract;
-        this.#enabledFeatures = enabledFeatures;
         this.#logo = logo;
         this.#createdOn = createdOn;
         this.#updatedOn = updatedOn;
-        this.#aiBrandVoice = aiBrandVoice;
     }
 }
